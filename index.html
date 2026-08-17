@@ -1,646 +1,490 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swalleh Empire | Electronics & Smart Products</title>
 
-    <title>Swalleh Empire | Welcome</title>
+  <meta name="description" content="Shop electronics and smart products from Swalleh Empire. Order products directly through WhatsApp.">
 
-    <meta name="description"
-          content="Welcome to Swalleh Empire. Discover our services and upcoming products. Contact us through WhatsApp or Gmail.">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <meta name="keywords"
-          content="Swalleh Empire, Kenya, online business, products, services">
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+      line-height: 1.6;
+    }
 
-    <meta name="author" content="Swalleh Empire">
+    header {
+      background: linear-gradient(135deg, #111827, #2563eb);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+    header h1 {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #222;
-            line-height: 1.6;
-        }
+    header p {
+      font-size: 1.05rem;
+    }
 
-        /* NAVIGATION */
-        nav {
-            background: #111827;
-            color: white;
-            padding: 15px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
-        }
+    nav {
+      background: #111827;
+      padding: 12px;
+      text-align: center;
+    }
 
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            color: #ffd700;
-        }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
+    nav a:hover {
+      color: #60a5fa;
+    }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    .hero {
+      text-align: center;
+      padding: 55px 20px;
+      background: white;
+    }
 
-        .nav-links a:hover {
-            color: #ffd700;
-        }
+    .hero h2 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+    }
 
-        .menu-btn {
-            display: none;
-            font-size: 28px;
-            cursor: pointer;
-        }
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      color: #555;
+    }
 
-        /* HERO */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 20px;
-            background:
-                linear-gradient(rgba(17,24,39,0.82), rgba(17,24,39,0.82)),
-                linear-gradient(135deg, #2563eb, #7c3aed);
-            color: white;
-        }
+    .shop-button {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 13px 25px;
+      background: #16a34a;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
 
-        .hero-content {
-            max-width: 850px;
-        }
+    .shop-button:hover {
+      background: #15803d;
+    }
 
-        .hero h1 {
-            font-size: clamp(45px, 8vw, 80px);
-            margin-bottom: 15px;
-            color: #ffd700;
-        }
+    .catalogue {
+      padding: 45px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-        .hero h2 {
-            font-size: clamp(24px, 4vw, 42px);
-            margin-bottom: 20px;
-        }
+    .catalogue h2 {
+      text-align: center;
+      margin-bottom: 35px;
+      font-size: 2rem;
+    }
 
-        .hero p {
-            font-size: 19px;
-            max-width: 700px;
-            margin: auto;
-            color: #e5e7eb;
-        }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
 
-        .buttons {
-            margin-top: 35px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .product {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
 
-        .btn {
-            display: inline-block;
-            padding: 14px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    .product:hover {
+      transform: translateY(-5px);
+    }
 
-        .btn-primary {
-            background: #ffd700;
-            color: #111827;
-        }
+    .product-image {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      background: #f3f4f6;
+      padding: 15px;
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            background: #fff;
-        }
+    .product-content {
+      padding: 20px;
+    }
 
-        .btn-whatsapp {
-            background: #25d366;
-            color: white;
-        }
+    .product h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
 
-        .btn-whatsapp:hover {
-            transform: translateY(-3px);
-        }
+    .description {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
 
-        .btn-email {
-            background: #ea4335;
-            color: white;
-        }
+    .price {
+      color: #111827;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
 
-        .btn-email:hover {
-            transform: translateY(-3px);
-        }
+    .order-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #25D366;
+      color: white;
+      padding: 12px;
+      text-decoration: none;
+      border-radius: 7px;
+      font-weight: bold;
+    }
 
-        /* GENERAL SECTIONS */
-        section {
-            padding: 80px 7%;
-        }
+    .order-button:hover {
+      background: #1ebe5d;
+    }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 45px;
-        }
+    .notice {
+      max-width: 850px;
+      margin: 10px auto 35px;
+      background: #fff7ed;
+      border-left: 5px solid #f97316;
+      padding: 15px;
+      border-radius: 6px;
+      color: #7c2d12;
+    }
 
-        .section-title h2 {
-            font-size: 38px;
-            color: #111827;
-        }
+    .about {
+      background: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
 
-        .section-title p {
-            color: #666;
-            margin-top: 10px;
-        }
+    .about h2 {
+      margin-bottom: 15px;
+    }
 
-        /* ABOUT */
-        .about {
-            background: white;
-        }
+    .about p {
+      max-width: 750px;
+      margin: auto;
+      color: #555;
+    }
 
-        .about-content {
-            max-width: 900px;
-            margin: auto;
-            text-align: center;
-        }
+    .contact {
+      padding: 45px 20px;
+      text-align: center;
+      background: #eef2ff;
+    }
 
-        .about-content p {
-            font-size: 18px;
-            color: #555;
-        }
+    .contact h2 {
+      margin-bottom: 15px;
+    }
 
-        /* CARDS */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            max-width: 1100px;
-            margin: auto;
-        }
+    .contact a {
+      color: #2563eb;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-        .card {
-            background: white;
-            padding: 35px 25px;
-            text-align: center;
-            border-radius: 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transition: 0.3s;
-        }
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
 
-        .card:hover {
-            transform: translateY(-8px);
-        }
+    footer p {
+      margin: 5px;
+    }
 
-        .card-icon {
-            font-size: 45px;
-            margin-bottom: 15px;
-        }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.9rem;
+      }
 
-        .card h3 {
-            margin-bottom: 12px;
-            color: #111827;
-        }
+      .hero h2 {
+        font-size: 1.7rem;
+      }
 
-        .card p {
-            color: #666;
-        }
-
-        /* COMING SOON */
-        .coming {
-            background: linear-gradient(135deg, #111827, #312e81);
-            color: white;
-            text-align: center;
-        }
-
-        .coming h2 {
-            color: #ffd700;
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        .coming p {
-            max-width: 700px;
-            margin: auto;
-            color: #e5e7eb;
-            font-size: 18px;
-        }
-
-        /* CONTACT */
-        .contact {
-            background: white;
-            text-align: center;
-        }
-
-        .contact-box {
-            max-width: 700px;
-            margin: auto;
-        }
-
-        .contact-item {
-            background: #f5f7fb;
-            margin: 15px 0;
-            padding: 20px;
-            border-radius: 12px;
-            font-size: 18px;
-        }
-
-        .contact-item a {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* FOOTER */
-        footer {
-            background: #111827;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        footer span {
-            color: #ffd700;
-        }
-
-        /* BACK TO TOP */
-        #topBtn {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 50px;
-            height: 50px;
-            border: none;
-            border-radius: 50%;
-            background: #ffd700;
-            color: #111827;
-            font-size: 22px;
-            font-weight: bold;
-            cursor: pointer;
-            display: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-            z-index: 999;
-        }
-
-        /* MOBILE */
-        @media (max-width: 768px) {
-
-            .menu-btn {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 65px;
-                left: 0;
-                width: 100%;
-                background: #111827;
-                flex-direction: column;
-                text-align: center;
-                padding: 20px 0;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            section {
-                padding: 60px 5%;
-            }
-
-            .hero {
-                min-height: 85vh;
-            }
-
-            .hero p {
-                font-size: 17px;
-            }
-        }
-    </style>
+      nav a {
+        margin: 0 7px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <nav>
+  <header>
+    <h1>Swalleh Empire</h1>
+    <p>Your trusted destination for electronics & smart products</p>
+  </header>
 
-        <div class="logo">
-            👑 Swalleh Empire
-        </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#catalogue">Catalogue</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-        <div class="menu-btn" onclick="toggleMenu()">
-            ☰
-        </div>
+  <section class="hero" id="home">
+    <h2>Welcome to Swalleh Empire</h2>
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home" onclick="closeMenu()">Home</a></li>
-            <li><a href="#about" onclick="closeMenu()">About</a></li>
-            <li><a href="#services" onclick="closeMenu()">Services</a></li>
-            <li><a href="#coming" onclick="closeMenu()">Coming Soon</a></li>
-            <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
-        </ul>
+    <p>
+      Discover quality electronics and smart products.
+      Browse our catalogue and contact us directly on WhatsApp
+      to order or check product availability.
+    </p>
 
-    </nav>
+    <a href="#catalogue" class="shop-button">
+      View Products
+    </a>
+  </section>
 
+  <section class="catalogue" id="catalogue">
 
-    <!-- HERO -->
-    <section class="hero" id="home">
+    <h2>Our Products</h2>
 
-        <div class="hero-content">
+    <div class="notice">
+      <strong>Important:</strong>
+      Prices shown are catalogue prices and may change.
+      Please contact us on WhatsApp to confirm availability,
+      current price and delivery before placing your order.
+    </div>
 
-            <h1>Swalleh Empire</h1>
+    <div class="products">
 
-            <h2>Welcome to Our World</h2>
+      <!-- PRODUCT 1 -->
 
-            <p>
-                Welcome to Swalleh Empire — a growing digital business
-                built with ambition, creativity and a vision for the future.
-            </p>
+      <div class="product">
 
-            <div class="buttons">
+        <img
+          class="product-image"
+          src="https://images.samsung.com/is/image/samsung/p6pim/levant/ua55du7000uxsq/gallery/levant-uhd-4k-smart-tv-ua55du7000uxsq-541280565?$650_519_PNG$"
+          alt="Samsung 55 inch DU7000 4K Smart TV"
+        >
 
-                <a href="#about" class="btn btn-primary">
-                    Explore More
-                </a>
+        <div class="product-content">
 
-                <a href="https://wa.me/254724566417"
-                   class="btn btn-whatsapp"
-                   target="_blank">
-                    💬 WhatsApp Us
-                </a>
+          <h3>Samsung 55" DU7000 4K Smart TV</h3>
 
-                <a href="mailto:swalleh2@gmail.com"
-                   class="btn btn-email">
-                    📧 Email Us
-                </a>
+          <p class="description">
+            55-inch Crystal UHD 4K Smart TV with a modern design
+            and smart entertainment features.
+          </p>
 
-            </div>
+          <p class="price">KSh 53,999</p>
 
-        </div>
-
-    </section>
-
-
-    <!-- ABOUT -->
-    <section class="about" id="about">
-
-        <div class="section-title">
-
-            <h2>About Swalleh Empire</h2>
-
-            <p>Building something bigger, one step at a time.</p>
-
-        </div>
-
-        <div class="about-content">
-
-            <p>
-                Swalleh Empire is a growing online project with a vision
-                of becoming a trusted digital platform. We are developing
-                our services and preparing for exciting products and
-                opportunities in the future.
-            </p>
+          <a
+            class="order-button"
+            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Samsung%2055%22%20DU7000%204K%20Smart%20TV.%20Please%20confirm%20availability%20and%20current%20price."
+            target="_blank"
+          >
+            Order / Check Availability
+          </a>
 
         </div>
-
-    </section>
-
-
-    <!-- SERVICES -->
-    <section id="services">
-
-        <div class="section-title">
-
-            <h2>What We Offer</h2>
-
-            <p>Our platform is growing.</p>
-
-        </div>
-
-        <div class="cards">
-
-            <div class="card">
-
-                <div class="card-icon">🛍️</div>
-
-                <h3>Online Products</h3>
-
-                <p>
-                    Our product section is being prepared.
-                    More products will be added as the business grows.
-                </p>
-
-            </div>
+      </div>
 
 
-            <div class="card">
+      <!-- PRODUCT 2 -->
 
-                <div class="card-icon">💻</div>
+      <div class="product">
 
-                <h3>Digital Platform</h3>
+        <img
+          class="product-image"
+          src="https://hisense.co.ke/wp-content/uploads/2024/04/43A6N.png"
+          alt="Hisense 43 inch 4K Smart TV"
+        >
 
-                <p>
-                    We are building a modern online platform
-                    that can grow with the business.
-                </p>
+        <div class="product-content">
 
-            </div>
+          <h3>Hisense 43" A6N 4K Smart TV</h3>
 
+          <p class="description">
+            43-inch 4K Smart TV designed for home entertainment,
+            streaming and everyday viewing.
+          </p>
 
-            <div class="card">
+          <p class="price">KSh 40,000</p>
 
-                <div class="card-icon">🤝</div>
-
-                <h3>Customer Connection</h3>
-
-                <p>
-                    Customers can easily contact Swalleh Empire
-                    through WhatsApp and email.
-                </p>
-
-            </div>
+          <a
+            class="order-button"
+            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Hisense%2043%22%20A6N%204K%20Smart%20TV.%20Please%20confirm%20availability%20and%20current%20price."
+            target="_blank"
+          >
+            Order / Check Availability
+          </a>
 
         </div>
-
-    </section>
-
-
-    <!-- COMING SOON -->
-    <section class="coming" id="coming">
-
-        <h2>🚀 Coming Soon</h2>
-
-        <p>
-            We are working towards bringing more products,
-            services and opportunities to Swalleh Empire.
-            Stay connected so you don't miss what's coming next.
-        </p>
-
-        <div class="buttons">
-
-            <a href="https://wa.me/254724566417"
-               target="_blank"
-               class="btn btn-whatsapp">
-                💬 Stay Connected
-            </a>
-
-        </div>
-
-    </section>
+      </div>
 
 
-    <!-- CONTACT -->
-    <section class="contact" id="contact">
+      <!-- PRODUCT 3 -->
 
-        <div class="section-title">
+      <div class="product">
 
-            <h2>Contact Us</h2>
+        <img
+          class="product-image"
+          src="https://www.jbl.com/dw/image/v2/BGJH_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8f2f1e6c/JBL_SB550_Hero_1605x1605.jpg"
+          alt="JBL Cinema SB550 Soundbar"
+        >
 
-            <p>We would love to hear from you.</p>
+        <div class="product-content">
+
+          <h3>JBL Cinema SB550 Soundbar</h3>
+
+          <p class="description">
+            JBL home cinema sound system designed to deliver
+            powerful audio for your television and entertainment.
+          </p>
+
+          <p class="price">KSh 30,000</p>
+
+          <a
+            class="order-button"
+            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20JBL%20Cinema%20SB550%20Soundbar.%20Please%20confirm%20availability%20and%20current%20price."
+            target="_blank"
+          >
+            Order / Check Availability
+          </a>
 
         </div>
+      </div>
 
-        <div class="contact-box">
 
-            <div class="contact-item">
-                📱 WhatsApp:
-                <a href="https://wa.me/254724566417"
-                   target="_blank">
-                    0724566417
-                </a>
-            </div>
+      <!-- PRODUCT 4 -->
 
-            <div class="contact-item">
-                📧 Gmail:
-                <a href="mailto:swalleh2@gmail.com">
-                    swalleh2@gmail.com
-                </a>
-            </div>
+      <div class="product">
 
-            <div class="buttons">
+        <img
+          class="product-image"
+          src="https://images.samsung.com/is/image/samsung/p6pim/levant/sm-a165fzahmea/gallery/levant-galaxy-a16-sm-a165-sm-a165fzahmea-thumb-543010092?$344_344_PNG$"
+          alt="Samsung Galaxy A16"
+        >
 
-                <a href="tel:+254724566417"
-                   class="btn btn-primary">
-                    📞 Call Us
-                </a>
+        <div class="product-content">
 
-                <a href="mailto:swalleh2@gmail.com"
-                   class="btn btn-email">
-                    ✉️ Send Email
-                </a>
+          <h3>Samsung Galaxy A16 4G</h3>
 
-            </div>
+          <p class="description">
+            Samsung smartphone with a large display, modern design
+            and reliable everyday performance.
+          </p>
+
+          <p class="price">KSh 19,999</p>
+
+          <a
+            class="order-button"
+            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Samsung%20Galaxy%20A16%204G.%20Please%20confirm%20availability%20and%20current%20price."
+            target="_blank"
+          >
+            Order / Check Availability
+          </a>
 
         </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-    <footer>
-
-        <p>
-            © <span id="year"></span>
-            Swalleh Empire. All Rights Reserved.
-        </p>
-
-        <p>
-            Built with vision 🚀
-        </p>
-
-    </footer>
+      </div>
 
 
-    <!-- BACK TO TOP BUTTON -->
-    <button id="topBtn" onclick="goTop()">↑</button>
+      <!-- PRODUCT 5 -->
+
+      <div class="product">
+
+        <img
+          class="product-image"
+          src="https://images.samsung.com/is/image/samsung/p6pim/levant/sm-r400nzaamea/gallery/levant-galaxy-buds-fe-sm-r400-sm-r400nzaamea-thumb-539733337?$344_344_PNG$"
+          alt="Samsung Galaxy Buds FE"
+        >
+
+        <div class="product-content">
+
+          <h3>Samsung Galaxy Buds FE</h3>
+
+          <p class="description">
+            Wireless earbuds designed for comfortable listening,
+            calls and everyday use.
+          </p>
+
+          <p class="price">KSh 8,500</p>
+
+          <a
+            class="order-button"
+            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Samsung%20Galaxy%20Buds%20FE.%20Please%20confirm%20availability%20and%20current%20price."
+            target="_blank"
+          >
+            Order / Check Availability
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
 
 
-    <!-- JAVASCRIPT -->
-    <script>
+  <section class="about" id="about">
 
-        // Mobile menu
-        function toggleMenu() {
+    <h2>About Swalleh Empire</h2>
 
-            const menu = document.getElementById("navLinks");
+    <p>
+      Swalleh Empire is an online catalogue designed to make it
+      easier for customers to discover electronics and contact us
+      directly for orders and product availability.
+    </p>
 
-            menu.classList.toggle("active");
-
-        }
-
-
-        // Close mobile menu
-        function closeMenu() {
-
-            const menu = document.getElementById("navLinks");
-
-            menu.classList.remove("active");
-
-        }
+  </section>
 
 
-        // Back to top button
-        const topBtn = document.getElementById("topBtn");
+  <section class="contact" id="contact">
 
-        window.addEventListener("scroll", function() {
+    <h2>Contact Swalleh Empire</h2>
 
-            if (window.scrollY > 300) {
+    <p>
+      WhatsApp:
+      <a href="https://wa.me/254724566417" target="_blank">
+        0724 566 417
+      </a>
+    </p>
 
-                topBtn.style.display = "block";
+    <p>
+      Email:
+      <a href="mailto:swalleh2@gmail.com">
+        swalleh2@gmail.com
+      </a>
+    </p>
 
-            } else {
-
-                topBtn.style.display = "none";
-
-            }
-
-        });
-
-
-        // Go to top
-        function goTop() {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
+  </section>
 
 
-        // Automatic copyright year
-        document.getElementById("year").textContent =
-            new Date().getFullYear();
+  <footer>
 
-    </script>
+    <p><strong>Swalleh Empire</strong></p>
+
+    <p>Quality products. Easy ordering.</p>
+
+    <p>&copy; 2026 Swalleh Empire. All rights reserved.</p>
+
+  </footer>
 
 </body>
 </html>
