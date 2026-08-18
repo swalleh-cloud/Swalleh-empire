@@ -1,116 +1,133 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Swalleh Empire | Electronics & Smart Products</title>
-
-  <meta name="description" content="Shop electronics and smart products from Swalleh Empire. Order products directly through WhatsApp.">
+  <title>Swalleh Empire - Electronics Catalogue</title>
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
+      background: #f4f6f8;
       color: #222;
-      line-height: 1.6;
     }
 
     header {
       background: linear-gradient(135deg, #111827, #2563eb);
       color: white;
-      padding: 25px 20px;
+      padding: 35px 20px;
       text-align: center;
     }
 
     header h1 {
-      font-size: 2.4rem;
-      margin-bottom: 8px;
+      font-size: 38px;
+      margin-bottom: 10px;
     }
 
     header p {
-      font-size: 1.05rem;
+      font-size: 17px;
     }
 
-    nav {
-      background: #111827;
-      padding: 12px;
+    .welcome {
       text-align: center;
+      padding: 30px 15px 15px;
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
+    .welcome h2 {
+      color: #2563eb;
+      margin-bottom: 10px;
     }
 
-    nav a:hover {
-      color: #60a5fa;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 55px 20px;
-      background: white;
-    }
-
-    .hero h2 {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      max-width: 700px;
-      margin: auto;
+    .welcome p {
       color: #555;
     }
 
-    .shop-button {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 13px 25px;
-      background: #16a34a;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
+    .container {
+      width: 95%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px 0 50px;
+    }
+
+    .search-box {
+      text-align: center;
+      margin: 20px 0 30px;
+    }
+
+    .search-box input {
+      width: 90%;
+      max-width: 600px;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 35px;
+    }
+
+    .category {
+      background: white;
+      border-radius: 12px;
+      padding: 20px 10px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: 0.3s;
       font-weight: bold;
     }
 
-    .shop-button:hover {
-      background: #15803d;
+    .category:hover {
+      transform: translateY(-5px);
+      background: #2563eb;
+      color: white;
     }
 
-    .catalogue {
-      padding: 45px 20px;
-      max-width: 1200px;
-      margin: auto;
+    .category-icon {
+      font-size: 35px;
+      display: block;
+      margin-bottom: 10px;
     }
 
-    .catalogue h2 {
+    .products-section {
+      display: none;
+    }
+
+    .products-section.active {
+      display: block;
+    }
+
+    .section-title {
       text-align: center;
-      margin-bottom: 35px;
-      font-size: 2rem;
+      margin: 25px 0;
+      color: #111827;
+      font-size: 28px;
     }
 
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
     }
 
     .product {
       background: white;
-      border-radius: 12px;
+      border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: 0.3s;
     }
 
     .product:hover {
@@ -118,116 +135,107 @@
     }
 
     .product-image {
-      width: 100%;
-      height: 220px;
-      object-fit: contain;
-      background: #f3f4f6;
-      padding: 15px;
+      height: 170px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eef2ff;
+      font-size: 65px;
     }
 
-    .product-content {
-      padding: 20px;
+    .product-info {
+      padding: 18px;
     }
 
-    .product h3 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-    }
-
-    .description {
-      color: #666;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
+    .product-info h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
     }
 
     .price {
-      color: #111827;
-      font-size: 1.3rem;
+      color: #16a34a;
+      font-size: 21px;
       font-weight: bold;
-      margin-bottom: 15px;
+      margin: 10px 0;
     }
 
-    .order-button {
+    .order-btn {
       display: block;
       width: 100%;
-      text-align: center;
       background: #25D366;
       color: white;
+      text-decoration: none;
       padding: 12px;
-      text-decoration: none;
-      border-radius: 7px;
-      font-weight: bold;
-    }
-
-    .order-button:hover {
-      background: #1ebe5d;
-    }
-
-    .notice {
-      max-width: 850px;
-      margin: 10px auto 35px;
-      background: #fff7ed;
-      border-left: 5px solid #f97316;
-      padding: 15px;
-      border-radius: 6px;
-      color: #7c2d12;
-    }
-
-    .about {
-      background: white;
-      padding: 50px 20px;
+      border-radius: 8px;
       text-align: center;
-    }
-
-    .about h2 {
-      margin-bottom: 15px;
-    }
-
-    .about p {
-      max-width: 750px;
-      margin: auto;
-      color: #555;
-    }
-
-    .contact {
-      padding: 45px 20px;
-      text-align: center;
-      background: #eef2ff;
-    }
-
-    .contact h2 {
-      margin-bottom: 15px;
-    }
-
-    .contact a {
-      color: #2563eb;
       font-weight: bold;
-      text-decoration: none;
+      margin-top: 12px;
+    }
+
+    .order-btn:hover {
+      background: #128C7E;
+    }
+
+    .back-btn {
+      display: block;
+      width: 180px;
+      margin: 25px auto;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     footer {
       background: #111827;
       color: white;
       text-align: center;
-      padding: 25px 15px;
+      padding: 30px 15px;
+      margin-top: 40px;
     }
 
     footer p {
-      margin: 5px;
+      margin: 8px 0;
+    }
+
+    .social {
+      margin-top: 15px;
+    }
+
+    .social a {
+      color: white;
+      text-decoration: none;
+      margin: 0 8px;
     }
 
     @media (max-width: 600px) {
       header h1 {
-        font-size: 1.9rem;
+        font-size: 29px;
       }
 
-      .hero h2 {
-        font-size: 1.7rem;
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
       }
 
-      nav a {
-        margin: 0 7px;
-        font-size: 0.9rem;
+      .product-image {
+        height: 130px;
+        font-size: 45px;
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+
+      .product-info h3 {
+        font-size: 15px;
+      }
+
+      .price {
+        font-size: 17px;
       }
     }
   </style>
@@ -235,256 +243,916 @@
 
 <body>
 
-  <header>
-    <h1>Swalleh Empire</h1>
-    <p>Your trusted destination for electronics & smart products</p>
-  </header>
+<header>
+  <h1>🛍️ Swalleh Empire</h1>
+  <p>Your Trusted Electronics & Accessories Store</p>
+</header>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#catalogue">Catalogue</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<section class="welcome">
+  <h2>Welcome to Swalleh Empire</h2>
+  <p>Browse our catalogue, choose your product and order directly through WhatsApp.</p>
+</section>
 
-  <section class="hero" id="home">
-    <h2>Welcome to Swalleh Empire</h2>
+<div class="container">
 
-    <p>
-      Discover quality electronics and smart products.
-      Browse our catalogue and contact us directly on WhatsApp
-      to order or check product availability.
-    </p>
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="🔍 Search for a product..."
+      onkeyup="searchProducts()"
+    >
+  </div>
 
-    <a href="#catalogue" class="shop-button">
-      View Products
-    </a>
-  </section>
+  <!-- CATEGORIES -->
 
-  <section class="catalogue" id="catalogue">
+  <div id="categories" class="category-grid">
 
-    <h2>Our Products</h2>
-
-    <div class="notice">
-      <strong>Important:</strong>
-      Prices shown are catalogue prices and may change.
-      Please contact us on WhatsApp to confirm availability,
-      current price and delivery before placing your order.
+    <div class="category" onclick="showCategory('phones')">
+      <span class="category-icon">📱</span>
+      Phones
     </div>
 
-    <div class="products">
-
-      <!-- PRODUCT 1 -->
-
-      <div class="product">
-
-        <img
-          class="product-image"
-          src="https://images.samsung.com/is/image/samsung/p6pim/levant/ua55du7000uxsq/gallery/levant-uhd-4k-smart-tv-ua55du7000uxsq-541280565?$650_519_PNG$"
-          alt="Samsung 55 inch DU7000 4K Smart TV"
-        >
-
-        <div class="product-content">
-
-          <h3>Samsung 55" DU7000 4K Smart TV</h3>
-
-          <p class="description">
-            55-inch Crystal UHD 4K Smart TV with a modern design
-            and smart entertainment features.
-          </p>
-
-          <p class="price">KSh 53,999</p>
-
-          <a
-            class="order-button"
-            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Samsung%2055%22%20DU7000%204K%20Smart%20TV.%20Please%20confirm%20availability%20and%20current%20price."
-            target="_blank"
-          >
-            Order / Check Availability
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- PRODUCT 2 -->
-
-      <div class="product">
-
-        <img
-          class="product-image"
-          src="https://hisense.co.ke/wp-content/uploads/2024/04/43A6N.png"
-          alt="Hisense 43 inch 4K Smart TV"
-        >
-
-        <div class="product-content">
-
-          <h3>Hisense 43" A6N 4K Smart TV</h3>
-
-          <p class="description">
-            43-inch 4K Smart TV designed for home entertainment,
-            streaming and everyday viewing.
-          </p>
-
-          <p class="price">KSh 40,000</p>
-
-          <a
-            class="order-button"
-            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Hisense%2043%22%20A6N%204K%20Smart%20TV.%20Please%20confirm%20availability%20and%20current%20price."
-            target="_blank"
-          >
-            Order / Check Availability
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- PRODUCT 3 -->
-
-      <div class="product">
-
-        <img
-          class="product-image"
-          src="https://www.jbl.com/dw/image/v2/BGJH_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw8f2f1e6c/JBL_SB550_Hero_1605x1605.jpg"
-          alt="JBL Cinema SB550 Soundbar"
-        >
-
-        <div class="product-content">
-
-          <h3>JBL Cinema SB550 Soundbar</h3>
-
-          <p class="description">
-            JBL home cinema sound system designed to deliver
-            powerful audio for your television and entertainment.
-          </p>
-
-          <p class="price">KSh 30,000</p>
-
-          <a
-            class="order-button"
-            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20JBL%20Cinema%20SB550%20Soundbar.%20Please%20confirm%20availability%20and%20current%20price."
-            target="_blank"
-          >
-            Order / Check Availability
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- PRODUCT 4 -->
-
-      <div class="product">
-
-        <img
-          class="product-image"
-          src="https://images.samsung.com/is/image/samsung/p6pim/levant/sm-a165fzahmea/gallery/levant-galaxy-a16-sm-a165-sm-a165fzahmea-thumb-543010092?$344_344_PNG$"
-          alt="Samsung Galaxy A16"
-        >
-
-        <div class="product-content">
-
-          <h3>Samsung Galaxy A16 4G</h3>
-
-          <p class="description">
-            Samsung smartphone with a large display, modern design
-            and reliable everyday performance.
-          </p>
-
-          <p class="price">KSh 19,999</p>
-
-          <a
-            class="order-button"
-            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Samsung%20Galaxy%20A16%204G.%20Please%20confirm%20availability%20and%20current%20price."
-            target="_blank"
-          >
-            Order / Check Availability
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- PRODUCT 5 -->
-
-      <div class="product">
-
-        <img
-          class="product-image"
-          src="https://images.samsung.com/is/image/samsung/p6pim/levant/sm-r400nzaamea/gallery/levant-galaxy-buds-fe-sm-r400-sm-r400nzaamea-thumb-539733337?$344_344_PNG$"
-          alt="Samsung Galaxy Buds FE"
-        >
-
-        <div class="product-content">
-
-          <h3>Samsung Galaxy Buds FE</h3>
-
-          <p class="description">
-            Wireless earbuds designed for comfortable listening,
-            calls and everyday use.
-          </p>
-
-          <p class="price">KSh 8,500</p>
-
-          <a
-            class="order-button"
-            href="https://wa.me/254724566417?text=Hello%20Swalleh%20Empire%2C%20I%20am%20interested%20in%20the%20Samsung%20Galaxy%20Buds%20FE.%20Please%20confirm%20availability%20and%20current%20price."
-            target="_blank"
-          >
-            Order / Check Availability
-          </a>
-
-        </div>
-      </div>
-
+    <div class="category" onclick="showCategory('chargers')">
+      <span class="category-icon">🔌</span>
+      Chargers
     </div>
-  </section>
+
+    <div class="category" onclick="showCategory('powerbanks')">
+      <span class="category-icon">🔋</span>
+      Power Banks
+    </div>
+
+    <div class="category" onclick="showCategory('protectors')">
+      <span class="category-icon">🛡️</span>
+      Screen Protectors
+    </div>
+
+    <div class="category" onclick="showCategory('audio')">
+      <span class="category-icon">🎧</span>
+      Audio Systems
+    </div>
+
+    <div class="category" onclick="showCategory('headphones')">
+      <span class="category-icon">🎧</span>
+      Headphones
+    </div>
+
+    <div class="category" onclick="showCategory('smartwatches')">
+      <span class="category-icon">⌚</span>
+      Smart Watches
+    </div>
+
+    <div class="category" onclick="showCategory('tvs')">
+      <span class="category-icon">📺</span>
+      Televisions
+    </div>
+
+    <div class="category" onclick="showCategory('laptops')">
+      <span class="category-icon">💻</span>
+      Laptops
+    </div>
+
+    <div class="category" onclick="showCategory('appliances')">
+      <span class="category-icon">🏠</span>
+      Home Appliances
+    </div>
+
+    <div class="category" onclick="showCategory('subwoofers')">
+      <span class="category-icon">🔊</span>
+      Subwoofers
+    </div>
+
+    <div class="category" onclick="showCategory('speakers')">
+      <span class="category-icon">🔊</span>
+      Bluetooth Speakers
+    </div>
+
+    <div class="category" onclick="showCategory('neckbands')">
+      <span class="category-icon">🎶</span>
+      Neckbands
+    </div>
+
+    <div class="category" onclick="showCategory('cases')">
+      <span class="category-icon">📱</span>
+      Phone Cases
+    </div>
+
+    <div class="category" onclick="showCategory('shavers')">
+      <span class="category-icon">🪒</span>
+      Shavers
+    </div>
+
+    <div class="category" onclick="showCategory('usb')">
+      <span class="category-icon">🔗</span>
+      USB Cables
+    </div>
+
+    <div class="category" onclick="showCategory('earphones')">
+      <span class="category-icon">🎵</span>
+      Earphones
+    </div>
+
+    <div class="category" onclick="showCategory('brackets')">
+      <span class="category-icon">🖼️</span>
+      Wall Brackets
+    </div>
+
+    <div class="category" onclick="showCategory('ironboxes')">
+      <span class="category-icon">👕</span>
+      Iron Boxes
+    </div>
+
+    <div class="category" onclick="showCategory('controllers')">
+      <span class="category-icon">⚡</span>
+      Charger Controllers
+    </div>
+
+    <div class="category" onclick="showCategory('airpods')">
+      <span class="category-icon">🎧</span>
+      AirPods
+    </div>
+
+    <div class="category" onclick="showCategory('earbuds')">
+      <span class="category-icon">🎶</span>
+      Earbuds
+    </div>
+
+    <div class="category" onclick="showCategory('decoders')">
+      <span class="category-icon">📡</span>
+      Decoders
+    </div>
+
+    <div class="category" onclick="showCategory('batteries')">
+      <span class="category-icon">🔋</span>
+      Batteries
+    </div>
+
+    <div class="category" onclick="showCategory('gaming')">
+      <span class="category-icon">🎮</span>
+      Gaming Accessories
+    </div>
+
+  </div>
 
 
-  <section class="about" id="about">
+  <!-- PRODUCTS -->
 
-    <h2>About Swalleh Empire</h2>
+  <div id="productsContainer">
 
-    <p>
-      Swalleh Empire is an online catalogue designed to make it
-      easier for customers to discover electronics and contact us
-      directly for orders and product availability.
-    </p>
+    <!-- PHONES -->
+    <section id="phones" class="products-section">
+      <h2 class="section-title">📱 Phones</h2>
+      <div class="products">
 
-  </section>
+        <div class="product">
+          <div class="product-image">📱</div>
+          <div class="product-info">
+            <h3>Samsung Galaxy A05</h3>
+            <div class="price">KSh 13,500</div>
+            <a class="order-btn" onclick="order('Samsung Galaxy A05 - KSh 13,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">📱</div>
+          <div class="product-info">
+            <h3>Redmi 14C</h3>
+            <div class="price">KSh 14,500</div>
+            <a class="order-btn" onclick="order('Redmi 14C - KSh 14,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">📱</div>
+          <div class="product-info">
+            <h3>Tecno Spark</h3>
+            <div class="price">KSh 15,500</div>
+            <a class="order-btn" onclick="order('Tecno Spark - KSh 15,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
 
 
-  <section class="contact" id="contact">
+    <!-- CHARGERS -->
+    <section id="chargers" class="products-section">
+      <h2 class="section-title">🔌 Chargers</h2>
+      <div class="products">
 
-    <h2>Contact Swalleh Empire</h2>
+        <div class="product">
+          <div class="product-image">🔌</div>
+          <div class="product-info">
+            <h3>Fast Charger 20W</h3>
+            <div class="price">KSh 800</div>
+            <a class="order-btn" onclick="order('Fast Charger 20W - KSh 800')">Order on WhatsApp</a>
+          </div>
+        </div>
 
-    <p>
-      WhatsApp:
-      <a href="https://wa.me/254724566417" target="_blank">
-        0724 566 417
-      </a>
-    </p>
+        <div class="product">
+          <div class="product-image">🔌</div>
+          <div class="product-info">
+            <h3>Fast Charger 33W</h3>
+            <div class="price">KSh 1,200</div>
+            <a class="order-btn" onclick="order('Fast Charger 33W - KSh 1,200')">Order on WhatsApp</a>
+          </div>
+        </div>
 
-    <p>
-      Email:
-      <a href="mailto:swalleh2@gmail.com">
-        swalleh2@gmail.com
-      </a>
-    </p>
+        <div class="product">
+          <div class="product-image">🔌</div>
+          <div class="product-info">
+            <h3>Type-C Charger</h3>
+            <div class="price">KSh 700</div>
+            <a class="order-btn" onclick="order('Type-C Charger - KSh 700')">Order on WhatsApp</a>
+          </div>
+        </div>
 
-  </section>
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
 
 
-  <footer>
+    <!-- POWER BANKS -->
+    <section id="powerbanks" class="products-section">
+      <h2 class="section-title">🔋 Power Banks</h2>
+      <div class="products">
 
-    <p><strong>Swalleh Empire</strong></p>
+        <div class="product">
+          <div class="product-image">🔋</div>
+          <div class="product-info">
+            <h3>10,000mAh Power Bank</h3>
+            <div class="price">KSh 1,500</div>
+            <a class="order-btn" onclick="order('10,000mAh Power Bank - KSh 1,500')">Order on WhatsApp</a>
+          </div>
+        </div>
 
-    <p>Quality products. Easy ordering.</p>
+        <div class="product">
+          <div class="product-image">🔋</div>
+          <div class="product-info">
+            <h3>20,000mAh Power Bank</h3>
+            <div class="price">KSh 2,500</div>
+            <a class="order-btn" onclick="order('20,000mAh Power Bank - KSh 2,500')">Order on WhatsApp</a>
+          </div>
+        </div>
 
-    <p>&copy; 2026 Swalleh Empire. All rights reserved.</p>
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
 
-  </footer>
+
+    <!-- SCREEN PROTECTORS -->
+    <section id="protectors" class="products-section">
+      <h2 class="section-title">🛡️ Screen Protectors</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🛡️</div>
+          <div class="product-info">
+            <h3>Tempered Glass</h3>
+            <div class="price">KSh 300</div>
+            <a class="order-btn" onclick="order('Tempered Glass - KSh 300')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🛡️</div>
+          <div class="product-info">
+            <h3>Privacy Glass</h3>
+            <div class="price">KSh 500</div>
+            <a class="order-btn" onclick="order('Privacy Glass - KSh 500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- AUDIO -->
+    <section id="audio" class="products-section">
+      <h2 class="section-title">🎧 Audio Systems</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🔊</div>
+          <div class="product-info">
+            <h3>2.1 Multimedia Speaker</h3>
+            <div class="price">KSh 4,500</div>
+            <a class="order-btn" onclick="order('2.1 Multimedia Speaker - KSh 4,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🔊</div>
+          <div class="product-info">
+            <h3>Home Theatre System</h3>
+            <div class="price">KSh 12,500</div>
+            <a class="order-btn" onclick="order('Home Theatre System - KSh 12,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- HEADPHONES -->
+    <section id="headphones" class="products-section">
+      <h2 class="section-title">🎧 Headphones</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🎧</div>
+          <div class="product-info">
+            <h3>Wireless Headphones</h3>
+            <div class="price">KSh 1,800</div>
+            <a class="order-btn" onclick="order('Wireless Headphones - KSh 1,800')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🎧</div>
+          <div class="product-info">
+            <h3>Bluetooth Headphones</h3>
+            <div class="price">KSh 2,500</div>
+            <a class="order-btn" onclick="order('Bluetooth Headphones - KSh 2,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- SMART WATCHES -->
+    <section id="smartwatches" class="products-section">
+      <h2 class="section-title">⌚ Smart Watches</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">⌚</div>
+          <div class="product-info">
+            <h3>Smart Watch Series 8</h3>
+            <div class="price">KSh 2,500</div>
+            <a class="order-btn" onclick="order('Smart Watch Series 8 - KSh 2,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">⌚</div>
+          <div class="product-info">
+            <h3>Premium Smart Watch</h3>
+            <div class="price">KSh 4,500</div>
+            <a class="order-btn" onclick="order('Premium Smart Watch - KSh 4,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- TV -->
+    <section id="tvs" class="products-section">
+      <h2 class="section-title">📺 Televisions</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">📺</div>
+          <div class="product-info">
+            <h3>32" Smart TV</h3>
+            <div class="price">KSh 18,500</div>
+            <a class="order-btn" onclick="order('32 Smart TV - KSh 18,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">📺</div>
+          <div class="product-info">
+            <h3>43" Smart TV</h3>
+            <div class="price">KSh 28,500</div>
+            <a class="order-btn" onclick="order('43 Smart TV - KSh 28,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- LAPTOPS -->
+    <section id="laptops" class="products-section">
+      <h2 class="section-title">💻 Laptops</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">💻</div>
+          <div class="product-info">
+            <h3>Core i3 Laptop</h3>
+            <div class="price">KSh 25,000</div>
+            <a class="order-btn" onclick="order('Core i3 Laptop - KSh 25,000')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">💻</div>
+          <div class="product-info">
+            <h3>Core i5 Laptop</h3>
+            <div class="price">KSh 35,000</div>
+            <a class="order-btn" onclick="order('Core i5 Laptop - KSh 35,000')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- HOME APPLIANCES -->
+    <section id="appliances" class="products-section">
+      <h2 class="section-title">🏠 Home Appliances</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🍳</div>
+          <div class="product-info">
+            <h3>Electric Kettle</h3>
+            <div class="price">KSh 1,500</div>
+            <a class="order-btn" onclick="order('Electric Kettle - KSh 1,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🌀</div>
+          <div class="product-info">
+            <h3>Electric Fan</h3>
+            <div class="price">KSh 3,500</div>
+            <a class="order-btn" onclick="order('Electric Fan - KSh 3,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- SUBWOOFERS -->
+    <section id="subwoofers" class="products-section">
+      <h2 class="section-title">🔊 Subwoofers</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🔊</div>
+          <div class="product-info">
+            <h3>8" Subwoofer</h3>
+            <div class="price">KSh 7,500</div>
+            <a class="order-btn" onclick="order('8 Inch Subwoofer - KSh 7,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🔊</div>
+          <div class="product-info">
+            <h3>12" Subwoofer</h3>
+            <div class="price">KSh 12,500</div>
+            <a class="order-btn" onclick="order('12 Inch Subwoofer - KSh 12,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- BLUETOOTH SPEAKERS -->
+    <section id="speakers" class="products-section">
+      <h2 class="section-title">🔊 Bluetooth Speakers</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🔊</div>
+          <div class="product-info">
+            <h3>Mini Bluetooth Speaker</h3>
+            <div class="price">KSh 1,000</div>
+            <a class="order-btn" onclick="order('Mini Bluetooth Speaker - KSh 1,000')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🔊</div>
+          <div class="product-info">
+            <h3>Large Bluetooth Speaker</h3>
+            <div class="price">KSh 5,500</div>
+            <a class="order-btn" onclick="order('Large Bluetooth Speaker - KSh 5,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- NECKBANDS -->
+    <section id="neckbands" class="products-section">
+      <h2 class="section-title">🎶 Neckbands</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🎶</div>
+          <div class="product-info">
+            <h3>Bluetooth Neckband</h3>
+            <div class="price">KSh 1,200</div>
+            <a class="order-btn" onclick="order('Bluetooth Neckband - KSh 1,200')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- PHONE CASES -->
+    <section id="cases" class="products-section">
+      <h2 class="section-title">📱 Phone Cases</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">📱</div>
+          <div class="product-info">
+            <h3>Silicone Phone Case</h3>
+            <div class="price">KSh 400</div>
+            <a class="order-btn" onclick="order('Silicone Phone Case - KSh 400')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">📱</div>
+          <div class="product-info">
+            <h3>Premium Phone Case</h3>
+            <div class="price">KSh 800</div>
+            <a class="order-btn" onclick="order('Premium Phone Case - KSh 800')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- SHAVERS -->
+    <section id="shavers" class="products-section">
+      <h2 class="section-title">🪒 Shavers</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🪒</div>
+          <div class="product-info">
+            <h3>Rechargeable Shaver</h3>
+            <div class="price">KSh 1,800</div>
+            <a class="order-btn" onclick="order('Rechargeable Shaver - KSh 1,800')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- USB CABLES -->
+    <section id="usb" class="products-section">
+      <h2 class="section-title">🔗 USB Cables</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🔗</div>
+          <div class="product-info">
+            <h3>Type-C USB Cable</h3>
+            <div class="price">KSh 350</div>
+            <a class="order-btn" onclick="order('Type-C USB Cable - KSh 350')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🔗</div>
+          <div class="product-info">
+            <h3>iPhone Lightning Cable</h3>
+            <div class="price">KSh 500</div>
+            <a class="order-btn" onclick="order('iPhone Lightning Cable - KSh 500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- EARPHONES -->
+    <section id="earphones" class="products-section">
+      <h2 class="section-title">🎵 Earphones</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🎵</div>
+          <div class="product-info">
+            <h3>Wired Earphones</h3>
+            <div class="price">KSh 400</div>
+            <a class="order-btn" onclick="order('Wired Earphones - KSh 400')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🎵</div>
+          <div class="product-info">
+            <h3>Premium Earphones</h3>
+            <div class="price">KSh 800</div>
+            <a class="order-btn" onclick="order('Premium Earphones - KSh 800')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- WALL BRACKETS -->
+    <section id="brackets" class="products-section">
+      <h2 class="section-title">🖼️ Wall Brackets</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🖼️</div>
+          <div class="product-info">
+            <h3>32-55" TV Wall Bracket</h3>
+            <div class="price">KSh 1,500</div>
+            <a class="order-btn" onclick="order('32-55 TV Wall Bracket - KSh 1,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- IRON BOXES -->
+    <section id="ironboxes" class="products-section">
+      <h2 class="section-title">👕 Iron Boxes</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">👕</div>
+          <div class="product-info">
+            <h3>Electric Iron Box</h3>
+            <div class="price">KSh 2,000</div>
+            <a class="order-btn" onclick="order('Electric Iron Box - KSh 2,000')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- CHARGER CONTROLLERS -->
+    <section id="controllers" class="products-section">
+      <h2 class="section-title">⚡ Charger Controllers</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">⚡</div>
+          <div class="product-info">
+            <h3>USB Charger Controller</h3>
+            <div class="price">KSh 600</div>
+            <a class="order-btn" onclick="order('USB Charger Controller - KSh 600')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- AIRPODS -->
+    <section id="airpods" class="products-section">
+      <h2 class="section-title">🎧 AirPods</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🎧</div>
+          <div class="product-info">
+            <h3>AirPods Style TWS</h3>
+            <div class="price">KSh 1,500</div>
+            <a class="order-btn" onclick="order('AirPods Style TWS - KSh 1,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🎧</div>
+          <div class="product-info">
+            <h3>Premium TWS AirPods</h3>
+            <div class="price">KSh 2,500</div>
+            <a class="order-btn" onclick="order('Premium TWS AirPods - KSh 2,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- EARBUDS -->
+    <section id="earbuds" class="products-section">
+      <h2 class="section-title">🎶 Earbuds</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🎶</div>
+          <div class="product-info">
+            <h3>Wireless TWS Earbuds</h3>
+            <div class="price">KSh 1,200</div>
+            <a class="order-btn" onclick="order('Wireless TWS Earbuds - KSh 1,200')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- DECODERS -->
+    <section id="decoders" class="products-section">
+      <h2 class="section-title">📡 Decoders</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">📡</div>
+          <div class="product-info">
+            <h3>Digital TV Decoder</h3>
+            <div class="price">KSh 2,500</div>
+            <a class="order-btn" onclick="order('Digital TV Decoder - KSh 2,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- BATTERIES -->
+    <section id="batteries" class="products-section">
+      <h2 class="section-title">🔋 Batteries</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🔋</div>
+          <div class="product-info">
+            <h3>Rechargeable Battery</h3>
+            <div class="price">KSh 500</div>
+            <a class="order-btn" onclick="order('Rechargeable Battery - KSh 500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🔋</div>
+          <div class="product-info">
+            <h3>AA Battery Pack</h3>
+            <div class="price">KSh 350</div>
+            <a class="order-btn" onclick="order('AA Battery Pack - KSh 350')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+
+    <!-- GAMING -->
+    <section id="gaming" class="products-section">
+      <h2 class="section-title">🎮 Gaming Accessories</h2>
+      <div class="products">
+
+        <div class="product">
+          <div class="product-image">🎮</div>
+          <div class="product-info">
+            <h3>Wireless Game Controller</h3>
+            <div class="price">KSh 2,500</div>
+            <a class="order-btn" onclick="order('Wireless Game Controller - KSh 2,500')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🎮</div>
+          <div class="product-info">
+            <h3>Gaming Headset</h3>
+            <div class="price">KSh 2,000</div>
+            <a class="order-btn" onclick="order('Gaming Headset - KSh 2,000')">Order on WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+    </section>
+
+  </div>
+</div>
+
+
+<footer>
+  <h2>Swalleh Empire</h2>
+  <p>Quality Electronics at Affordable Prices</p>
+  <p>📞 WhatsApp: 0724566417</p>
+  <p>📧 swalleh2@gmail.com</p>
+
+  <div class="social">
+    <a href="#">TikTok: Swalleh Gibon</a>
+    <a href="#">Facebook: Swalleh Gibon</a>
+  </div>
+
+  <p style="margin-top:20px;">
+    © 2026 Swalleh Empire. All Rights Reserved.
+  </p>
+</footer>
+
+
+<script>
+
+  const whatsappNumber = "254724566417";
+
+  function showCategory(categoryId) {
+
+    document.getElementById("categories").style.display = "none";
+
+    const sections = document.querySelectorAll(".products-section");
+
+    sections.forEach(section => {
+      section.classList.remove("active");
+    });
+
+    document.getElementById(categoryId).classList.add("active");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  function showCategories() {
+
+    const sections = document.querySelectorAll(".products-section");
+
+    sections.forEach(section => {
+      section.classList.remove("active");
+    });
+
+    document.getElementById("categories").style.display = "grid";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  function order(product) {
+
+    const message =
+      "Hello Swalleh Empire 👋%0A%0A" +
+      "I would like to order:%0A" +
+      product +
+      "%0A%0APlease confirm availability and delivery details.";
+
+    window.open(
+      "https://wa.me/" + whatsappNumber + "?text=" + message,
+      "_blank"
+    );
+  }
+
+
+  function searchProducts() {
+
+    const search =
+      document.getElementById("searchInput").value.toLowerCase();
+
+    const products =
+      document.querySelectorAll(".product");
+
+    products.forEach(product => {
+
+      const text =
+        product.innerText.toLowerCase();
+
+      if (text.includes(search)) {
+        product.style.display = "";
+      } else {
+        product.style.display = "none";
+      }
+
+    });
+  }
+
+</script>
 
 </body>
 </html>
