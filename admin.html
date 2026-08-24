@@ -1,3 +1,6 @@
+# Swalleh Empire — Complete Admin Page
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,12 +40,16 @@
 
     .container {
       width: 95%;
-      max-width: 650px;
+      max-width: 900px;
       margin: 30px auto;
+    }
+
+    .box {
       background: white;
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
     }
 
     h2 {
@@ -75,12 +82,12 @@
     button {
       width: 100%;
       margin-top: 22px;
-      padding: 15px;
+      padding: 14px;
       background: #16a34a;
       color: white;
       border: none;
       border-radius: 7px;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
@@ -92,6 +99,26 @@
     button:disabled {
       background: #888;
       cursor: not-allowed;
+    }
+
+    .delete-btn {
+      background: #dc2626;
+    }
+
+    .delete-btn:hover {
+      background: #b91c1c;
+    }
+
+    .edit-btn {
+      background: #2563eb;
+    }
+
+    .edit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .cancel-btn {
+      background: #6b7280;
     }
 
     #message {
@@ -121,15 +148,6 @@
       color: #1e40af;
     }
 
-    .back {
-      display: block;
-      text-align: center;
-      margin-top: 22px;
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
     .preview {
       margin-top: 15px;
       text-align: center;
@@ -141,6 +159,59 @@
       border-radius: 8px;
       display: none;
       margin: auto;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      background: #fff;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #f3f4f6;
+    }
+
+    .product-card h3 {
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #16a34a;
+      font-size: 18px;
+    }
+
+    .category {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .product-card button {
+      margin-top: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin: 20px 0 40px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -154,99 +225,126 @@
 
 <div class="container">
 
-  <h2>Add New Product</h2>
+  <!-- ADD / UPDATE PRODUCT -->
+  <div class="box">
 
-  <form id="productForm">
+    <h2 id="formTitle">Add New Product</h2>
 
-    <label for="name">Product Name</label>
+    <form id="productForm">
 
-    <input
-      type="text"
-      id="name"
-      placeholder="Example: Fujitsu Core i3 8th Gen"
-      required
+      <label for="name">Product Name</label>
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Example: Fujitsu Core i3 8th Gen"
+        required
+      >
+
+      <label for="price">Price (KSh)</label>
+
+      <input
+        type="number"
+        id="price"
+        placeholder="Example: 15000"
+        min="0"
+        required
+      >
+
+      <label for="category">Category</label>
+
+      <select id="category" required>
+
+        <option value="">Select category</option>
+
+        <option value="phones">Phones</option>
+        <option value="chargers">Chargers</option>
+        <option value="power banks">Power Banks</option>
+        <option value="screen protectors">Screen Protectors</option>
+        <option value="audio">Audio System & Headphones</option>
+        <option value="smart watches">Smart Watches</option>
+        <option value="television">Television</option>
+        <option value="laptops">Laptops</option>
+        <option value="house appliances">House Appliances</option>
+        <option value="subwoofers">Subwoofers</option>
+        <option value="bluetooth speakers">Bluetooth Speakers</option>
+        <option value="neckband">Neckband</option>
+        <option value="phone cases">Phone Cases</option>
+        <option value="shavers">Shavers</option>
+        <option value="usb cables">USB Cables</option>
+        <option value="earphones">Earphones</option>
+        <option value="wall bracket">Wall Bracket</option>
+        <option value="ironboxes">Iron Boxes</option>
+        <option value="charger controller">Charger Controller</option>
+        <option value="earpods">Earpods</option>
+        <option value="earbuds">Earbuds</option>
+        <option value="decoders">Decoders</option>
+        <option value="headphones">Headphones</option>
+        <option value="batteries">Batteries</option>
+        <option value="gaming accessories">Gaming Accessories</option>
+        <option value="solars">Solars</option>
+        <option value="tablets">Tablets</option>
+
+      </select>
+
+      <label for="description">Description</label>
+
+      <textarea
+        id="description"
+        placeholder="Enter product description..."
+        required
+      ></textarea>
+
+      <label for="image">Product Image</label>
+
+      <input
+        type="file"
+        id="image"
+        accept="image/*"
+      >
+
+      <div class="preview">
+        <img id="imagePreview" alt="Image preview">
+      </div>
+
+      <button type="submit" id="submitButton">
+        Add Product
+      </button>
+
+      <button
+        type="button"
+        id="cancelButton"
+        class="cancel-btn hidden"
+      >
+        Cancel Update
+      </button>
+
+    </form>
+
+    <div id="message"></div>
+
+  </div>
+
+
+  <!-- PRODUCTS -->
+  <div class="box">
+
+    <h2>Existing Products</h2>
+
+    <button
+      type="button"
+      id="refreshButton"
     >
-
-
-    <label for="price">Price (KSh)</label>
-
-    <input
-      type="number"
-      id="price"
-      placeholder="Example: 15000"
-      min="0"
-      required
-    >
-
-
-    <label for="category">Category</label>
-
-    <select id="category" required>
-
-      <option value="">Select category</option>
-
-      <option value="phones">Phones</option>
-      <option value="chargers">Chargers</option>
-      <option value="power banks">Power Banks</option>
-      <option value="screen protectors">Screen Protectors</option>
-      <option value="audio">Audio System & Headphones</option>
-      <option value="smart watches">Smart Watches</option>
-      <option value="television">Television</option>
-      <option value="laptops">Laptops</option>
-      <option value="house appliances">House Appliances</option>
-      <option value="subwoofers">Subwoofers</option>
-      <option value="bluetooth speakers">Bluetooth Speakers</option>
-      <option value="neckband">Neckband</option>
-      <option value="phone cases">Phone Cases</option>
-      <option value="shavers">Shavers</option>
-      <option value="usb cables">USB Cables</option>
-      <option value="earphones">Earphones</option>
-      <option value="wall bracket">Wall Bracket</option>
-      <option value="ironboxes">Iron Boxes</option>
-      <option value="charger controller">Charger Controller</option>
-      <option value="earpods">Earpods</option>
-      <option value="earbuds">Earbuds</option>
-      <option value="decoders">Decoders</option>
-      <option value="headphones">Headphones</option>
-      <option value="batteries">Batteries</option>
-      <option value="gaming accessories">Gaming Accessories</option>
-      <option value="solars">Solars</option>
-      <option value="tablets">Tablets</option>
-
-    </select>
-
-
-    <label for="description">Description</label>
-
-    <textarea
-      id="description"
-      placeholder="Enter product description..."
-      required
-    ></textarea>
-
-
-    <label for="image">Product Image</label>
-
-    <input
-      type="file"
-      id="image"
-      accept="image/*"
-      required
-    >
-
-    <div class="preview">
-      <img id="imagePreview" alt="Image preview">
-    </div>
-
-
-    <button type="submit" id="submitButton">
-      Add Product
+      Refresh Products
     </button>
 
-  </form>
+    <div
+      id="productsList"
+      class="products"
+      style="margin-top:20px;"
+    ></div>
 
-
-  <div id="message"></div>
+  </div>
 
 
   <a href="index.html" class="back">
@@ -277,6 +375,13 @@
 
 
   /* ==========================================
+     BUCKET NAME
+  ========================================== */
+
+  const BUCKET_NAME = "product-images";
+
+
+  /* ==========================================
      ELEMENTS
   ========================================== */
 
@@ -289,11 +394,32 @@
   const submitButton =
     document.getElementById("submitButton");
 
+  const cancelButton =
+    document.getElementById("cancelButton");
+
+  const refreshButton =
+    document.getElementById("refreshButton");
+
   const imageInput =
     document.getElementById("image");
 
   const imagePreview =
     document.getElementById("imagePreview");
+
+  const productsList =
+    document.getElementById("productsList");
+
+  const formTitle =
+    document.getElementById("formTitle");
+
+
+  /* ==========================================
+     CURRENT PRODUCT BEING EDITED
+  ========================================== */
+
+  let editingProductId = null;
+
+  let oldImageUrl = null;
 
 
   /* ==========================================
@@ -313,277 +439,817 @@
      IMAGE PREVIEW
   ========================================== */
 
-  imageInput.addEventListener("change", function() {
+  imageInput.addEventListener(
+    "change",
+    function() {
 
-    const file = imageInput.files[0];
+      const file =
+        imageInput.files[0];
+
+      if (!file) {
+
+        return;
+
+      }
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function(event) {
+
+          imagePreview.src =
+            event.target.result;
+
+          imagePreview.style.display =
+            "block";
+
+        };
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+
+  /* ==========================================
+     CREATE UNIQUE IMAGE NAME
+  ========================================== */
+
+  function createImageName(file) {
+
+    const extension =
+      file.name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+    return (
+      Date.now() +
+      "-" +
+      Math.random()
+        .toString(36)
+        .substring(2, 10) +
+      "." +
+      extension
+    );
+
+  }
+
+
+  /* ==========================================
+     UPLOAD IMAGE
+  ========================================== */
+
+  async function uploadImage(file) {
 
     if (!file) {
 
-      imagePreview.style.display = "none";
+      return null;
+
+    }
+
+    const fileName =
+      createImageName(file);
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .storage
+        .from(BUCKET_NAME)
+        .upload(
+          fileName,
+          file,
+          {
+            cacheControl: "3600",
+            upsert: false
+          }
+        );
+
+
+    if (error) {
+
+      throw new Error(
+        "Image upload failed: " +
+        error.message
+      );
+
+    }
+
+
+    const {
+      data: publicData
+    } =
+      supabaseClient
+        .storage
+        .from(BUCKET_NAME)
+        .getPublicUrl(fileName);
+
+
+    if (
+      !publicData ||
+      !publicData.publicUrl
+    ) {
+
+      throw new Error(
+        "Could not create public image URL."
+      );
+
+    }
+
+
+    return publicData.publicUrl;
+
+  }
+
+
+  /* ==========================================
+     ADD OR UPDATE PRODUCT
+  ========================================== */
+
+  form.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      submitButton.disabled =
+        true;
+
+
+      try {
+
+        const name =
+          document
+            .getElementById("name")
+            .value
+            .trim();
+
+
+        const price =
+          Number(
+            document
+              .getElementById("price")
+              .value
+          );
+
+
+        const category =
+          document
+            .getElementById("category")
+            .value;
+
+
+        const description =
+          document
+            .getElementById("description")
+            .value
+            .trim();
+
+
+        const imageFile =
+          imageInput.files[0];
+
+
+        /* VALIDATION */
+
+        if (!name) {
+
+          throw new Error(
+            "Please enter the product name."
+          );
+
+        }
+
+
+        if (!price || price <= 0) {
+
+          throw new Error(
+            "Please enter a valid price."
+          );
+
+        }
+
+
+        if (!category) {
+
+          throw new Error(
+            "Please select a category."
+          );
+
+        }
+
+
+        if (!description) {
+
+          throw new Error(
+            "Please enter a description."
+          );
+
+        }
+
+
+        /* =====================================
+           UPDATE PRODUCT
+        ===================================== */
+
+        if (editingProductId) {
+
+          submitButton.textContent =
+            "Updating Product...";
+
+
+          showMessage(
+            "Updating product...",
+            "info"
+          );
+
+
+          let imageUrl =
+            oldImageUrl;
+
+
+          /* Replace image only if new image selected */
+
+          if (imageFile) {
+
+            showMessage(
+              "Uploading new product image...",
+              "info"
+            );
+
+
+            imageUrl =
+              await uploadImage(
+                imageFile
+              );
+
+          }
+
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient
+              .from("products")
+              .update({
+                name: name,
+                price: price,
+                image: imageUrl,
+                description: description,
+                category: category
+              })
+              .eq(
+                "id",
+                editingProductId
+              )
+              .select();
+
+
+          if (error) {
+
+            throw new Error(
+              "Product update failed: " +
+              error.message
+            );
+
+          }
+
+
+          console.log(
+            "Product updated:",
+            data
+          );
+
+
+          showMessage(
+            "✅ Product updated successfully!",
+            "success"
+          );
+
+
+          resetForm();
+
+          loadProducts();
+
+          return;
+
+        }
+
+
+        /* =====================================
+           ADD NEW PRODUCT
+        ===================================== */
+
+        if (!imageFile) {
+
+          throw new Error(
+            "Please select a product image."
+          );
+
+        }
+
+
+        submitButton.textContent =
+          "Adding Product...";
+
+
+        showMessage(
+          "Uploading product image...",
+          "info"
+        );
+
+
+        const imageUrl =
+          await uploadImage(
+            imageFile
+          );
+
+
+        showMessage(
+          "Saving product to database...",
+          "info"
+        );
+
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("products")
+            .insert([
+              {
+                name: name,
+                price: price,
+                image: imageUrl,
+                description: description,
+                category: category
+              }
+            ])
+            .select();
+
+
+        if (error) {
+
+          throw new Error(
+            "Database error: " +
+            error.message
+          );
+
+        }
+
+
+        console.log(
+          "Product added:",
+          data
+        );
+
+
+        showMessage(
+          "✅ Product added successfully!",
+          "success"
+        );
+
+
+        resetForm();
+
+        loadProducts();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "PRODUCT ERROR:",
+          error
+        );
+
+
+        showMessage(
+          "❌ " + error.message,
+          "error"
+        );
+
+      }
+
+      finally {
+
+        submitButton.disabled =
+          false;
+
+
+        if (editingProductId) {
+
+          submitButton.textContent =
+            "Update Product";
+
+        } else {
+
+          submitButton.textContent =
+            "Add Product";
+
+        }
+
+      }
+
+    }
+  );
+
+
+  /* ==========================================
+     LOAD PRODUCTS
+  ========================================== */
+
+  async function loadProducts() {
+
+    productsList.innerHTML =
+      "<p>Loading products...</p>";
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("products")
+        .select("*")
+        .order(
+          "id",
+          {
+            ascending: false
+          }
+        );
+
+
+    if (error) {
+
+      console.error(error);
+
+      productsList.innerHTML =
+        "<p style='color:red;'>Could not load products: " +
+        error.message +
+        "</p>";
 
       return;
 
     }
 
-    const reader = new FileReader();
 
-    reader.onload = function(event) {
+    if (!data || data.length === 0) {
 
-      imagePreview.src = event.target.result;
+      productsList.innerHTML =
+        "<p>No products found.</p>";
 
-      imagePreview.style.display = "block";
+      return;
 
-    };
-
-    reader.readAsDataURL(file);
-
-  });
+    }
 
 
-  /* ==========================================
-     ADD PRODUCT
-  ========================================== */
-
-  form.addEventListener("submit", async function(event) {
-
-    event.preventDefault();
-
-    submitButton.disabled = true;
-
-    submitButton.textContent = "Adding Product...";
-
-    showMessage(
-      "Please wait... uploading product.",
-      "info"
-    );
+    productsList.innerHTML =
+      "";
 
 
-    try {
+    data.forEach(
+      function(product) {
 
-      /* GET FORM VALUES */
-
-      const name =
-        document.getElementById("name")
-          .value
-          .trim();
-
-      const price =
-        Number(
-          document.getElementById("price").value
-        );
-
-      const category =
-        document.getElementById("category").value;
-
-      const description =
-        document.getElementById("description")
-          .value
-          .trim();
-
-      const imageFile =
-        imageInput.files[0];
-
-
-      /* VALIDATION */
-
-      if (!name) {
-        throw new Error("Please enter the product name.");
-      }
-
-      if (!price || price <= 0) {
-        throw new Error("Please enter a valid price.");
-      }
-
-      if (!category) {
-        throw new Error("Please select a category.");
-      }
-
-      if (!description) {
-        throw new Error("Please enter a description.");
-      }
-
-      if (!imageFile) {
-        throw new Error("Please select a product image.");
-      }
-
-
-      /* ==========================================
-         CREATE UNIQUE IMAGE NAME
-      ========================================== */
-
-      const fileExtension =
-        imageFile.name
-          .split(".")
-          .pop()
-          .toLowerCase();
-
-      const fileName =
-        Date.now() +
-        "-" +
-        Math.random()
-          .toString(36)
-          .substring(2, 10) +
-        "." +
-        fileExtension;
-
-
-      /* ==========================================
-         UPLOAD IMAGE
-      ========================================== */
-
-      showMessage(
-        "Uploading product image...",
-        "info"
-      );
-
-
-      const {
-        data: uploadData,
-        error: uploadError
-      } =
-        await supabaseClient
-          .storage
-          .from("product-images")
-          .upload(
-            fileName,
-            imageFile,
-            {
-              cacheControl: "3600",
-              upsert: false
-            }
+        const card =
+          document.createElement(
+            "div"
           );
 
 
-      if (uploadError) {
+        card.className =
+          "product-card";
 
-        throw new Error(
-          "Image upload failed: " +
-          uploadError.message
-        );
+
+        card.innerHTML = `
+
+          <img
+            src="${product.image || ""}"
+            alt="${escapeHtml(product.name)}"
+            onerror="this.style.display='none'"
+          >
+
+          <h3>
+            ${escapeHtml(product.name)}
+          </h3>
+
+          <div class="price">
+            KSh ${Number(product.price).toLocaleString()}
+          </div>
+
+          <div class="category">
+            ${escapeHtml(product.category || "")}
+          </div>
+
+          <p>
+            ${escapeHtml(product.description || "")}
+          </p>
+
+          <button
+            class="edit-btn"
+            onclick="editProduct('${product.id}')"
+          >
+            Edit Product
+          </button>
+
+          <button
+            class="delete-btn"
+            onclick="deleteProduct('${product.id}')"
+          >
+            Delete Product
+          </button>
+
+        `;
+
+
+        productsList.appendChild(card);
 
       }
+    );
+
+  }
 
 
-      /* ==========================================
-         GET PUBLIC IMAGE URL
-      ========================================== */
+  /* ==========================================
+     ESCAPE HTML
+  ========================================== */
 
-      const {
-        data: publicUrlData
-      } =
-        supabaseClient
-          .storage
-          .from("product-images")
-          .getPublicUrl(fileName);
+  function escapeHtml(value) {
 
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
 
-      if (!publicUrlData ||
-          !publicUrlData.publicUrl) {
-
-        throw new Error(
-          "Could not create image URL."
-        );
-
-      }
+  }
 
 
-      const imageUrl =
-        publicUrlData.publicUrl;
+  /* ==========================================
+     EDIT PRODUCT
+  ========================================== */
 
-
-      /* ==========================================
-         INSERT PRODUCT INTO DATABASE
-      ========================================== */
+  window.editProduct =
+    async function(productId) {
 
       showMessage(
-        "Saving product to database...",
+        "Loading product...",
         "info"
       );
 
 
       const {
-        data: productData,
-        error: insertError
+        data,
+        error
       } =
         await supabaseClient
           .from("products")
-          .insert([
-            {
-              name: name,
-              price: price,
-              image: imageUrl,
-              description: description,
-              category: category
-            }
-          ])
-          .select();
+          .select("*")
+          .eq(
+            "id",
+            productId
+          )
+          .single();
 
 
-      if (insertError) {
+      if (error) {
 
-        throw new Error(
-          "Database error: " +
-          insertError.message
+        showMessage(
+          "❌ Could not load product: " +
+          error.message,
+          "error"
         );
+
+        return;
 
       }
 
 
-      /* ==========================================
-         SUCCESS
-      ========================================== */
+      editingProductId =
+        data.id;
 
-      console.log(
-        "Product added:",
-        productData
+
+      oldImageUrl =
+        data.image;
+
+
+      document
+        .getElementById("name")
+        .value =
+        data.name || "";
+
+
+      document
+        .getElementById("price")
+        .value =
+        data.price || "";
+
+
+      document
+        .getElementById("category")
+        .value =
+        data.category || "";
+
+
+      document
+        .getElementById("description")
+        .value =
+        data.description || "";
+
+
+      imageInput.value =
+        "";
+
+
+      if (data.image) {
+
+        imagePreview.src =
+          data.image;
+
+        imagePreview.style.display =
+          "block";
+
+      }
+
+
+      formTitle.textContent =
+        "Update Product";
+
+
+      submitButton.textContent =
+        "Update Product";
+
+
+      cancelButton.classList.remove(
+        "hidden"
       );
 
 
       showMessage(
-        "✅ Product added successfully!",
+        "You are now editing this product.",
+        "info"
+      );
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    };
+
+
+  /* ==========================================
+     DELETE PRODUCT
+  ========================================== */
+
+  window.deleteProduct =
+    async function(productId) {
+
+      const confirmed =
+        confirm(
+          "Are you sure you want to delete this product?"
+        );
+
+
+      if (!confirmed) {
+
+        return;
+
+      }
+
+
+      showMessage(
+        "Deleting product...",
+        "info"
+      );
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("products")
+          .delete()
+          .eq(
+            "id",
+            productId
+          );
+
+
+      if (error) {
+
+        showMessage(
+          "❌ Delete failed: " +
+          error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      showMessage(
+        "✅ Product deleted successfully!",
         "success"
       );
 
 
-      /* CLEAR FORM */
+      loadProducts();
 
-      form.reset();
-
-      imagePreview.src = "";
-
-      imagePreview.style.display = "none";
+    };
 
 
-    }
+  /* ==========================================
+     CANCEL UPDATE
+  ========================================== */
 
-    catch (error) {
+  cancelButton.addEventListener(
+    "click",
+    function() {
 
-      console.error(
-        "PRODUCT ERROR:",
-        error
-      );
-
+      resetForm();
 
       showMessage(
-        "❌ " + error.message,
-        "error"
+        "Update cancelled.",
+        "info"
       );
 
     }
+  );
 
-    finally {
 
-      submitButton.disabled = false;
+  /* ==========================================
+     RESET FORM
+  ========================================== */
 
-      submitButton.textContent =
-        "Add Product";
+  function resetForm() {
+
+    form.reset();
+
+
+    editingProductId =
+      null;
+
+
+    oldImageUrl =
+      null;
+
+
+    imagePreview.src =
+      "";
+
+
+    imagePreview.style.display =
+      "none";
+
+
+    formTitle.textContent =
+      "Add New Product";
+
+
+    submitButton.textContent =
+      "Add Product";
+
+
+    cancelButton.classList.add(
+      "hidden"
+    );
+
+  }
+
+
+  /* ==========================================
+     REFRESH PRODUCTS
+  ========================================== */
+
+  refreshButton.addEventListener(
+    "click",
+    function() {
+
+      loadProducts();
 
     }
+  );
 
-  });
 
+  /* ==========================================
+     INITIAL LOAD
+  ========================================== */
+
+  loadProducts();
 
 </script>
 
 </body>
 </html>
+```
