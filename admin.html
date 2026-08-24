@@ -1,6 +1,4 @@
-# Swalleh Empire — Complete Admin Page
 
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +18,7 @@
       font-family: Arial, sans-serif;
       background: #f3f4f6;
       margin: 0;
+      color: #111827;
     }
 
     header {
@@ -121,6 +120,10 @@
       background: #6b7280;
     }
 
+    .refresh-btn {
+      background: #2563eb;
+    }
+
     #message {
       margin-top: 18px;
       padding: 12px;
@@ -128,6 +131,7 @@
       font-weight: bold;
       border-radius: 7px;
       display: none;
+      white-space: pre-wrap;
     }
 
     .success {
@@ -195,6 +199,7 @@
     .category {
       color: #666;
       font-size: 14px;
+      margin-top: 5px;
     }
 
     .product-card button {
@@ -213,6 +218,23 @@
       text-decoration: none;
       font-weight: bold;
     }
+
+    .connection-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .connection-ok {
+      color: #166534;
+    }
+
+    .connection-error {
+      color: #991b1b;
+    }
   </style>
 </head>
 
@@ -224,6 +246,18 @@
 </header>
 
 <div class="container">
+
+  <!-- CONNECTION STATUS -->
+  <div class="box">
+
+    <h2>System Status</h2>
+
+    <div id="connectionStatus" class="connection-box">
+      Checking Supabase connection...
+    </div>
+
+  </div>
+
 
   <!-- ADD / UPDATE PRODUCT -->
   <div class="box">
@@ -247,7 +281,7 @@
         type="number"
         id="price"
         placeholder="Example: 15000"
-        min="0"
+        min="1"
         required
       >
 
@@ -334,6 +368,7 @@
     <button
       type="button"
       id="refreshButton"
+      class="refresh-btn"
     >
       Refresh Products
     </button>
@@ -356,16 +391,23 @@
 
 <script>
 
-  /* ==========================================
-     SUPABASE CONNECTION
-  ========================================== */
+  /* =====================================================
+     SUPABASE CONFIGURATION
+  ===================================================== */
 
   const SUPABASE_URL =
     "https://rbgqqtayaexgyhozufpg.supabase.co";
 
   const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
+    "sb_publishable_FC5-3_o-Bj6oQKt3SESRlg_TUeT70cl";
 
+  const BUCKET_NAME =
+    "product-images";
+
+
+  /* =====================================================
+     CREATE SUPABASE CLIENT
+  ===================================================== */
 
   const supabaseClient =
     window.supabase.createClient(
@@ -374,16 +416,9 @@
     );
 
 
-  /* ==========================================
-     BUCKET NAME
-  ========================================== */
-
-  const BUCKET_NAME = "product-images";
-
-
-  /* ==========================================
+  /* =====================================================
      ELEMENTS
-  ========================================== */
+  ===================================================== */
 
   const form =
     document.getElementById("productForm");
@@ -412,19 +447,21 @@
   const formTitle =
     document.getElementById("formTitle");
 
+  const connectionStatus =
+    document.getElementById("connectionStatus");
 
-  /* ==========================================
-     CURRENT PRODUCT BEING EDITED
-  ========================================== */
+
+  /* =====================================================
+     STATE
+  ===================================================== */
 
   let editingProductId = null;
-
   let oldImageUrl = null;
 
 
-  /* ==========================================
-     SHOW MESSAGE
-  ========================================== */
+  /* =====================================================
+     MESSAGE
+  ===================================================== */
 
   function showMessage(text, type) {
 
@@ -435,9 +472,29 @@
   }
 
 
-  /* ==========================================
+  /* =====================================================
+     ERROR TEXT
+  ===================================================== */
+
+  function getErrorMessage(error) {
+
+    if (!error) {
+      return "Unknown error.";
+    }
+
+    return (
+      error.message ||
+      error.details ||
+      error.hint ||
+      String(error)
+    );
+
+  }
+
+
+  /* =====================================================
      IMAGE PREVIEW
-  ========================================== */
+  ===================================================== */
 
   imageInput.addEventListener(
     "change",
@@ -447,9 +504,19 @@
         imageInput.files[0];
 
       if (!file) {
+        return;
+      }
+
+      if (!file.type.startsWith("image/")) {
+
+        showMessage(
+          "Please select an image file.",
+          "error"
+        );
+
+        imageInput.value = "";
 
         return;
-
       }
 
       const reader =
@@ -472,9 +539,9 @@
   );
 
 
-  /* ==========================================
-     CREATE UNIQUE IMAGE NAME
-  ========================================== */
+  /* =====================================================
+     CREATE IMAGE NAME
+  ===================================================== */
 
   function createImageName(file) {
 
@@ -497,24 +564,25 @@
   }
 
 
-  /* ==========================================
+  /* =====================================================
      UPLOAD IMAGE
-  ========================================== */
+  ===================================================== */
 
   async function uploadImage(file) {
 
     if (!file) {
-
       return null;
-
     }
 
     const fileName =
       createImageName(file);
 
+    console.log(
+      "Uploading image:",
+      fileName
+    );
 
     const {
-      data,
       error
     } =
       await supabaseClient
@@ -525,20 +593,24 @@
           file,
           {
             cacheControl: "3600",
-            upsert: false
+            upsert: false,
+            contentType: file.type
           }
         );
 
-
     if (error) {
+
+      console.error(
+        "Storage error:",
+        error
+      );
 
       throw new Error(
         "Image upload failed: " +
-        error.message
+        getErrorMessage(error)
       );
 
     }
-
 
     const {
       data: publicData
@@ -548,27 +620,110 @@
         .from(BUCKET_NAME)
         .getPublicUrl(fileName);
 
-
     if (
       !publicData ||
       !publicData.publicUrl
     ) {
 
       throw new Error(
-        "Could not create public image URL."
+        "Image uploaded, but public URL could not be created."
       );
 
     }
 
+    console.log(
+      "Image URL:",
+      publicData.publicUrl
+    );
 
     return publicData.publicUrl;
 
   }
 
 
-  /* ==========================================
-     ADD OR UPDATE PRODUCT
-  ========================================== */
+  /* =====================================================
+     TEST DATABASE CONNECTION
+  ===================================================== */
+
+  async function testConnection() {
+
+    connectionStatus.textContent =
+      "Testing connection to Supabase...";
+
+    connectionStatus.className =
+      "connection-box";
+
+    try {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("products")
+          .select("id")
+          .limit(1);
+
+      if (error) {
+
+        console.error(
+          "Connection/database error:",
+          error
+        );
+
+        connectionStatus.innerHTML =
+          "❌ Supabase connected, but the products table could not be read.<br><br>" +
+          "<strong>Error:</strong> " +
+          escapeHtml(
+            getErrorMessage(error)
+          );
+
+        connectionStatus.className =
+          "connection-box connection-error";
+
+        return false;
+
+      }
+
+      connectionStatus.innerHTML =
+        "✅ Supabase connection is working.<br>" +
+        "✅ The products table can be read.<br>" +
+        "Products returned by test: " +
+        data.length;
+
+      connectionStatus.className =
+        "connection-box connection-ok";
+
+      return true;
+
+    }
+    catch (error) {
+
+      console.error(
+        "Connection test failed:",
+        error
+      );
+
+      connectionStatus.innerHTML =
+        "❌ Connection test failed.<br><br>" +
+        "<strong>Error:</strong> " +
+        escapeHtml(
+          getErrorMessage(error)
+        );
+
+      connectionStatus.className =
+        "connection-box connection-error";
+
+      return false;
+
+    }
+
+  }
+
+
+  /* =====================================================
+     ADD / UPDATE PRODUCT
+  ===================================================== */
 
   form.addEventListener(
     "submit",
@@ -576,10 +731,8 @@
 
       event.preventDefault();
 
-
       submitButton.disabled =
         true;
-
 
       try {
 
@@ -589,7 +742,6 @@
             .value
             .trim();
 
-
         const price =
           Number(
             document
@@ -597,19 +749,16 @@
               .value
           );
 
-
         const category =
           document
             .getElementById("category")
             .value;
-
 
         const description =
           document
             .getElementById("description")
             .value
             .trim();
-
 
         const imageFile =
           imageInput.files[0];
@@ -618,62 +767,46 @@
         /* VALIDATION */
 
         if (!name) {
-
           throw new Error(
             "Please enter the product name."
           );
-
         }
 
-
-        if (!price || price <= 0) {
-
+        if (!Number.isFinite(price) || price <= 0) {
           throw new Error(
             "Please enter a valid price."
           );
-
         }
 
-
         if (!category) {
-
           throw new Error(
             "Please select a category."
           );
-
         }
 
-
         if (!description) {
-
           throw new Error(
             "Please enter a description."
           );
-
         }
 
 
-        /* =====================================
-           UPDATE PRODUCT
-        ===================================== */
+        /* =================================================
+           UPDATE
+        ================================================= */
 
-        if (editingProductId) {
+        if (editingProductId !== null) {
 
           submitButton.textContent =
             "Updating Product...";
-
 
           showMessage(
             "Updating product...",
             "info"
           );
 
-
           let imageUrl =
             oldImageUrl;
-
-
-          /* Replace image only if new image selected */
 
           if (imageFile) {
 
@@ -682,14 +815,12 @@
               "info"
             );
 
-
             imageUrl =
               await uploadImage(
                 imageFile
               );
 
           }
-
 
           const {
             data,
@@ -710,41 +841,50 @@
               )
               .select();
 
-
           if (error) {
+
+            console.error(
+              "Update error:",
+              error
+            );
 
             throw new Error(
               "Product update failed: " +
-              error.message
+              getErrorMessage(error)
             );
 
           }
 
+          if (!data || data.length === 0) {
+
+            throw new Error(
+              "The update affected 0 rows. Check the products table RLS UPDATE policy."
+            );
+
+          }
 
           console.log(
             "Product updated:",
             data
           );
 
-
           showMessage(
             "✅ Product updated successfully!",
             "success"
           );
 
-
           resetForm();
 
-          loadProducts();
+          await loadProducts();
 
           return;
 
         }
 
 
-        /* =====================================
+        /* =================================================
            ADD NEW PRODUCT
-        ===================================== */
+        ================================================= */
 
         if (!imageFile) {
 
@@ -754,28 +894,23 @@
 
         }
 
-
         submitButton.textContent =
           "Adding Product...";
-
 
         showMessage(
           "Uploading product image...",
           "info"
         );
 
-
         const imageUrl =
           await uploadImage(
             imageFile
           );
 
-
         showMessage(
           "Saving product to database...",
           "info"
         );
-
 
         const {
           data,
@@ -794,32 +929,41 @@
             ])
             .select();
 
-
         if (error) {
 
+          console.error(
+            "Insert error:",
+            error
+          );
+
           throw new Error(
-            "Database error: " +
-            error.message
+            "Database insert failed: " +
+            getErrorMessage(error)
           );
 
         }
 
+        if (!data || data.length === 0) {
+
+          throw new Error(
+            "Product insert returned no row."
+          );
+
+        }
 
         console.log(
           "Product added:",
           data
         );
 
-
         showMessage(
           "✅ Product added successfully!",
           "success"
         );
 
-
         resetForm();
 
-        loadProducts();
+        await loadProducts();
 
       }
 
@@ -830,9 +974,9 @@
           error
         );
 
-
         showMessage(
-          "❌ " + error.message,
+          "❌ " +
+          getErrorMessage(error),
           "error"
         );
 
@@ -843,8 +987,9 @@
         submitButton.disabled =
           false;
 
-
-        if (editingProductId) {
+        if (
+          editingProductId !== null
+        ) {
 
           submitButton.textContent =
             "Update Product";
@@ -862,124 +1007,188 @@
   );
 
 
-  /* ==========================================
+  /* =====================================================
      LOAD PRODUCTS
-  ========================================== */
+  ===================================================== */
 
   async function loadProducts() {
 
     productsList.innerHTML =
       "<p>Loading products...</p>";
 
+    console.log(
+      "Loading products..."
+    );
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("products")
-        .select("*")
-        .order(
-          "id",
-          {
-            ascending: false
-          }
-        );
+    try {
 
-
-    if (error) {
-
-      console.error(error);
-
-      productsList.innerHTML =
-        "<p style='color:red;'>Could not load products: " +
-        error.message +
-        "</p>";
-
-      return;
-
-    }
-
-
-    if (!data || data.length === 0) {
-
-      productsList.innerHTML =
-        "<p>No products found.</p>";
-
-      return;
-
-    }
-
-
-    productsList.innerHTML =
-      "";
-
-
-    data.forEach(
-      function(product) {
-
-        const card =
-          document.createElement(
-            "div"
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("products")
+          .select(
+            "id,name,price,image,description,category"
+          )
+          .order(
+            "id",
+            {
+              ascending: false
+            }
           );
 
+      console.log(
+        "Products response:",
+        {
+          data: data,
+          error: error
+        }
+      );
 
-        card.className =
-          "product-card";
+      if (error) {
 
+        productsList.innerHTML =
+          "<p style='color:red;'>" +
+          "<strong>Could not load products.</strong><br><br>" +
+          escapeHtml(
+            getErrorMessage(error)
+          ) +
+          "</p>";
 
-        card.innerHTML = `
-
-          <img
-            src="${product.image || ""}"
-            alt="${escapeHtml(product.name)}"
-            onerror="this.style.display='none'"
-          >
-
-          <h3>
-            ${escapeHtml(product.name)}
-          </h3>
-
-          <div class="price">
-            KSh ${Number(product.price).toLocaleString()}
-          </div>
-
-          <div class="category">
-            ${escapeHtml(product.category || "")}
-          </div>
-
-          <p>
-            ${escapeHtml(product.description || "")}
-          </p>
-
-          <button
-            class="edit-btn"
-            onclick="editProduct('${product.id}')"
-          >
-            Edit Product
-          </button>
-
-          <button
-            class="delete-btn"
-            onclick="deleteProduct('${product.id}')"
-          >
-            Delete Product
-          </button>
-
-        `;
-
-
-        productsList.appendChild(card);
+        return;
 
       }
-    );
+
+      if (!data) {
+
+        productsList.innerHTML =
+          "<p style='color:red;'>" +
+          "Supabase returned no data object." +
+          "</p>";
+
+        return;
+
+      }
+
+      if (data.length === 0) {
+
+        productsList.innerHTML =
+          "<p>No products found in the database.</p>";
+
+        return;
+
+      }
+
+      productsList.innerHTML =
+        "";
+
+      data.forEach(
+        function(product) {
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+          card.className =
+            "product-card";
+
+          const imageHtml =
+            product.image
+              ?
+              `
+              <img
+                src="${escapeHtml(product.image)}"
+                alt="${escapeHtml(product.name)}"
+                onerror="this.style.display='none'"
+              >
+              `
+              :
+              `
+              <div
+                style="
+                  height:180px;
+                  background:#f3f4f6;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  border-radius:8px;
+                  color:#666;
+                "
+              >
+                No image
+              </div>
+              `;
+
+          card.innerHTML = `
+
+            ${imageHtml}
+
+            <h3>
+              ${escapeHtml(product.name)}
+            </h3>
+
+            <div class="price">
+              KSh ${Number(product.price).toLocaleString()}
+            </div>
+
+            <div class="category">
+              ${escapeHtml(product.category || "")}
+            </div>
+
+            <p>
+              ${escapeHtml(product.description || "")}
+            </p>
+
+            <button
+              class="edit-btn"
+              onclick="editProduct('${escapeHtml(String(product.id))}')"
+            >
+              Edit Product
+            </button>
+
+            <button
+              class="delete-btn"
+              onclick="deleteProduct('${escapeHtml(String(product.id))}')"
+            >
+              Delete Product
+            </button>
+
+          `;
+
+          productsList.appendChild(
+            card
+          );
+
+        }
+      );
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "LOAD PRODUCTS ERROR:",
+        error
+      );
+
+      productsList.innerHTML =
+        "<p style='color:red;'>" +
+        "<strong>Unexpected error:</strong><br><br>" +
+        escapeHtml(
+          getErrorMessage(error)
+        ) +
+        "</p>";
+
+    }
 
   }
 
 
-  /* ==========================================
+  /* =====================================================
      ESCAPE HTML
-  ========================================== */
+  ===================================================== */
 
   function escapeHtml(value) {
 
@@ -993,9 +1202,9 @@
   }
 
 
-  /* ==========================================
+  /* =====================================================
      EDIT PRODUCT
-  ========================================== */
+  ===================================================== */
 
   window.editProduct =
     async function(productId) {
@@ -1005,111 +1214,131 @@
         "info"
       );
 
+      try {
 
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("products")
-          .select("*")
-          .eq(
-            "id",
-            productId
-          )
-          .single();
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("products")
+            .select(
+              "id,name,price,image,description,category"
+            )
+            .eq(
+              "id",
+              productId
+            )
+            .single();
 
+        if (error) {
 
-      if (error) {
+          throw new Error(
+            "Could not load product: " +
+            getErrorMessage(error)
+          );
+
+        }
+
+        if (!data) {
+
+          throw new Error(
+            "Product was not found."
+          );
+
+        }
+
+        editingProductId =
+          data.id;
+
+        oldImageUrl =
+          data.image || null;
+
+        document
+          .getElementById("name")
+          .value =
+          data.name || "";
+
+        document
+          .getElementById("price")
+          .value =
+          data.price || "";
+
+        document
+          .getElementById("category")
+          .value =
+          data.category || "";
+
+        document
+          .getElementById("description")
+          .value =
+          data.description || "";
+
+        imageInput.value =
+          "";
+
+        if (data.image) {
+
+          imagePreview.src =
+            data.image;
+
+          imagePreview.style.display =
+            "block";
+
+        }
+        else {
+
+          imagePreview.src =
+            "";
+
+          imagePreview.style.display =
+            "none";
+
+        }
+
+        formTitle.textContent =
+          "Update Product";
+
+        submitButton.textContent =
+          "Update Product";
+
+        cancelButton.classList.remove(
+          "hidden"
+        );
 
         showMessage(
-          "❌ Could not load product: " +
-          error.message,
+          "You are now editing this product.",
+          "info"
+        );
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "EDIT ERROR:",
+          error
+        );
+
+        showMessage(
+          "❌ " +
+          getErrorMessage(error),
           "error"
         );
 
-        return;
-
       }
-
-
-      editingProductId =
-        data.id;
-
-
-      oldImageUrl =
-        data.image;
-
-
-      document
-        .getElementById("name")
-        .value =
-        data.name || "";
-
-
-      document
-        .getElementById("price")
-        .value =
-        data.price || "";
-
-
-      document
-        .getElementById("category")
-        .value =
-        data.category || "";
-
-
-      document
-        .getElementById("description")
-        .value =
-        data.description || "";
-
-
-      imageInput.value =
-        "";
-
-
-      if (data.image) {
-
-        imagePreview.src =
-          data.image;
-
-        imagePreview.style.display =
-          "block";
-
-      }
-
-
-      formTitle.textContent =
-        "Update Product";
-
-
-      submitButton.textContent =
-        "Update Product";
-
-
-      cancelButton.classList.remove(
-        "hidden"
-      );
-
-
-      showMessage(
-        "You are now editing this product.",
-        "info"
-      );
-
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
 
     };
 
 
-  /* ==========================================
+  /* =====================================================
      DELETE PRODUCT
-  ========================================== */
+  ===================================================== */
 
   window.deleteProduct =
     async function(productId) {
@@ -1119,59 +1348,67 @@
           "Are you sure you want to delete this product?"
         );
 
-
       if (!confirmed) {
-
         return;
-
       }
-
 
       showMessage(
         "Deleting product...",
         "info"
       );
 
+      try {
 
-      const {
-        error
-      } =
-        await supabaseClient
-          .from("products")
-          .delete()
-          .eq(
-            "id",
-            productId
+        const {
+          error
+        } =
+          await supabaseClient
+            .from("products")
+            .delete()
+            .eq(
+              "id",
+              productId
+            );
+
+        if (error) {
+
+          throw new Error(
+            "Delete failed: " +
+            getErrorMessage(error)
           );
 
-
-      if (error) {
+        }
 
         showMessage(
-          "❌ Delete failed: " +
-          error.message,
-          "error"
+          "✅ Product deleted successfully!",
+          "success"
         );
 
-        return;
+        await loadProducts();
 
       }
 
+      catch (error) {
 
-      showMessage(
-        "✅ Product deleted successfully!",
-        "success"
-      );
+        console.error(
+          "DELETE ERROR:",
+          error
+        );
 
+        showMessage(
+          "❌ " +
+          getErrorMessage(error),
+          "error"
+        );
 
-      loadProducts();
+      }
 
     };
 
 
-  /* ==========================================
+  /* =====================================================
      CANCEL UPDATE
-  ========================================== */
+  ===================================================== */
 
   cancelButton.addEventListener(
     "click",
@@ -1188,38 +1425,31 @@
   );
 
 
-  /* ==========================================
+  /* =====================================================
      RESET FORM
-  ========================================== */
+  ===================================================== */
 
   function resetForm() {
 
     form.reset();
 
-
     editingProductId =
       null;
-
 
     oldImageUrl =
       null;
 
-
     imagePreview.src =
       "";
-
 
     imagePreview.style.display =
       "none";
 
-
     formTitle.textContent =
       "Add New Product";
 
-
     submitButton.textContent =
       "Add Product";
-
 
     cancelButton.classList.add(
       "hidden"
@@ -1228,28 +1458,50 @@
   }
 
 
-  /* ==========================================
-     REFRESH PRODUCTS
-  ========================================== */
+  /* =====================================================
+     REFRESH
+  ===================================================== */
 
   refreshButton.addEventListener(
     "click",
-    function() {
+    async function() {
 
-      loadProducts();
+      await loadProducts();
 
     }
   );
 
 
-  /* ==========================================
-     INITIAL LOAD
-  ========================================== */
+  /* =====================================================
+     INITIAL STARTUP
+  ===================================================== */
 
-  loadProducts();
+  async function startAdmin() {
+
+    console.log(
+      "Swalleh Empire Admin starting..."
+    );
+
+    console.log(
+      "Supabase URL:",
+      SUPABASE_URL
+    );
+
+    console.log(
+      "Bucket:",
+      BUCKET_NAME
+    );
+
+    await testConnection();
+
+    await loadProducts();
+
+  }
+
+
+  startAdmin();
 
 </script>
 
 </body>
 </html>
-```
