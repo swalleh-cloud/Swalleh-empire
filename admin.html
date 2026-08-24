@@ -361,7 +361,6 @@
   const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
 
-
   const supabaseClient =
     window.supabase.createClient(
       SUPABASE_URL,
@@ -370,10 +369,11 @@
 
 
   /* ==========================================
-     BUCKET NAME
+     BUCKET
   ========================================== */
 
-  const BUCKET_NAME = "product-images";
+  const BUCKET_NAME =
+    "product-images";
 
 
   /* ==========================================
@@ -414,7 +414,7 @@
 
 
   /* ==========================================
-     SHOW MESSAGE
+     MESSAGE
   ========================================== */
 
   function showMessage(text, type) {
@@ -462,7 +462,7 @@
 
 
   /* ==========================================
-     CREATE IMAGE NAME
+     IMAGE NAME
   ========================================== */
 
   function createImageName(file) {
@@ -499,23 +499,43 @@
     const fileName =
       createImageName(file);
 
+
+    showMessage(
+      "Uploading product image...",
+      "info"
+    );
+
+
+    /*
+      IMPORTANT:
+      Upload directly to the existing
+      product-images bucket.
+    */
+
     const {
       data,
       error
     } =
       await supabaseClient
         .storage
-        .from(BUCKET_NAME)
+        .from("product-images")
         .upload(
           fileName,
           file,
           {
             cacheControl: "3600",
-            upsert: false
+            upsert: false,
+            contentType: file.type
           }
         );
 
+
     if (error) {
+
+      console.error(
+        "STORAGE UPLOAD ERROR:",
+        error
+      );
 
       throw new Error(
         "Image upload failed: " +
@@ -524,13 +544,15 @@
 
     }
 
+
     const {
       data: publicData
     } =
       supabaseClient
         .storage
-        .from(BUCKET_NAME)
+        .from("product-images")
         .getPublicUrl(fileName);
+
 
     if (
       !publicData ||
@@ -543,13 +565,14 @@
 
     }
 
+
     return publicData.publicUrl;
 
   }
 
 
   /* ==========================================
-     ADD / UPDATE PRODUCT
+     ADD / UPDATE
   ========================================== */
 
   form.addEventListener(
@@ -558,7 +581,8 @@
 
       event.preventDefault();
 
-      submitButton.disabled = true;
+      submitButton.disabled =
+        true;
 
       try {
 
@@ -591,51 +615,56 @@
 
 
         if (!name) {
+
           throw new Error(
             "Please enter the product name."
           );
+
         }
 
+
         if (!price || price <= 0) {
+
           throw new Error(
             "Please enter a valid price."
           );
+
         }
 
+
         if (!category) {
+
           throw new Error(
             "Please select a category."
           );
+
         }
 
+
         if (!description) {
+
           throw new Error(
             "Please enter a description."
           );
+
         }
 
 
-        /* UPDATE */
+        /* =====================================
+           UPDATE
+        ===================================== */
 
         if (editingProductId) {
 
           submitButton.textContent =
             "Updating Product...";
 
-          showMessage(
-            "Updating product...",
-            "info"
-          );
 
           let imageUrl =
             oldImageUrl;
 
-          if (imageFile) {
 
-            showMessage(
-              "Uploading new product image...",
-              "info"
-            );
+          if (imageFile) {
 
             imageUrl =
               await uploadImage(
@@ -643,6 +672,13 @@
               );
 
           }
+
+
+          showMessage(
+            "Saving product changes...",
+            "info"
+          );
+
 
           const {
             data,
@@ -663,6 +699,7 @@
               )
               .select();
 
+
           if (error) {
 
             throw new Error(
@@ -672,15 +709,18 @@
 
           }
 
+
           console.log(
             "Product updated:",
             data
           );
 
+
           showMessage(
             "✅ Product updated successfully!",
             "success"
           );
+
 
           resetForm();
 
@@ -691,7 +731,9 @@
         }
 
 
-        /* ADD */
+        /* =====================================
+           ADD
+        ===================================== */
 
         if (!imageFile) {
 
@@ -701,23 +743,22 @@
 
         }
 
+
         submitButton.textContent =
           "Adding Product...";
 
-        showMessage(
-          "Uploading product image...",
-          "info"
-        );
 
         const imageUrl =
           await uploadImage(
             imageFile
           );
 
+
         showMessage(
           "Saving product to database...",
           "info"
         );
+
 
         const {
           data,
@@ -736,6 +777,7 @@
             ])
             .select();
 
+
         if (error) {
 
           throw new Error(
@@ -745,15 +787,18 @@
 
         }
 
+
         console.log(
           "Product added:",
           data
         );
 
+
         showMessage(
           "✅ Product added successfully!",
           "success"
         );
+
 
         resetForm();
 
@@ -768,6 +813,7 @@
           error
         );
 
+
         showMessage(
           "❌ " + error.message,
           "error"
@@ -779,6 +825,7 @@
 
         submitButton.disabled =
           false;
+
 
         if (editingProductId) {
 
@@ -807,6 +854,7 @@
     productsList.innerHTML =
       "<p>Loading products...</p>";
 
+
     const {
       data,
       error
@@ -821,6 +869,7 @@
           }
         );
 
+
     if (error) {
 
       console.error(error);
@@ -834,6 +883,7 @@
 
     }
 
+
     if (!data || data.length === 0) {
 
       productsList.innerHTML =
@@ -843,8 +893,10 @@
 
     }
 
+
     productsList.innerHTML =
       "";
+
 
     data.forEach(
       function(product) {
@@ -854,8 +906,10 @@
             "div"
           );
 
+
         card.className =
           "product-card";
+
 
         card.innerHTML = `
 
@@ -897,6 +951,7 @@
 
         `;
 
+
         productsList.appendChild(card);
 
       }
@@ -933,6 +988,7 @@
         "info"
       );
 
+
       const {
         data,
         error
@@ -946,6 +1002,7 @@
           )
           .single();
 
+
       if (error) {
 
         showMessage(
@@ -958,34 +1015,42 @@
 
       }
 
+
       editingProductId =
         data.id;
 
+
       oldImageUrl =
         data.image;
+
 
       document
         .getElementById("name")
         .value =
         data.name || "";
 
+
       document
         .getElementById("price")
         .value =
         data.price || "";
+
 
       document
         .getElementById("category")
         .value =
         data.category || "";
 
+
       document
         .getElementById("description")
         .value =
         data.description || "";
 
+
       imageInput.value =
         "";
+
 
       if (data.image) {
 
@@ -997,20 +1062,25 @@
 
       }
 
+
       formTitle.textContent =
         "Update Product";
 
+
       submitButton.textContent =
         "Update Product";
+
 
       cancelButton.classList.remove(
         "hidden"
       );
 
+
       showMessage(
         "You are now editing this product.",
         "info"
       );
+
 
       window.scrollTo({
         top: 0,
@@ -1021,7 +1091,7 @@
 
 
   /* ==========================================
-     DELETE PRODUCT
+     DELETE
   ========================================== */
 
   window.deleteProduct =
@@ -1032,14 +1102,17 @@
           "Are you sure you want to delete this product?"
         );
 
+
       if (!confirmed) {
         return;
       }
+
 
       showMessage(
         "Deleting product...",
         "info"
       );
+
 
       const {
         error
@@ -1051,6 +1124,7 @@
             "id",
             productId
           );
+
 
       if (error) {
 
@@ -1064,10 +1138,12 @@
 
       }
 
+
       showMessage(
         "✅ Product deleted successfully!",
         "success"
       );
+
 
       loadProducts();
 
@@ -1075,7 +1151,7 @@
 
 
   /* ==========================================
-     CANCEL UPDATE
+     CANCEL
   ========================================== */
 
   cancelButton.addEventListener(
@@ -1094,7 +1170,7 @@
 
 
   /* ==========================================
-     RESET FORM
+     RESET
   ========================================== */
 
   function resetForm() {
@@ -1141,7 +1217,7 @@
 
 
   /* ==========================================
-     INITIAL LOAD
+     START
   ========================================== */
 
   loadProducts();
