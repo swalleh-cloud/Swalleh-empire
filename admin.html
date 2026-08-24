@@ -6,25 +6,37 @@
 
   <title>Swalleh Empire - Admin</title>
 
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      background: #f3f4f6;
       margin: 0;
-      padding: 0;
     }
 
     header {
       background: #111827;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      margin: 0 0 5px;
+    }
+
+    header p {
+      margin: 0;
+      color: #d1d5db;
     }
 
     .container {
+      width: 95%;
       max-width: 650px;
       margin: 30px auto;
       background: white;
@@ -35,12 +47,13 @@
 
     h2 {
       text-align: center;
+      margin-top: 0;
     }
 
     label {
       display: block;
-      margin-top: 15px;
-      margin-bottom: 6px;
+      margin-top: 18px;
+      margin-bottom: 7px;
       font-weight: bold;
     }
 
@@ -48,22 +61,21 @@
     textarea,
     select {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       border: 1px solid #ccc;
       border-radius: 7px;
       font-size: 16px;
-      box-sizing: border-box;
     }
 
     textarea {
-      height: 100px;
+      min-height: 110px;
       resize: vertical;
     }
 
     button {
       width: 100%;
-      margin-top: 20px;
-      padding: 14px;
+      margin-top: 22px;
+      padding: 15px;
       background: #16a34a;
       color: white;
       border: none;
@@ -77,271 +89,501 @@
       background: #15803d;
     }
 
+    button:disabled {
+      background: #888;
+      cursor: not-allowed;
+    }
+
     #message {
-      margin-top: 15px;
+      margin-top: 18px;
+      padding: 12px;
       text-align: center;
       font-weight: bold;
+      border-radius: 7px;
+      display: none;
+    }
+
+    .success {
+      display: block !important;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .error {
+      display: block !important;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .info {
+      display: block !important;
+      background: #dbeafe;
+      color: #1e40af;
     }
 
     .back {
       display: block;
       text-align: center;
-      margin-top: 20px;
-      text-decoration: none;
+      margin-top: 22px;
       color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .preview {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .preview img {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 8px;
+      display: none;
+      margin: auto;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Swalleh Empire</h1>
-    <p>Admin Product Manager</p>
-  </header>
+<header>
+  <h1>Swalleh Empire</h1>
+  <p>Admin Product Manager</p>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <h2>Add New Product</h2>
+  <h2>Add New Product</h2>
 
-    <form id="productForm">
+  <form id="productForm">
 
-      <label>Product Name</label>
-      <input
-        type="text"
-        id="name"
-        placeholder="Example: Fujitsu Core i3 8th Gen"
-        required
-      >
+    <label for="name">Product Name</label>
 
-      <label>Price (KSh)</label>
-      <input
-        type="number"
-        id="price"
-        placeholder="Example: 15000"
-        required
-      >
-
-      <label>Category</label>
-      <select id="category" required>
-        <option value="">Select category</option>
-        <option value="phones">Phones</option>
-        <option value="chargers">Chargers</option>
-        <option value="power banks">Power Banks</option>
-        <option value="screen protectors">Screen Protectors</option>
-        <option value="audio">Audio System & Headphones</option>
-        <option value="smart watches">Smart Watches</option>
-        <option value="television">Television</option>
-        <option value="laptops">Laptops</option>
-        <option value="house appliances">House Appliances</option>
-        <option value="subwoofers">Subwoofers</option>
-        <option value="bluetooth speakers">Bluetooth Speakers</option>
-        <option value="neckband">Neckband</option>
-        <option value="phone cases">Phone Cases</option>
-        <option value="shavers">Shavers</option>
-        <option value="usb cables">USB Cables</option>
-        <option value="earphones">Earphones</option>
-        <option value="wall bracket">Wall Bracket</option>
-        <option value="ironboxes">Iron Boxes</option>
-        <option value="charger controller">Charger Controller</option>
-        <option value="earpods">Earpods</option>
-        <option value="earbuds">Earbuds</option>
-        <option value="decoders">Decoders</option>
-        <option value="headphones">Headphones</option>
-        <option value="batteries">Batteries</option>
-        <option value="gaming accessories">Gaming Accessories</option>
-        <option value="solars">Solars</option>
-        <option value="tablets">Tablets</option>
-      </select>
-
-      <label>Description</label>
-      <textarea
-        id="description"
-        placeholder="Enter product description..."
-        required
-      ></textarea>
-
-      <label>Product Image</label>
-      <input
-        type="file"
-        id="image"
-        accept="image/*"
-        required
-      >
-
-      <button type="submit">
-        Add Product
-      </button>
-
-    </form>
-
-    <div id="message"></div>
-
-    <a href="index.html" class="back">
-      ← Back to Swalleh Empire
-    </a>
-
-  </div>
+    <input
+      type="text"
+      id="name"
+      placeholder="Example: Fujitsu Core i3 8th Gen"
+      required
+    >
 
 
-  <script>
+    <label for="price">Price (KSh)</label>
 
-    // ==========================================
-    // YOUR SUPABASE DETAILS
-    // ==========================================
+    <input
+      type="number"
+      id="price"
+      placeholder="Example: 15000"
+      min="0"
+      required
+    >
 
-    const SUPABASE_URL = "https://rbgqqtayaexgyhozufpg.supabase.co";
 
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
+    <label for="category">Category</label>
+
+    <select id="category" required>
+
+      <option value="">Select category</option>
+
+      <option value="phones">Phones</option>
+      <option value="chargers">Chargers</option>
+      <option value="power banks">Power Banks</option>
+      <option value="screen protectors">Screen Protectors</option>
+      <option value="audio">Audio System & Headphones</option>
+      <option value="smart watches">Smart Watches</option>
+      <option value="television">Television</option>
+      <option value="laptops">Laptops</option>
+      <option value="house appliances">House Appliances</option>
+      <option value="subwoofers">Subwoofers</option>
+      <option value="bluetooth speakers">Bluetooth Speakers</option>
+      <option value="neckband">Neckband</option>
+      <option value="phone cases">Phone Cases</option>
+      <option value="shavers">Shavers</option>
+      <option value="usb cables">USB Cables</option>
+      <option value="earphones">Earphones</option>
+      <option value="wall bracket">Wall Bracket</option>
+      <option value="ironboxes">Iron Boxes</option>
+      <option value="charger controller">Charger Controller</option>
+      <option value="earpods">Earpods</option>
+      <option value="earbuds">Earbuds</option>
+      <option value="decoders">Decoders</option>
+      <option value="headphones">Headphones</option>
+      <option value="batteries">Batteries</option>
+      <option value="gaming accessories">Gaming Accessories</option>
+      <option value="solars">Solars</option>
+      <option value="tablets">Tablets</option>
+
+    </select>
 
 
-    // Connect to Supabase
+    <label for="description">Description</label>
 
-    const supabase = window.supabase.createClient(
+    <textarea
+      id="description"
+      placeholder="Enter product description..."
+      required
+    ></textarea>
+
+
+    <label for="image">Product Image</label>
+
+    <input
+      type="file"
+      id="image"
+      accept="image/*"
+      required
+    >
+
+    <div class="preview">
+      <img id="imagePreview" alt="Image preview">
+    </div>
+
+
+    <button type="submit" id="submitButton">
+      Add Product
+    </button>
+
+  </form>
+
+
+  <div id="message"></div>
+
+
+  <a href="index.html" class="back">
+    ← Back to Swalleh Empire
+  </a>
+
+</div>
+
+
+<script>
+
+  /* ==========================================
+     SUPABASE CONNECTION
+  ========================================== */
+
+  const SUPABASE_URL =
+    "https://rbgqqtayaexgyhozufpg.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
+
+
+  const supabaseClient =
+    window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_PUBLISHABLE_KEY
     );
 
 
-    // ==========================================
-    // ADD PRODUCT
-    // ==========================================
+  /* ==========================================
+     ELEMENTS
+  ========================================== */
 
-    document
-      .getElementById("productForm")
-      .addEventListener("submit", async function(event) {
+  const form =
+    document.getElementById("productForm");
 
-        event.preventDefault();
+  const message =
+    document.getElementById("message");
 
-        const message =
-          document.getElementById("message");
+  const submitButton =
+    document.getElementById("submitButton");
 
-        message.textContent = "Adding product...";
+  const imageInput =
+    document.getElementById("image");
 
-
-        const name =
-          document.getElementById("name").value.trim();
-
-        const price =
-          document.getElementById("price").value;
-
-        const category =
-          document.getElementById("category").value;
-
-        const description =
-          document.getElementById("description").value.trim();
-
-        const imageFile =
-          document.getElementById("image").files[0];
+  const imagePreview =
+    document.getElementById("imagePreview");
 
 
-        if (!imageFile) {
-          message.textContent =
-            "Please select an image.";
+  /* ==========================================
+     SHOW MESSAGE
+  ========================================== */
 
-          return;
-        }
+  function showMessage(text, type) {
 
+    message.textContent = text;
 
-        try {
+    message.className = type;
 
-          // Create unique image name
-
-          const extension =
-            imageFile.name.split(".").pop();
-
-          const fileName =
-            Date.now() +
-            "-" +
-            Math.random()
-              .toString(36)
-              .substring(2) +
-            "." +
-            extension;
+  }
 
 
-          // ==========================================
-          // UPLOAD IMAGE
-          // ==========================================
+  /* ==========================================
+     IMAGE PREVIEW
+  ========================================== */
 
-          const { error: uploadError } =
-            await supabase.storage
-              .from("product-images")
-              .upload(
-                fileName,
-                imageFile
-              );
+  imageInput.addEventListener("change", function() {
 
+    const file = imageInput.files[0];
 
-          if (uploadError) {
-            throw uploadError;
-          }
+    if (!file) {
 
+      imagePreview.style.display = "none";
 
-          // ==========================================
-          // GET IMAGE URL
-          // ==========================================
+      return;
 
-          const { data: publicUrlData } =
-            supabase.storage
-              .from("product-images")
-              .getPublicUrl(fileName);
+    }
 
+    const reader = new FileReader();
 
-          const imageUrl =
-            publicUrlData.publicUrl;
+    reader.onload = function(event) {
 
+      imagePreview.src = event.target.result;
 
-          // ==========================================
-          // SAVE PRODUCT
-          // ==========================================
+      imagePreview.style.display = "block";
 
-          const { error: insertError } =
-            await supabase
-              .from("products")
-              .insert([
-                {
-                  name: name,
-                  price: Number(price),
-                  image: imageUrl,
-                  description: description,
-                  category: category
-                }
-              ]);
+    };
+
+    reader.readAsDataURL(file);
+
+  });
 
 
-          if (insertError) {
-            throw insertError;
-          }
+  /* ==========================================
+     ADD PRODUCT
+  ========================================== */
+
+  form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    submitButton.disabled = true;
+
+    submitButton.textContent = "Adding Product...";
+
+    showMessage(
+      "Please wait... uploading product.",
+      "info"
+    );
 
 
-          // Success
+    try {
 
-          message.textContent =
-            "✅ Product added successfully!";
+      /* GET FORM VALUES */
+
+      const name =
+        document.getElementById("name")
+          .value
+          .trim();
+
+      const price =
+        Number(
+          document.getElementById("price").value
+        );
+
+      const category =
+        document.getElementById("category").value;
+
+      const description =
+        document.getElementById("description")
+          .value
+          .trim();
+
+      const imageFile =
+        imageInput.files[0];
 
 
-          // Clear form
+      /* VALIDATION */
 
-          document
-            .getElementById("productForm")
-            .reset();
+      if (!name) {
+        throw new Error("Please enter the product name.");
+      }
 
-        }
+      if (!price || price <= 0) {
+        throw new Error("Please enter a valid price.");
+      }
 
-        catch (error) {
+      if (!category) {
+        throw new Error("Please select a category.");
+      }
 
-          console.error(error);
+      if (!description) {
+        throw new Error("Please enter a description.");
+      }
 
-          message.textContent =
-            "❌ Error: " + error.message;
+      if (!imageFile) {
+        throw new Error("Please select a product image.");
+      }
 
-        }
 
-      });
+      /* ==========================================
+         CREATE UNIQUE IMAGE NAME
+      ========================================== */
 
-  </script>
+      const fileExtension =
+        imageFile.name
+          .split(".")
+          .pop()
+          .toLowerCase();
+
+      const fileName =
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(2, 10) +
+        "." +
+        fileExtension;
+
+
+      /* ==========================================
+         UPLOAD IMAGE
+      ========================================== */
+
+      showMessage(
+        "Uploading product image...",
+        "info"
+      );
+
+
+      const {
+        data: uploadData,
+        error: uploadError
+      } =
+        await supabaseClient
+          .storage
+          .from("product-images")
+          .upload(
+            fileName,
+            imageFile,
+            {
+              cacheControl: "3600",
+              upsert: false
+            }
+          );
+
+
+      if (uploadError) {
+
+        throw new Error(
+          "Image upload failed: " +
+          uploadError.message
+        );
+
+      }
+
+
+      /* ==========================================
+         GET PUBLIC IMAGE URL
+      ========================================== */
+
+      const {
+        data: publicUrlData
+      } =
+        supabaseClient
+          .storage
+          .from("product-images")
+          .getPublicUrl(fileName);
+
+
+      if (!publicUrlData ||
+          !publicUrlData.publicUrl) {
+
+        throw new Error(
+          "Could not create image URL."
+        );
+
+      }
+
+
+      const imageUrl =
+        publicUrlData.publicUrl;
+
+
+      /* ==========================================
+         INSERT PRODUCT INTO DATABASE
+      ========================================== */
+
+      showMessage(
+        "Saving product to database...",
+        "info"
+      );
+
+
+      const {
+        data: productData,
+        error: insertError
+      } =
+        await supabaseClient
+          .from("products")
+          .insert([
+            {
+              name: name,
+              price: price,
+              image: imageUrl,
+              description: description,
+              category: category
+            }
+          ])
+          .select();
+
+
+      if (insertError) {
+
+        throw new Error(
+          "Database error: " +
+          insertError.message
+        );
+
+      }
+
+
+      /* ==========================================
+         SUCCESS
+      ========================================== */
+
+      console.log(
+        "Product added:",
+        productData
+      );
+
+
+      showMessage(
+        "✅ Product added successfully!",
+        "success"
+      );
+
+
+      /* CLEAR FORM */
+
+      form.reset();
+
+      imagePreview.src = "";
+
+      imagePreview.style.display = "none";
+
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "PRODUCT ERROR:",
+        error
+      );
+
+
+      showMessage(
+        "❌ " + error.message,
+        "error"
+      );
+
+    }
+
+    finally {
+
+      submitButton.disabled = false;
+
+      submitButton.textContent =
+        "Add Product";
+
+    }
+
+  });
+
+
+</script>
 
 </body>
 </html>
