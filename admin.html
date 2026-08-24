@@ -222,7 +222,6 @@
 
 <div class="container">
 
-  <!-- ADD / UPDATE PRODUCT -->
   <div class="box">
 
     <h2 id="formTitle">Add New Product</h2>
@@ -323,7 +322,6 @@
   </div>
 
 
-  <!-- PRODUCTS -->
   <div class="box">
 
     <h2>Existing Products</h2>
@@ -361,7 +359,8 @@
     "https://rbgqqtayaexgyhozufpg.supabase.co";
 
   const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_FC5-3_o-Bj6oQKt3SESRlg_TUeT70cl";
+    "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
+
 
   const supabaseClient =
     window.supabase.createClient(
@@ -371,7 +370,7 @@
 
 
   /* ==========================================
-     BUCKET
+     BUCKET NAME
   ========================================== */
 
   const BUCKET_NAME = "product-images";
@@ -409,17 +408,13 @@
     document.getElementById("formTitle");
 
 
-  /* ==========================================
-     EDITING STATE
-  ========================================== */
-
   let editingProductId = null;
 
   let oldImageUrl = null;
 
 
   /* ==========================================
-     MESSAGE
+     SHOW MESSAGE
   ========================================== */
 
   function showMessage(text, type) {
@@ -467,7 +462,7 @@
 
 
   /* ==========================================
-     IMAGE NAME
+     CREATE IMAGE NAME
   ========================================== */
 
   function createImageName(file) {
@@ -563,8 +558,7 @@
 
       event.preventDefault();
 
-      submitButton.disabled =
-        true;
+      submitButton.disabled = true;
 
       try {
 
@@ -596,44 +590,32 @@
           imageInput.files[0];
 
 
-        /* VALIDATION */
-
         if (!name) {
-
           throw new Error(
             "Please enter the product name."
           );
-
         }
 
         if (!price || price <= 0) {
-
           throw new Error(
             "Please enter a valid price."
           );
-
         }
 
         if (!category) {
-
           throw new Error(
             "Please select a category."
           );
-
         }
 
         if (!description) {
-
           throw new Error(
             "Please enter a description."
           );
-
         }
 
 
-        /* =====================================
-           UPDATE PRODUCT
-        ===================================== */
+        /* UPDATE */
 
         if (editingProductId) {
 
@@ -709,9 +691,7 @@
         }
 
 
-        /* =====================================
-           ADD NEW PRODUCT
-        ===================================== */
+        /* ADD */
 
         if (!imageFile) {
 
@@ -1147,7 +1127,7 @@
 
 
   /* ==========================================
-     REFRESH PRODUCTS
+     REFRESH
   ========================================== */
 
   refreshButton.addEventListener(
