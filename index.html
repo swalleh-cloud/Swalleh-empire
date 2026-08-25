@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -26,15 +26,15 @@ body{
   color:#172033;
 }
 
-button,
-input{
+button,input{
   font:inherit;
 }
 
-/* ================= TOP HEADER ================= */
+/* ================= HEADER ================= */
 
 header{
   background:
+    radial-gradient(circle at 80% 20%,rgba(96,165,250,.35),transparent 30%),
     linear-gradient(135deg,#07152f,#123b91 55%,#2563eb);
   color:white;
 }
@@ -69,9 +69,15 @@ header{
   background:#25d366;
   color:white;
   text-decoration:none;
-  padding:10px 16px;
+  padding:10px 17px;
   border-radius:25px;
   font-weight:bold;
+  transition:.2s;
+}
+
+.whatsapp-top:hover{
+  transform:translateY(-2px);
+  background:#20bd5a;
 }
 
 /* ================= NAVIGATION ================= */
@@ -101,6 +107,7 @@ header{
 
 .nav a:hover{
   opacity:1;
+  color:#bfdbfe;
 }
 
 /* ================= HERO ================= */
@@ -108,7 +115,7 @@ header{
 .hero{
   max-width:1250px;
   margin:auto;
-  padding:75px 20px 105px;
+  padding:70px 20px 110px;
   text-align:center;
 }
 
@@ -116,17 +123,18 @@ header{
   display:inline-block;
   background:rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.2);
-  padding:8px 15px;
+  padding:9px 17px;
   border-radius:30px;
   font-size:13px;
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
 
 .hero h1{
-  font-size:54px;
+  font-size:56px;
   line-height:1.08;
-  max-width:850px;
+  max-width:900px;
   margin:auto;
+  font-weight:900;
 }
 
 .hero h1 span{
@@ -152,10 +160,15 @@ header{
 .hero-btn{
   border:none;
   text-decoration:none;
-  padding:14px 24px;
+  padding:14px 25px;
   border-radius:30px;
   font-weight:bold;
   cursor:pointer;
+  transition:.2s;
+}
+
+.hero-btn:hover{
+  transform:translateY(-2px);
 }
 
 .shop-btn{
@@ -210,7 +223,7 @@ header{
   font-size:16px;
 }
 
-/* ================= QUICK STATS ================= */
+/* ================= STATS ================= */
 
 .stats{
   display:grid;
@@ -279,6 +292,29 @@ header{
 
 .section-heading p{
   color:#64748b;
+}
+
+/* ================= FEATURED ================= */
+
+.featured-section{
+  padding-top:55px;
+}
+
+.featured-badge{
+  display:inline-block;
+  background:#fff7ed;
+  color:#ea580c;
+  padding:7px 13px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.featured-products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(225px,1fr));
+  gap:20px;
 }
 
 /* ================= CATEGORIES ================= */
@@ -399,12 +435,25 @@ header{
   position:absolute;
   top:12px;
   left:12px;
-  background:#2563eb;
+  background:#16a34a;
   color:white;
   padding:5px 9px;
   border-radius:20px;
   font-size:11px;
   font-weight:bold;
+}
+
+.featured-label{
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:#f97316;
+  color:white;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+  z-index:2;
 }
 
 .no-image{
@@ -461,6 +510,7 @@ header{
   font-size:13px;
   font-weight:bold;
   cursor:pointer;
+  transition:.2s;
 }
 
 .order-btn{
@@ -613,6 +663,32 @@ header{
   font-size:16px;
 }
 
+/* ================= FLOATING WHATSAPP ================= */
+
+.whatsapp-float{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#25d366;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  font-size:28px;
+  box-shadow:0 8px 25px rgba(0,0,0,.2);
+  z-index:900;
+  transition:.25s;
+}
+
+.whatsapp-float:hover{
+  transform:scale(1.08);
+  background:#128c7e;
+}
+
 /* ================= FOOTER ================= */
 
 footer{
@@ -730,7 +806,8 @@ footer a{
     gap:10px;
   }
 
-  .products{
+  .products,
+  .featured-products{
     grid-template-columns:repeat(2,1fr);
     gap:10px;
   }
@@ -778,9 +855,16 @@ footer a{
     font-size:24px;
   }
 
+  .whatsapp-float{
+    width:52px;
+    height:52px;
+    right:15px;
+    bottom:15px;
+    font-size:25px;
+  }
+
 }
 </style>
-
 </head>
 
 <body>
@@ -791,78 +875,69 @@ footer a{
 
   <div class="topbar">
 
-```
-<div class="logo">
-  🛍️ <span>Swalleh</span> Empire
-</div>
+    <div class="logo">
+      🛍️ <span>Swalleh</span> Empire
+    </div>
 
-<div class="top-actions">
-
-  <a
-    href="https://wa.me/254724566417"
-    target="_blank"
-    class="whatsapp-top"
-  >
-    💬 WhatsApp Us
-  </a>
-
-</div>
-```
+    <div class="top-actions">
+      <a
+        href="https://wa.me/254724566417"
+        target="_blank"
+        class="whatsapp-top"
+      >
+        💬 WhatsApp Us
+      </a>
+    </div>
 
   </div>
 
   <nav class="nav">
 
-```
-<div class="nav-inner">
-
-  <a href="#home">Home</a>
-  <a href="#categoriesSection">Categories</a>
-  <a href="#catalogue">Catalogue</a>
-  <a href="#footer">Contact</a>
-
-</div>
-```
+    <div class="nav-inner">
+      <a href="#home">Home</a>
+      <a href="#featuredSection">Featured</a>
+      <a href="#categoriesSection">Categories</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#footer">Contact</a>
+    </div>
 
   </nav>
 
   <div class="hero" id="home">
 
-```
-<div class="hero-badge">
-  ⚡ Quality Electronics • Affordable Prices
-</div>
+    <div class="hero-badge">
+      ⚡ Quality Electronics • Affordable Prices
+    </div>
 
-<h1>
-  Everything You Need.<br>
-  <span>All in One Place.</span>
-</h1>
+    <h1>
+      Everything You Need.<br>
+      <span>All in One Place.</span>
+    </h1>
 
-<p>
-  Shop phones, accessories, electronics and more.
-  Browse our catalogue, choose what you want and
-  order directly through WhatsApp.
-</p>
+    <p>
+      Discover quality phones, accessories, electronics and more.
+      Browse our catalogue, choose your product and order directly
+      through WhatsApp.
+    </p>
 
-<div class="hero-buttons">
+    <div class="hero-buttons">
 
-  <a
-    href="#catalogue"
-    class="hero-btn catalogue-btn"
-  >
-    🛍️ View Catalogue
-  </a>
+      <a
+        href="#catalogue"
+        class="hero-btn catalogue-btn"
+      >
+        🛍️ View Catalogue
+      </a>
 
-  <a
-    href="https://wa.me/254724566417"
-    target="_blank"
-    class="hero-btn shop-btn"
-  >
-    💬 Chat on WhatsApp
-  </a>
+      <a
+        href="https://wa.me/254724566417"
+        target="_blank"
+        class="hero-btn shop-btn"
+      >
+        💬 Chat on WhatsApp
+      </a>
 
-</div>
-```
+    </div>
 
   </div>
 
@@ -874,20 +949,18 @@ footer a{
 
   <div class="search-area">
 
-```
-<div class="search-box">
+    <div class="search-box">
 
-  <span class="search-icon">🔍</span>
+      <span class="search-icon">🔍</span>
 
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Search phones, chargers, headphones..."
-    autocomplete="off"
-  >
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search phones, chargers, headphones..."
+        autocomplete="off"
+      >
 
-</div>
-```
+    </div>
 
   </div>
 
@@ -895,28 +968,54 @@ footer a{
 
   <div class="stats">
 
-```
-<div class="stat">
-  <strong id="productCount">0</strong>
-  <span>Products</span>
-</div>
+    <div class="stat">
+      <strong id="productCount">0</strong>
+      <span>Products</span>
+    </div>
 
-<div class="stat">
-  <strong id="categoryCount">0</strong>
-  <span>Categories</span>
-</div>
+    <div class="stat">
+      <strong id="categoryCount">0</strong>
+      <span>Categories</span>
+    </div>
 
-<div class="stat">
-  <strong>24/7</strong>
-  <span>WhatsApp Orders</span>
-</div>
-```
+    <div class="stat">
+      <strong>24/7</strong>
+      <span>WhatsApp Orders</span>
+    </div>
 
   </div>
 
   <div id="status" class="loading">
     Loading products from Swalleh Empire...
   </div>
+
+  <!-- ================= FEATURED PRODUCTS ================= -->
+
+  <section
+    id="featuredSection"
+    class="section featured-section"
+  >
+
+    <div class="section-heading">
+
+      <div class="featured-badge">
+        🔥 HANDPICKED FOR YOU
+      </div>
+
+      <h2>Featured Products</h2>
+
+      <p>
+        Check out some of our available products.
+      </p>
+
+    </div>
+
+    <div
+      id="featuredProducts"
+      class="featured-products"
+    ></div>
+
+  </section>
 
   <!-- ================= SEARCH RESULTS ================= -->
 
@@ -925,27 +1024,25 @@ footer a{
     class="section"
   >
 
-```
-<div class="section-heading">
+    <div class="section-heading">
 
-  <h2>🔎 Search Results</h2>
+      <h2>🔎 Search Results</h2>
 
-  <p id="searchMessage"></p>
+      <p id="searchMessage"></p>
 
-</div>
+    </div>
 
-<div
-  id="searchResults"
-  class="products"
-></div>
+    <div
+      id="searchResults"
+      class="products"
+    ></div>
 
-<button
-  class="back-btn"
-  onclick="clearSearch()"
->
-  ← Back to Catalogue
-</button>
-```
+    <button
+      class="back-btn"
+      onclick="clearSearch()"
+    >
+      ← Back to Catalogue
+    </button>
 
   </section>
 
@@ -956,22 +1053,20 @@ footer a{
     class="section"
   >
 
-```
-<div class="section-heading">
+    <div class="section-heading">
 
-  <h2>🛍️ Shop by Category</h2>
+      <h2>🛍️ Shop by Category</h2>
 
-  <p>
-    Find exactly what you need quickly and conveniently.
-  </p>
+      <p>
+        Find exactly what you need quickly and conveniently.
+      </p>
 
-</div>
+    </div>
 
-<div
-  id="categories"
-  class="category-grid"
-></div>
-```
+    <div
+      id="categories"
+      class="category-grid"
+    ></div>
 
   </section>
 
@@ -982,40 +1077,38 @@ footer a{
     class="section"
   >
 
-```
-<div class="section-heading">
+    <div class="section-heading">
 
-  <h2>🔥 Our Catalogue</h2>
+      <h2>🔥 Our Catalogue</h2>
 
-  <p>
-    Browse all available products from Swalleh Empire.
-  </p>
+      <p>
+        Browse all available products from Swalleh Empire.
+      </p>
 
-</div>
+    </div>
 
-<div class="products-toolbar">
+    <div class="products-toolbar">
 
-  <div
-    id="productsCountText"
-    class="products-count"
-  >
-    Showing all products
-  </div>
+      <div
+        id="productsCountText"
+        class="products-count"
+      >
+        Showing all products
+      </div>
 
-  <button
-    class="view-all-btn"
-    onclick="showAllProducts()"
-  >
-    View All Products
-  </button>
+      <button
+        class="view-all-btn"
+        onclick="showAllProducts()"
+      >
+        View All Products
+      </button>
 
-</div>
+    </div>
 
-<div
-  id="allProducts"
-  class="products"
-></div>
-```
+    <div
+      id="allProducts"
+      class="products"
+    ></div>
 
   </section>
 
@@ -1026,27 +1119,25 @@ footer a{
     class="section"
   >
 
-```
-<div class="section-heading">
+    <div class="section-heading">
 
-  <h2 id="categoryTitle"></h2>
+      <h2 id="categoryTitle"></h2>
 
-  <p id="categoryMessage"></p>
+      <p id="categoryMessage"></p>
 
-</div>
+    </div>
 
-<div
-  id="categoryProducts"
-  class="products"
-></div>
+    <div
+      id="categoryProducts"
+      class="products"
+    ></div>
 
-<button
-  class="back-btn"
-  onclick="showAllProducts()"
->
-  ← Back to All Products
-</button>
-```
+    <button
+      class="back-btn"
+      onclick="showAllProducts()"
+    >
+      ← Back to All Products
+    </button>
 
   </section>
 
@@ -1062,55 +1153,64 @@ footer a{
 
   <div class="modal-box">
 
-```
-<button
-  class="modal-close"
-  onclick="closeProductModal()"
->
-  ×
-</button>
-
-<div class="modal-content">
-
-  <div
-    id="modalImage"
-    class="modal-image"
-  ></div>
-
-  <div class="modal-details">
-
-    <div
-      id="modalCategory"
-      class="product-category"
-    ></div>
-
-    <h2 id="modalName"></h2>
-
-    <div
-      id="modalPrice"
-      class="modal-price"
-    ></div>
-
-    <p
-      id="modalDescription"
-      class="modal-description"
-    ></p>
-
     <button
-      id="modalOrderButton"
-      class="modal-order"
+      class="modal-close"
+      onclick="closeProductModal()"
     >
-      💬 Order This Product on WhatsApp
+      ×
     </button>
 
+    <div class="modal-content">
+
+      <div
+        id="modalImage"
+        class="modal-image"
+      ></div>
+
+      <div class="modal-details">
+
+        <div
+          id="modalCategory"
+          class="product-category"
+        ></div>
+
+        <h2 id="modalName"></h2>
+
+        <div
+          id="modalPrice"
+          class="modal-price"
+        ></div>
+
+        <p
+          id="modalDescription"
+          class="modal-description"
+        ></p>
+
+        <button
+          id="modalOrderButton"
+          class="modal-order"
+        >
+          💬 Order This Product on WhatsApp
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
 
 </div>
-```
 
-  </div>
+<!-- ================= FLOATING WHATSAPP ================= -->
 
-</div>
+<a
+  href="https://wa.me/254724566417"
+  target="_blank"
+  class="whatsapp-float"
+  aria-label="Chat with Swalleh Empire on WhatsApp"
+>
+  💬
+</a>
 
 <!-- ================= FOOTER ================= -->
 
@@ -1118,74 +1218,60 @@ footer a{
 
   <div class="footer-content">
 
-```
-<div>
+    <div>
 
-  <h2>🛍️ Swalleh Empire</h2>
+      <h2>🛍️ Swalleh Empire</h2>
 
-  <p>
-    Your trusted destination for quality
-    electronics and accessories at affordable prices.
-  </p>
+      <p>
+        Your trusted destination for quality
+        electronics and accessories at affordable prices.
+      </p>
 
-  <p>
-    📍 Kenya
-  </p>
+      <p>
+        📍 Kenya
+      </p>
 
-</div>
+    </div>
 
+    <div>
 
-<div>
+      <h3>Contact Us</h3>
 
-  <h3>Contact Us</h3>
+      <p>
+        📞 WhatsApp:
+        <a
+          href="https://wa.me/254724566417"
+          target="_blank"
+        >
+          0724 566 417
+        </a>
+      </p>
 
-  <p>
-    📞 WhatsApp:
-    <a
-      href="https://wa.me/254724566417"
-      target="_blank"
-    >
-      0724 566 417
-    </a>
-  </p>
+      <p>
+        📧 Email:
+        <a href="mailto:swallehgibon2@gmail.com">
+          swallehgibon2@gmail.com
+        </a>
+      </p>
 
-  <p>
-    📧 Email:
-    <a href="mailto:swallehgibon2@gmail.com">
-      swallehgibon2@gmail.com
-    </a>
-  </p>
+    </div>
 
-</div>
+    <div>
 
+      <h3>How to Order</h3>
 
-<div>
+      <p>1. Find your product.</p>
+      <p>2. Click View Details or Order.</p>
+      <p>3. Send your order through WhatsApp.</p>
 
-  <h3>How to Order</h3>
-
-  <p>
-    1. Find your product.
-  </p>
-
-  <p>
-    2. Click View Details or Order.
-  </p>
-
-  <p>
-    3. Send your order through WhatsApp.
-  </p>
-
-</div>
-```
+    </div>
 
   </div>
 
   <div class="footer-bottom">
 
-```
-© 2026 Swalleh Empire.
-All Rights Reserved.
-```
+    © 2026 Swalleh Empire.
+    All Rights Reserved.
 
   </div>
 
@@ -1228,6 +1314,9 @@ document.getElementById("status");
 
 const allProducts =
 document.getElementById("allProducts");
+
+const featuredProducts =
+document.getElementById("featuredProducts");
 
 const categories =
 document.getElementById("categories");
@@ -1406,7 +1495,56 @@ async function loadProducts(){
 
   createCategories();
 
+  displayFeaturedProducts();
+
   displayProducts(products);
+
+}
+
+
+/* =====================================================
+   FEATURED PRODUCTS
+===================================================== */
+
+function displayFeaturedProducts(){
+
+  featuredProducts.innerHTML =
+    "";
+
+
+  if(!products.length){
+
+    featuredProducts.innerHTML =
+      `
+      <div class="empty">
+        Products will appear here when they are added.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  /*
+    We use the newest products as featured products.
+    This does not require any database changes.
+  */
+
+  const featured =
+    products.slice(0,6);
+
+
+  featured.forEach(function(product){
+
+    featuredProducts.appendChild(
+      createProductCard(
+        product,
+        true
+      )
+    );
+
+  });
 
 }
 
@@ -1574,7 +1712,7 @@ function displayProducts(list){
    PRODUCT CARD
 ===================================================== */
 
-function createProductCard(product){
+function createProductCard(product,isFeatured=false){
 
   const card =
     document.createElement("div");
@@ -1632,6 +1770,24 @@ function createProductCard(product){
 
     image.innerHTML =
       "<div class='no-image'>🛍️</div>";
+
+  }
+
+
+  if(isFeatured){
+
+    const featuredLabel =
+      document.createElement("div");
+
+    featuredLabel.className =
+      "featured-label";
+
+    featuredLabel.textContent =
+      "🔥 Featured";
+
+    image.appendChild(
+      featuredLabel
+    );
 
   }
 
@@ -1799,9 +1955,13 @@ function showCategory(category){
   categoriesSection.style.display =
     "none";
 
-
   document.getElementById(
     "catalogue"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "featuredSection"
   ).style.display =
     "none";
 
@@ -1868,6 +2028,11 @@ function showAllProducts(){
   ).style.display =
     "block";
 
+  document.getElementById(
+    "featuredSection"
+  ).style.display =
+    "block";
+
 
   displayProducts(products);
 
@@ -1904,6 +2069,11 @@ searchInput.addEventListener(
 
       document.getElementById(
         "catalogue"
+      ).style.display =
+        "block";
+
+      document.getElementById(
+        "featuredSection"
       ).style.display =
         "block";
 
@@ -1957,6 +2127,11 @@ searchInput.addEventListener(
     ).style.display =
       "none";
 
+    document.getElementById(
+      "featuredSection"
+    ).style.display =
+      "none";
+
 
     searchResults.innerHTML =
       "";
@@ -1974,11 +2149,13 @@ searchInput.addEventListener(
       searchResults.innerHTML =
         `
         <div class="empty">
+
           <h3>😔 No product found</h3>
 
           <p style="margin-top:10px;">
             Try another product name or category.
           </p>
+
         </div>
         `;
 
@@ -2019,6 +2196,11 @@ function clearSearch(){
 
   document.getElementById(
     "catalogue"
+  ).style.display =
+    "block";
+
+  document.getElementById(
+    "featuredSection"
   ).style.display =
     "block";
 
@@ -2230,3 +2412,4 @@ loadProducts();
 
 </body>
 </html>
+```
