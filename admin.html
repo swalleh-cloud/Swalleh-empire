@@ -321,7 +321,6 @@
 
   </div>
 
-
   <div class="box">
 
     <h2>Existing Products</h2>
@@ -341,13 +340,11 @@
 
   </div>
 
-
   <a href="index.html" class="back">
     ← Back to Swalleh Empire
   </a>
 
 </div>
-
 
 <script>
 
@@ -369,11 +366,13 @@
 
 
   /* ==========================================
-     BUCKET
+     STORAGE BUCKET
+     IMPORTANT:
+     This must match Supabase EXACTLY.
   ========================================== */
 
   const BUCKET_NAME =
-    "product-images";
+    "Product-images";
 
 
   /* ==========================================
@@ -499,18 +498,11 @@
     const fileName =
       createImageName(file);
 
-
     showMessage(
       "Uploading product image...",
       "info"
     );
 
-
-    /*
-      IMPORTANT:
-      Upload directly to the existing
-      product-images bucket.
-    */
 
     const {
       data,
@@ -518,7 +510,7 @@
     } =
       await supabaseClient
         .storage
-        .from("product-images")
+        .from(BUCKET_NAME)
         .upload(
           fileName,
           file,
@@ -550,7 +542,7 @@
     } =
       supabaseClient
         .storage
-        .from("product-images")
+        .from(BUCKET_NAME)
         .getPublicUrl(fileName);
 
 
