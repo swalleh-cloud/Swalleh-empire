@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -21,53 +22,111 @@ html{
 }
 
 body{
-  background:#f5f7fb;
+  background:#f6f8fc;
   color:#172033;
 }
 
-/* ================= HEADER ================= */
+button,
+input{
+  font:inherit;
+}
+
+/* ================= TOP HEADER ================= */
 
 header{
   background:
-    linear-gradient(135deg,rgba(15,23,42,.96),rgba(37,99,235,.92)),
-    radial-gradient(circle at top right,#60a5fa,transparent 40%);
+    linear-gradient(135deg,#07152f,#123b91 55%,#2563eb);
   color:white;
-  padding:25px 20px 55px;
 }
 
 .topbar{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
+  padding:18px 20px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:20px;
 }
 
 .logo{
   font-size:25px;
   font-weight:900;
+  white-space:nowrap;
 }
 
 .logo span{
   color:#60a5fa;
 }
 
-.top-contact{
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.whatsapp-top{
+  background:#25d366;
+  color:white;
+  text-decoration:none;
+  padding:10px 16px;
+  border-radius:25px;
+  font-weight:bold;
+}
+
+/* ================= NAVIGATION ================= */
+
+.nav{
+  border-top:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.nav-inner{
+  max-width:1250px;
+  margin:auto;
+  padding:10px 20px;
+  display:flex;
+  gap:25px;
+  overflow-x:auto;
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
   font-size:14px;
+  font-weight:bold;
+  white-space:nowrap;
   opacity:.9;
 }
 
+.nav a:hover{
+  opacity:1;
+}
+
+/* ================= HERO ================= */
+
 .hero{
-  max-width:1200px;
-  margin:55px auto 0;
+  max-width:1250px;
+  margin:auto;
+  padding:75px 20px 105px;
   text-align:center;
 }
 
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  padding:8px 15px;
+  border-radius:30px;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
 .hero h1{
-  font-size:48px;
-  line-height:1.1;
-  margin-bottom:18px;
+  font-size:54px;
+  line-height:1.08;
+  max-width:850px;
+  margin:auto;
 }
 
 .hero h1 span{
@@ -75,15 +134,15 @@ header{
 }
 
 .hero p{
+  max-width:720px;
+  margin:20px auto 0;
   font-size:18px;
-  max-width:700px;
-  margin:auto;
-  line-height:1.6;
-  opacity:.9;
+  line-height:1.7;
+  color:#dbeafe;
 }
 
 .hero-buttons{
-  margin-top:28px;
+  margin-top:30px;
   display:flex;
   justify-content:center;
   gap:12px;
@@ -91,11 +150,12 @@ header{
 }
 
 .hero-btn{
-  padding:14px 25px;
-  border-radius:30px;
+  border:none;
   text-decoration:none;
+  padding:14px 24px;
+  border-radius:30px;
   font-weight:bold;
-  display:inline-block;
+  cursor:pointer;
 }
 
 .shop-btn{
@@ -103,7 +163,7 @@ header{
   color:white;
 }
 
-.category-btn{
+.catalogue-btn{
   background:white;
   color:#172033;
 }
@@ -112,27 +172,28 @@ header{
 
 .container{
   width:94%;
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
 }
 
 /* ================= SEARCH ================= */
 
 .search-area{
-  margin-top:-28px;
+  margin-top:-35px;
   position:relative;
   z-index:5;
 }
 
 .search-box{
-  max-width:700px;
+  max-width:800px;
   margin:auto;
   background:white;
   padding:8px;
-  border-radius:40px;
-  box-shadow:0 8px 30px rgba(0,0,0,.12);
+  border-radius:45px;
+  box-shadow:0 12px 40px rgba(0,0,0,.14);
   display:flex;
   align-items:center;
+  border:1px solid #e5e7eb;
 }
 
 .search-icon{
@@ -145,8 +206,38 @@ header{
   border:none;
   outline:none;
   padding:15px;
+  background:transparent;
   font-size:16px;
-  border-radius:30px;
+}
+
+/* ================= QUICK STATS ================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:35px;
+}
+
+.stat{
+  background:white;
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+
+.stat strong{
+  display:block;
+  color:#2563eb;
+  font-size:23px;
+  margin-bottom:4px;
+}
+
+.stat span{
+  color:#64748b;
+  font-size:13px;
 }
 
 /* ================= STATUS ================= */
@@ -170,19 +261,19 @@ header{
   color:#991b1b;
 }
 
-/* ================= SECTION ================= */
+/* ================= SECTIONS ================= */
 
 .section{
-  padding:45px 0 10px;
+  padding:55px 0 10px;
 }
 
 .section-heading{
   text-align:center;
-  margin-bottom:28px;
+  margin-bottom:30px;
 }
 
 .section-heading h2{
-  font-size:30px;
+  font-size:31px;
   margin-bottom:8px;
 }
 
@@ -194,7 +285,7 @@ header{
 
 .category-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
   gap:15px;
 }
 
@@ -202,7 +293,7 @@ header{
   background:white;
   padding:22px 12px;
   text-align:center;
-  border-radius:15px;
+  border-radius:16px;
   cursor:pointer;
   border:1px solid #e5e7eb;
   box-shadow:0 4px 15px rgba(0,0,0,.05);
@@ -212,18 +303,49 @@ header{
 .category:hover{
   transform:translateY(-5px);
   border-color:#2563eb;
-  box-shadow:0 8px 25px rgba(37,99,235,.15);
+  box-shadow:0 10px 25px rgba(37,99,235,.15);
 }
 
 .category-icon{
   display:block;
-  font-size:34px;
+  font-size:35px;
   margin-bottom:10px;
 }
 
 .category-name{
   font-weight:bold;
   font-size:14px;
+}
+
+.category-count{
+  color:#94a3b8;
+  font-size:11px;
+  margin-top:5px;
+}
+
+/* ================= PRODUCTS HEADER ================= */
+
+.products-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.products-count{
+  color:#64748b;
+  font-size:14px;
+}
+
+.view-all-btn{
+  border:none;
+  background:#2563eb;
+  color:white;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
 /* ================= PRODUCTS ================= */
@@ -238,36 +360,51 @@ header{
   background:white;
   border-radius:18px;
   overflow:hidden;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
   border:1px solid #e8ebf0;
   transition:.25s;
+  position:relative;
 }
 
 .product:hover{
   transform:translateY(-6px);
-  box-shadow:0 12px 30px rgba(0,0,0,.12);
+  box-shadow:0 14px 32px rgba(0,0,0,.12);
 }
 
 .product-image{
   width:100%;
-  height:220px;
+  height:235px;
   background:#f1f5f9;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow:hidden;
+  cursor:pointer;
+  position:relative;
 }
 
 .product-image img{
   width:100%;
   height:100%;
   object-fit:contain;
-  padding:10px;
+  padding:12px;
   transition:.3s;
 }
 
 .product:hover .product-image img{
-  transform:scale(1.04);
+  transform:scale(1.05);
+}
+
+.image-label{
+  position:absolute;
+  top:12px;
+  left:12px;
+  background:#2563eb;
+  color:white;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
 }
 
 .no-image{
@@ -279,8 +416,9 @@ header{
 }
 
 .product-info h3{
-  font-size:18px;
+  font-size:17px;
   margin-bottom:8px;
+  min-height:40px;
 }
 
 .product-category{
@@ -289,7 +427,7 @@ header{
   color:#2563eb;
   padding:5px 9px;
   border-radius:20px;
-  font-size:12px;
+  font-size:11px;
   font-weight:bold;
   margin-bottom:10px;
 }
@@ -303,39 +441,57 @@ header{
 
 .description{
   color:#64748b;
-  font-size:14px;
+  font-size:13px;
   line-height:1.5;
-  min-height:42px;
+  min-height:40px;
+}
+
+.product-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:15px;
+}
+
+.order-btn,
+.details-btn{
+  border:none;
+  padding:11px 5px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .order-btn{
-  width:100%;
-  border:none;
   background:#25d366;
   color:white;
-  padding:13px;
-  margin-top:15px;
-  border-radius:9px;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.2s;
 }
 
 .order-btn:hover{
   background:#128c7e;
 }
 
+.details-btn{
+  background:#eff6ff;
+  color:#2563eb;
+}
+
+.details-btn:hover{
+  background:#dbeafe;
+}
+
 /* ================= SEARCH RESULTS ================= */
 
-#searchResultsSection{
+#searchResultsSection,
+#categorySection{
   display:none;
 }
 
-#searchMessage{
-  text-align:center;
+#searchMessage,
+#categoryMessage{
   color:#64748b;
-  margin-bottom:20px;
+  margin-top:5px;
 }
 
 .back-btn{
@@ -353,28 +509,125 @@ header{
 /* ================= EMPTY ================= */
 
 .empty{
+  grid-column:1/-1;
   text-align:center;
   background:white;
-  padding:40px 20px;
+  padding:50px 20px;
   border-radius:15px;
   color:#64748b;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.75);
+  z-index:1000;
+  padding:20px;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:850px;
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:20px;
+  position:relative;
+}
+
+.modal-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:#0f172a;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+  z-index:2;
+}
+
+.modal-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+.modal-image{
+  min-height:420px;
+  background:#f1f5f9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-image img{
+  width:100%;
+  height:420px;
+  object-fit:contain;
+  padding:25px;
+}
+
+.modal-details{
+  padding:40px 30px;
+}
+
+.modal-details h2{
+  font-size:30px;
+  margin-bottom:12px;
+}
+
+.modal-price{
+  color:#16a34a;
+  font-size:27px;
+  font-weight:900;
+  margin:15px 0;
+}
+
+.modal-description{
+  color:#64748b;
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.modal-order{
+  width:100%;
+  border:none;
+  background:#25d366;
+  color:white;
+  padding:15px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
 }
 
 /* ================= FOOTER ================= */
 
 footer{
-  margin-top:70px;
+  margin-top:80px;
   background:#0f172a;
   color:white;
-  padding:45px 20px;
+  padding:55px 20px 25px;
 }
 
 .footer-content{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:40px;
 }
 
 footer h2{
@@ -388,7 +641,7 @@ footer h3{
 footer p{
   color:#cbd5e1;
   line-height:1.7;
-  margin:5px 0;
+  margin:6px 0;
 }
 
 footer a{
@@ -397,7 +650,7 @@ footer a{
 }
 
 .footer-bottom{
-  max-width:1200px;
+  max-width:1250px;
   margin:35px auto 0;
   padding-top:20px;
   border-top:1px solid #334155;
@@ -408,31 +661,68 @@ footer a{
 
 /* ================= MOBILE ================= */
 
-@media(max-width:700px){
-
-  header{
-    padding-bottom:45px;
-  }
-
-  .topbar{
-    flex-direction:column;
-    text-align:center;
-  }
-
-  .top-contact{
-    display:none;
-  }
+@media(max-width:800px){
 
   .hero{
-    margin-top:35px;
+    padding:55px 20px 85px;
   }
 
   .hero h1{
-    font-size:34px;
+    font-size:38px;
+  }
+
+  .footer-content{
+    grid-template-columns:1fr;
+  }
+
+  .modal-content{
+    grid-template-columns:1fr;
+  }
+
+  .modal-image{
+    min-height:280px;
+  }
+
+  .modal-image img{
+    height:280px;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .topbar{
+    flex-direction:column;
+  }
+
+  .top-actions{
+    width:100%;
+    justify-content:center;
+  }
+
+  .hero h1{
+    font-size:32px;
   }
 
   .hero p{
     font-size:15px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+  }
+
+  .stat{
+    padding:13px 5px;
+  }
+
+  .stat strong{
+    font-size:18px;
+  }
+
+  .stat span{
+    font-size:10px;
   }
 
   .category-grid{
@@ -446,272 +736,467 @@ footer a{
   }
 
   .product-image{
-    height:150px;
+    height:155px;
   }
 
   .product-info{
-    padding:12px;
+    padding:11px;
   }
 
   .product-info h3{
-    font-size:15px;
+    font-size:14px;
+    min-height:34px;
   }
 
   .price{
-    font-size:17px;
+    font-size:16px;
   }
 
   .description{
-    font-size:12px;
+    font-size:11px;
   }
 
-  .order-btn{
-    font-size:13px;
-    padding:11px 5px;
+  .product-buttons{
+    grid-template-columns:1fr;
   }
 
-  .section-heading h2{
-    font-size:25px;
+  .order-btn,
+  .details-btn{
+    font-size:11px;
+  }
+
+  .products-toolbar{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .modal-details{
+    padding:30px 20px;
+  }
+
+  .modal-details h2{
+    font-size:24px;
   }
 
 }
 </style>
+
 </head>
 
 <body>
+
+<!-- ================= HEADER ================= -->
 
 <header>
 
   <div class="topbar">
 
-    <div class="logo">
-      🛍️ <span>Swalleh</span> Empire
-    </div>
+```
+<div class="logo">
+  🛍️ <span>Swalleh</span> Empire
+</div>
 
-    <div class="top-contact">
-      📞 0724 566 417
-    </div>
+<div class="top-actions">
+
+  <a
+    href="https://wa.me/254724566417"
+    target="_blank"
+    class="whatsapp-top"
+  >
+    💬 WhatsApp Us
+  </a>
+
+</div>
+```
 
   </div>
 
-  <div class="hero">
+  <nav class="nav">
 
-    <h1>
-      Quality Electronics.<br>
-      <span>Affordable Prices.</span>
-    </h1>
+```
+<div class="nav-inner">
 
-    <p>
-      Discover phones, accessories, electronics and more.
-      Choose your product and order directly through WhatsApp.
-    </p>
+  <a href="#home">Home</a>
+  <a href="#categoriesSection">Categories</a>
+  <a href="#catalogue">Catalogue</a>
+  <a href="#footer">Contact</a>
 
-    <div class="hero-buttons">
+</div>
+```
 
-      <a
-        href="#categoriesSection"
-        class="hero-btn category-btn"
-      >
-        Browse Categories
-      </a>
+  </nav>
 
-      <a
-        href="https://wa.me/254724566417"
-        target="_blank"
-        class="hero-btn shop-btn"
-      >
-        💬 Chat on WhatsApp
-      </a>
+  <div class="hero" id="home">
 
-    </div>
+```
+<div class="hero-badge">
+  ⚡ Quality Electronics • Affordable Prices
+</div>
+
+<h1>
+  Everything You Need.<br>
+  <span>All in One Place.</span>
+</h1>
+
+<p>
+  Shop phones, accessories, electronics and more.
+  Browse our catalogue, choose what you want and
+  order directly through WhatsApp.
+</p>
+
+<div class="hero-buttons">
+
+  <a
+    href="#catalogue"
+    class="hero-btn catalogue-btn"
+  >
+    🛍️ View Catalogue
+  </a>
+
+  <a
+    href="https://wa.me/254724566417"
+    target="_blank"
+    class="hero-btn shop-btn"
+  >
+    💬 Chat on WhatsApp
+  </a>
+
+</div>
+```
 
   </div>
 
 </header>
 
-
 <div class="container">
+
+  <!-- ================= SEARCH ================= -->
 
   <div class="search-area">
 
-    <div class="search-box">
+```
+<div class="search-box">
 
-      <span class="search-icon">🔍</span>
+  <span class="search-icon">🔍</span>
 
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products, brands or categories..."
-        autocomplete="off"
-      >
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search phones, chargers, headphones..."
+    autocomplete="off"
+  >
 
-    </div>
+</div>
+```
 
   </div>
 
+  <!-- ================= STATS ================= -->
+
+  <div class="stats">
+
+```
+<div class="stat">
+  <strong id="productCount">0</strong>
+  <span>Products</span>
+</div>
+
+<div class="stat">
+  <strong id="categoryCount">0</strong>
+  <span>Categories</span>
+</div>
+
+<div class="stat">
+  <strong>24/7</strong>
+  <span>WhatsApp Orders</span>
+</div>
+```
+
+  </div>
 
   <div id="status" class="loading">
     Loading products from Swalleh Empire...
   </div>
 
+  <!-- ================= SEARCH RESULTS ================= -->
 
-  <section id="searchResultsSection" class="section">
+  <section
+    id="searchResultsSection"
+    class="section"
+  >
 
-    <div class="section-heading">
+```
+<div class="section-heading">
 
-      <h2>🔎 Search Results</h2>
+  <h2>🔎 Search Results</h2>
 
-      <p id="searchMessage"></p>
+  <p id="searchMessage"></p>
 
-    </div>
+</div>
 
-    <div
-      id="searchResults"
-      class="products"
-    ></div>
+<div
+  id="searchResults"
+  class="products"
+></div>
 
-    <button
-      class="back-btn"
-      onclick="clearSearch()"
-    >
-      ← Back to Catalogue
-    </button>
+<button
+  class="back-btn"
+  onclick="clearSearch()"
+>
+  ← Back to Catalogue
+</button>
+```
 
   </section>
 
+  <!-- ================= CATEGORIES ================= -->
 
   <section
     id="categoriesSection"
     class="section"
   >
 
-    <div class="section-heading">
+```
+<div class="section-heading">
 
-      <h2>🛍️ Shop by Category</h2>
+  <h2>🛍️ Shop by Category</h2>
 
-      <p>Choose a category to find what you need.</p>
+  <p>
+    Find exactly what you need quickly and conveniently.
+  </p>
 
-    </div>
+</div>
 
-    <div
-      id="categories"
-      class="category-grid"
-    ></div>
-
-  </section>
-
-
-  <section class="section">
-
-    <div class="section-heading">
-
-      <h2>🔥 Latest Products</h2>
-
-      <p>Products recently added to Swalleh Empire.</p>
-
-    </div>
-
-    <div
-      id="allProducts"
-      class="products"
-    ></div>
+<div
+  id="categories"
+  class="category-grid"
+></div>
+```
 
   </section>
 
+  <!-- ================= CATALOGUE ================= -->
+
+  <section
+    id="catalogue"
+    class="section"
+  >
+
+```
+<div class="section-heading">
+
+  <h2>🔥 Our Catalogue</h2>
+
+  <p>
+    Browse all available products from Swalleh Empire.
+  </p>
+
+</div>
+
+<div class="products-toolbar">
+
+  <div
+    id="productsCountText"
+    class="products-count"
+  >
+    Showing all products
+  </div>
+
+  <button
+    class="view-all-btn"
+    onclick="showAllProducts()"
+  >
+    View All Products
+  </button>
+
+</div>
+
+<div
+  id="allProducts"
+  class="products"
+></div>
+```
+
+  </section>
+
+  <!-- ================= CATEGORY PRODUCTS ================= -->
 
   <section
     id="categorySection"
     class="section"
-    style="display:none;"
   >
 
-    <div class="section-heading">
+```
+<div class="section-heading">
 
-      <h2 id="categoryTitle"></h2>
+  <h2 id="categoryTitle"></h2>
 
-      <p id="categoryMessage"></p>
+  <p id="categoryMessage"></p>
 
-    </div>
+</div>
 
-    <div
-      id="categoryProducts"
-      class="products"
-    ></div>
+<div
+  id="categoryProducts"
+  class="products"
+></div>
 
-    <button
-      class="back-btn"
-      onclick="showAllProducts()"
-    >
-      ← Back to All Products
-    </button>
+<button
+  class="back-btn"
+  onclick="showAllProducts()"
+>
+  ← Back to All Products
+</button>
+```
 
   </section>
 
 </div>
 
+<!-- ================= PRODUCT MODAL ================= -->
 
-<footer>
+<div
+  id="productModal"
+  class="modal"
+  onclick="closeModal(event)"
+>
 
-  <div class="footer-content">
+  <div class="modal-box">
 
-    <div>
+```
+<button
+  class="modal-close"
+  onclick="closeProductModal()"
+>
+  ×
+</button>
 
-      <h2>🛍️ Swalleh Empire</h2>
+<div class="modal-content">
 
-      <p>
-        Quality electronics and accessories
-        at affordable prices.
-      </p>
+  <div
+    id="modalImage"
+    class="modal-image"
+  ></div>
 
-    </div>
+  <div class="modal-details">
 
+    <div
+      id="modalCategory"
+      class="product-category"
+    ></div>
 
-    <div>
+    <h2 id="modalName"></h2>
 
-      <h3>Contact Us</h3>
+    <div
+      id="modalPrice"
+      class="modal-price"
+    ></div>
 
-      <p>
-        📞 WhatsApp:
-        <a href="https://wa.me/254724566417">
-          0724 566 417
-        </a>
-      </p>
+    <p
+      id="modalDescription"
+      class="modal-description"
+    ></p>
 
-      <p>
-        📧 Email:
-        <a href="mailto:swallehgibon2@gmail.com">
-          swallehgibon2@gmail.com
-        </a>
-      </p>
-
-    </div>
-
-
-    <div>
-
-      <h3>Order</h3>
-
-      <p>
-        Find a product you like and
-        click the WhatsApp button to order.
-      </p>
-
-    </div>
+    <button
+      id="modalOrderButton"
+      class="modal-order"
+    >
+      💬 Order This Product on WhatsApp
+    </button>
 
   </div>
 
+</div>
+```
+
+  </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer id="footer">
+
+  <div class="footer-content">
+
+```
+<div>
+
+  <h2>🛍️ Swalleh Empire</h2>
+
+  <p>
+    Your trusted destination for quality
+    electronics and accessories at affordable prices.
+  </p>
+
+  <p>
+    📍 Kenya
+  </p>
+
+</div>
+
+
+<div>
+
+  <h3>Contact Us</h3>
+
+  <p>
+    📞 WhatsApp:
+    <a
+      href="https://wa.me/254724566417"
+      target="_blank"
+    >
+      0724 566 417
+    </a>
+  </p>
+
+  <p>
+    📧 Email:
+    <a href="mailto:swallehgibon2@gmail.com">
+      swallehgibon2@gmail.com
+    </a>
+  </p>
+
+</div>
+
+
+<div>
+
+  <h3>How to Order</h3>
+
+  <p>
+    1. Find your product.
+  </p>
+
+  <p>
+    2. Click View Details or Order.
+  </p>
+
+  <p>
+    3. Send your order through WhatsApp.
+  </p>
+
+</div>
+```
+
+  </div>
 
   <div class="footer-bottom">
 
-    © 2026 Swalleh Empire.
-    All Rights Reserved.
+```
+© 2026 Swalleh Empire.
+All Rights Reserved.
+```
 
   </div>
 
 </footer>
 
-
 <script>
+
+/* =====================================================
+   SUPABASE CONNECTION
+   DO NOT CHANGE
+===================================================== */
 
 const SUPABASE_URL =
 "https://rbgqqtayaexgyhozufpg.supabase.co";
@@ -725,8 +1210,18 @@ window.supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
 const whatsappNumber =
 "254724566417";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const status =
 document.getElementById("status");
@@ -764,7 +1259,49 @@ document.getElementById("searchMessage");
 const categoriesSection =
 document.getElementById("categoriesSection");
 
+const productCount =
+document.getElementById("productCount");
+
+const categoryCount =
+document.getElementById("categoryCount");
+
+const productsCountText =
+document.getElementById("productsCountText");
+
+const productModal =
+document.getElementById("productModal");
+
+const modalImage =
+document.getElementById("modalImage");
+
+const modalName =
+document.getElementById("modalName");
+
+const modalCategory =
+document.getElementById("modalCategory");
+
+const modalPrice =
+document.getElementById("modalPrice");
+
+const modalDescription =
+document.getElementById("modalDescription");
+
+const modalOrderButton =
+document.getElementById("modalOrderButton");
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
 let products = [];
+
+let currentModalProduct = null;
+
+
+/* =====================================================
+   CATEGORY ICONS
+===================================================== */
 
 const categoryIcons = {
 
@@ -807,14 +1344,22 @@ const categoryIcons = {
 
 };
 
+
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
+
 async function loadProducts(){
 
-  status.className = "loading";
+  status.className =
+    "loading";
 
-  status.style.display = "block";
+  status.style.display =
+    "block";
 
   status.textContent =
     "Loading products from Swalleh Empire...";
+
 
   const {
     data,
@@ -823,9 +1368,10 @@ async function loadProducts(){
   await supabaseClient
     .from("products")
     .select("*")
-    .order("id", {
+    .order("id",{
       ascending:false
     });
+
 
   if(error){
 
@@ -834,18 +1380,29 @@ async function loadProducts(){
       error
     );
 
-    status.className = "error";
+    status.className =
+      "error";
 
     status.textContent =
       "Could not load products: " +
       error.message;
 
     return;
+
   }
 
-  products = data || [];
 
-  status.style.display = "none";
+  products =
+    data || [];
+
+
+  status.style.display =
+    "none";
+
+
+  productCount.textContent =
+    products.length;
+
 
   createCategories();
 
@@ -853,17 +1410,25 @@ async function loadProducts(){
 
 }
 
+
+/* =====================================================
+   CREATE CATEGORIES
+===================================================== */
+
 function createCategories(){
 
-  categories.innerHTML = "";
+  categories.innerHTML =
+    "";
 
   const uniqueCategories = [];
+
 
   products.forEach(function(product){
 
     const category =
       String(product.category || "")
       .trim();
+
 
     if(
       category &&
@@ -880,30 +1445,57 @@ function createCategories(){
 
   });
 
+
+  categoryCount.textContent =
+    uniqueCategories.length;
+
+
   if(!uniqueCategories.length){
 
     categories.innerHTML =
-      "<div class='empty'>No categories available yet.</div>";
+      `
+      <div class="empty">
+        No categories available yet.
+      </div>
+      `;
 
     return;
 
   }
 
-  uniqueCategories.forEach(
-    function(category){
+
+  uniqueCategories
+    .sort()
+    .forEach(function(category){
 
       const div =
-      document.createElement("div");
+        document.createElement("div");
 
       div.className =
         "category";
 
+
       const normalized =
         category.toLowerCase();
+
 
       const icon =
         categoryIcons[normalized] ||
         "🛍️";
+
+
+      const count =
+        products.filter(function(product){
+
+          return String(
+            product.category || ""
+          )
+          .trim()
+          .toLowerCase() ===
+          normalized;
+
+        }).length;
+
 
       div.innerHTML =
         `
@@ -914,7 +1506,12 @@ function createCategories(){
         <div class="category-name">
           ${escapeHTML(category)}
         </div>
+
+        <div class="category-count">
+          ${count} product${count === 1 ? "" : "s"}
+        </div>
         `;
+
 
       div.onclick =
         function(){
@@ -923,16 +1520,30 @@ function createCategories(){
 
         };
 
+
       categories.appendChild(div);
 
-    }
-  );
+    });
 
 }
 
+
+/* =====================================================
+   DISPLAY PRODUCTS
+===================================================== */
+
 function displayProducts(list){
 
-  allProducts.innerHTML = "";
+  allProducts.innerHTML =
+    "";
+
+
+  productsCountText.textContent =
+    "Showing " +
+    list.length +
+    " product" +
+    (list.length === 1 ? "" : "s");
+
 
   if(!list.length){
 
@@ -947,6 +1558,7 @@ function displayProducts(list){
 
   }
 
+
   list.forEach(function(product){
 
     allProducts.appendChild(
@@ -957,6 +1569,11 @@ function displayProducts(list){
 
 }
 
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
 function createProductCard(product){
 
   const card =
@@ -965,11 +1582,15 @@ function createProductCard(product){
   card.className =
     "product";
 
+
+  /* IMAGE */
+
   const image =
     document.createElement("div");
 
   image.className =
     "product-image";
+
 
   if(product.image){
 
@@ -983,6 +1604,7 @@ function createProductCard(product){
       product.name ||
       "Swalleh Empire product";
 
+
     img.onerror =
       function(){
 
@@ -991,7 +1613,20 @@ function createProductCard(product){
 
       };
 
+
     image.appendChild(img);
+
+
+    const label =
+      document.createElement("div");
+
+    label.className =
+      "image-label";
+
+    label.textContent =
+      "Available";
+
+    image.appendChild(label);
 
   }else{
 
@@ -1000,11 +1635,23 @@ function createProductCard(product){
 
   }
 
+
+  image.onclick =
+    function(){
+
+      openProductModal(product);
+
+    };
+
+
+  /* INFO */
+
   const info =
     document.createElement("div");
 
   info.className =
     "product-info";
+
 
   const name =
     document.createElement("h3");
@@ -1012,6 +1659,7 @@ function createProductCard(product){
   name.textContent =
     product.name ||
     "Unnamed Product";
+
 
   const category =
     document.createElement("div");
@@ -1022,6 +1670,7 @@ function createProductCard(product){
   category.textContent =
     product.category ||
     "Electronics";
+
 
   const price =
     document.createElement("div");
@@ -1034,6 +1683,7 @@ function createProductCard(product){
     Number(product.price || 0)
     .toLocaleString();
 
+
   const description =
     document.createElement("p");
 
@@ -1044,34 +1694,78 @@ function createProductCard(product){
     product.description ||
     "Quality product available from Swalleh Empire.";
 
-  const button =
+
+  const buttons =
+    document.createElement("div");
+
+  buttons.className =
+    "product-buttons";
+
+
+  const detailsButton =
     document.createElement("button");
 
-  button.className =
+  detailsButton.className =
+    "details-btn";
+
+  detailsButton.textContent =
+    "👁️ Details";
+
+
+  detailsButton.onclick =
+    function(){
+
+      openProductModal(product);
+
+    };
+
+
+  const orderButton =
+    document.createElement("button");
+
+  orderButton.className =
     "order-btn";
 
-  button.textContent =
-    "💬 Order on WhatsApp";
+  orderButton.textContent =
+    "💬 Order";
 
-  button.onclick =
+
+  orderButton.onclick =
     function(){
 
       orderProduct(product);
 
     };
 
+
+  buttons.appendChild(
+    detailsButton
+  );
+
+  buttons.appendChild(
+    orderButton
+  );
+
+
   info.appendChild(name);
   info.appendChild(category);
   info.appendChild(price);
   info.appendChild(description);
-  info.appendChild(button);
+  info.appendChild(buttons);
+
 
   card.appendChild(image);
   card.appendChild(info);
 
+
   return card;
 
 }
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
 
 function showCategory(category){
 
@@ -1079,6 +1773,7 @@ function showCategory(category){
     String(category)
     .trim()
     .toLowerCase();
+
 
   const filtered =
     products.filter(function(product){
@@ -1088,6 +1783,7 @@ function showCategory(category){
         .trim()
         .toLowerCase();
 
+
       return (
         productCategory === selected ||
         productCategory.includes(selected) ||
@@ -1096,14 +1792,23 @@ function showCategory(category){
 
     });
 
+
   categorySection.style.display =
     "block";
 
   categoriesSection.style.display =
     "none";
 
+
+  document.getElementById(
+    "catalogue"
+  ).style.display =
+    "none";
+
+
   categoryTitle.textContent =
     "🛍️ " + category;
+
 
   categoryMessage.textContent =
     filtered.length +
@@ -1111,8 +1816,10 @@ function showCategory(category){
     (filtered.length === 1 ? "" : "s") +
     " found";
 
+
   categoryProducts.innerHTML =
     "";
+
 
   if(!filtered.length){
 
@@ -1135,12 +1842,18 @@ function showCategory(category){
 
   }
 
+
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
 }
+
+
+/* =====================================================
+   SHOW ALL
+===================================================== */
 
 function showAllProducts(){
 
@@ -1150,7 +1863,14 @@ function showAllProducts(){
   categoriesSection.style.display =
     "block";
 
+  document.getElementById(
+    "catalogue"
+  ).style.display =
+    "block";
+
+
   displayProducts(products);
+
 
   window.scrollTo({
     top:0,
@@ -1158,6 +1878,11 @@ function showAllProducts(){
   });
 
 }
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 searchInput.addEventListener(
   "input",
@@ -1168,6 +1893,7 @@ searchInput.addEventListener(
       .trim()
       .toLowerCase();
 
+
     if(!search){
 
       searchResultsSection.style.display =
@@ -1176,11 +1902,21 @@ searchInput.addEventListener(
       categoriesSection.style.display =
         "block";
 
+      document.getElementById(
+        "catalogue"
+      ).style.display =
+        "block";
+
+      categorySection.style.display =
+        "none";
+
+
       displayProducts(products);
 
       return;
 
     }
+
 
     const filtered =
       products.filter(function(product){
@@ -1197,6 +1933,7 @@ searchInput.addEventListener(
           String(product.description || "")
           .toLowerCase();
 
+
         return (
           name.includes(search) ||
           category.includes(search) ||
@@ -1204,6 +1941,7 @@ searchInput.addEventListener(
         );
 
       });
+
 
     searchResultsSection.style.display =
       "block";
@@ -1214,16 +1952,22 @@ searchInput.addEventListener(
     categorySection.style.display =
       "none";
 
+    document.getElementById(
+      "catalogue"
+    ).style.display =
+      "none";
+
+
     searchResults.innerHTML =
       "";
+
 
     searchMessage.textContent =
       filtered.length +
       " matching product" +
       (filtered.length === 1 ? "" : "s") +
-      " found for \"" +
-      searchInput.value +
-      "\"";
+      " found";
+
 
     if(!filtered.length){
 
@@ -1231,6 +1975,7 @@ searchInput.addEventListener(
         `
         <div class="empty">
           <h3>😔 No product found</h3>
+
           <p style="margin-top:10px;">
             Try another product name or category.
           </p>
@@ -1240,6 +1985,7 @@ searchInput.addEventListener(
       return;
 
     }
+
 
     filtered.forEach(function(product){
 
@@ -1252,9 +1998,15 @@ searchInput.addEventListener(
   }
 );
 
+
+/* =====================================================
+   CLEAR SEARCH
+===================================================== */
+
 function clearSearch(){
 
-  searchInput.value = "";
+  searchInput.value =
+    "";
 
   searchResultsSection.style.display =
     "none";
@@ -1265,14 +2017,158 @@ function clearSearch(){
   categorySection.style.display =
     "none";
 
+  document.getElementById(
+    "catalogue"
+  ).style.display =
+    "block";
+
+
   displayProducts(products);
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+}
+
+
+/* =====================================================
+   PRODUCT DETAILS MODAL
+===================================================== */
+
+function openProductModal(product){
+
+  currentModalProduct =
+    product;
+
+
+  modalName.textContent =
+    product.name ||
+    "Unnamed Product";
+
+
+  modalCategory.textContent =
+    product.category ||
+    "Electronics";
+
+
+  modalPrice.textContent =
+    "KSh " +
+    Number(product.price || 0)
+    .toLocaleString();
+
+
+  modalDescription.textContent =
+    product.description ||
+    "Quality product available from Swalleh Empire.";
+
+
+  modalImage.innerHTML =
+    "";
+
+
+  if(product.image){
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      product.image;
+
+    img.alt =
+      product.name ||
+      "Product";
+
+
+    img.onerror =
+      function(){
+
+        modalImage.innerHTML =
+          "<div class='no-image'>🛍️</div>";
+
+      };
+
+
+    modalImage.appendChild(img);
+
+  }else{
+
+    modalImage.innerHTML =
+      "<div class='no-image'>🛍️</div>";
+
+  }
+
+
+  productModal.classList.add(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
 
 }
+
+
+function closeProductModal(){
+
+  productModal.classList.remove(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "";
+
+  currentModalProduct =
+    null;
+
+}
+
+
+function closeModal(event){
+
+  if(
+    event.target ===
+    productModal
+  ){
+
+    closeProductModal();
+
+  }
+
+}
+
+
+modalOrderButton.onclick =
+  function(){
+
+    if(currentModalProduct){
+
+      orderProduct(
+        currentModalProduct
+      );
+
+    }
+
+  };
+
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      closeProductModal();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   WHATSAPP ORDER
+===================================================== */
 
 function orderProduct(product){
 
@@ -1280,9 +2176,11 @@ function orderProduct(product){
     Number(product.price || 0)
     .toLocaleString();
 
+
   const message =
     "Hello Swalleh Empire 👋\n\n" +
     "I would like to order:\n\n" +
+    "Product: " +
     product.name +
     "\nPrice: KSh " +
     price +
@@ -1290,11 +2188,13 @@ function orderProduct(product){
     (product.category || "Electronics") +
     "\n\nPlease confirm availability and delivery details.";
 
+
   const url =
     "https://wa.me/" +
     whatsappNumber +
     "?text=" +
     encodeURIComponent(message);
+
 
   window.open(
     url,
@@ -1302,6 +2202,11 @@ function orderProduct(product){
   );
 
 }
+
+
+/* =====================================================
+   SECURITY HELPER
+===================================================== */
 
 function escapeHTML(text){
 
@@ -1313,6 +2218,11 @@ function escapeHTML(text){
     .replace(/'/g,"&#039;");
 
 }
+
+
+/* =====================================================
+   START
+===================================================== */
 
 loadProducts();
 
