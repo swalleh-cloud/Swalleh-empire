@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -21,8 +22,6 @@ body{
   background:#f1f5f9;
   color:#172033;
 }
-
-/* ================= LOGIN ================= */
 
 #loginPage{
   min-height:100vh;
@@ -93,17 +92,11 @@ body{
   cursor:pointer;
 }
 
-.login-btn:hover{
-  background:#1d4ed8;
-}
-
 #loginMessage{
   margin-top:15px;
   text-align:center;
   font-weight:bold;
 }
-
-/* ================= ADMIN ================= */
 
 #adminPage{
   display:none;
@@ -152,16 +145,12 @@ header{
   color:white;
 }
 
-/* ================= CONTAINER ================= */
-
 .container{
   width:94%;
   max-width:1200px;
   margin:auto;
   padding:30px 0 60px;
 }
-
-/* ================= STATUS ================= */
 
 #adminStatus{
   display:none;
@@ -189,8 +178,6 @@ header{
   background:#dbeafe;
   color:#1d4ed8;
 }
-
-/* ================= ADD PRODUCT ================= */
 
 .admin-grid{
   display:grid;
@@ -228,15 +215,6 @@ textarea{
   cursor:pointer;
 }
 
-.save-btn:hover{
-  background:#15803d;
-}
-
-.save-btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
 .cancel-btn{
   width:100%;
   border:none;
@@ -249,8 +227,6 @@ textarea{
   margin-top:10px;
   display:none;
 }
-
-/* ================= IMAGE PREVIEW ================= */
 
 .image-preview{
   width:100%;
@@ -272,18 +248,12 @@ textarea{
   object-fit:contain;
 }
 
-/* ================= PRODUCTS ================= */
-
 .products-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:20px;
   gap:15px;
-}
-
-.products-header h2{
-  margin:0;
 }
 
 .refresh-btn{
@@ -382,8 +352,6 @@ textarea{
   background:#dc2626;
 }
 
-/* ================= EMPTY ================= */
-
 .empty{
   text-align:center;
   padding:40px 20px;
@@ -391,8 +359,6 @@ textarea{
   background:#f8fafc;
   border-radius:10px;
 }
-
-/* ================= MOBILE ================= */
 
 @media(max-width:850px){
 
@@ -409,10 +375,6 @@ textarea{
     text-align:center;
   }
 
-  .header-inner h1{
-    font-size:21px;
-  }
-
   .products-header{
     flex-direction:column;
     align-items:stretch;
@@ -427,35 +389,12 @@ textarea{
     height:140px;
   }
 
-  .product-info{
-    padding:10px;
-  }
-
-  .product-info h3{
-    font-size:14px;
-  }
-
-  .product-price{
-    font-size:16px;
-  }
-
-  .product-description{
-    font-size:11px;
-  }
-
-  .edit-btn,
-  .delete-btn{
-    font-size:11px;
-    padding:8px 4px;
-  }
-
 }
+
 </style>
 </head>
 
 <body>
-
-<!-- ================= LOGIN ================= -->
 
 <div id="loginPage">
 
@@ -469,7 +408,6 @@ textarea{
 
       <div class="form-group">
         <label>Email</label>
-
         <input
           type="email"
           id="loginEmail"
@@ -480,7 +418,6 @@ textarea{
 
       <div class="form-group">
         <label>Password</label>
-
         <input
           type="password"
           id="loginPassword"
@@ -489,10 +426,7 @@ textarea{
         >
       </div>
 
-      <button
-        type="submit"
-        class="login-btn"
-      >
+      <button type="submit" class="login-btn">
         🔐 Login
       </button>
 
@@ -503,9 +437,6 @@ textarea{
   </div>
 
 </div>
-
-
-<!-- ================= ADMIN ================= -->
 
 <div id="adminPage">
 
@@ -537,14 +468,11 @@ textarea{
 
 </header>
 
-
 <div class="container">
 
   <div id="adminStatus"></div>
 
   <div class="admin-grid">
-
-    <!-- ================= ADD / EDIT ================= -->
 
     <div class="panel">
 
@@ -567,7 +495,6 @@ textarea{
 
         </div>
 
-
         <div class="form-group">
 
           <label>Price (KSh)</label>
@@ -582,15 +509,11 @@ textarea{
 
         </div>
 
-
         <div class="form-group">
 
           <label>Category</label>
 
-          <select
-            id="productCategory"
-            required
-          >
+          <select id="productCategory" required>
 
             <option value="">Select category</option>
 
@@ -626,7 +549,6 @@ textarea{
 
         </div>
 
-
         <div class="form-group">
 
           <label>Description</label>
@@ -638,15 +560,11 @@ textarea{
 
         </div>
 
-
         <div class="form-group">
 
           <label>Product Image</label>
 
-          <div
-            id="imagePreview"
-            class="image-preview"
-          >
+          <div id="imagePreview" class="image-preview">
             📷 Select an image
           </div>
 
@@ -658,7 +576,6 @@ textarea{
 
         </div>
 
-
         <button
           type="submit"
           class="save-btn"
@@ -666,7 +583,6 @@ textarea{
         >
           💾 Save Product
         </button>
-
 
         <button
           type="button"
@@ -680,9 +596,6 @@ textarea{
       </form>
 
     </div>
-
-
-    <!-- ================= PRODUCTS ================= -->
 
     <div class="panel">
 
@@ -699,10 +612,7 @@ textarea{
 
       </div>
 
-      <div
-        id="adminProducts"
-        class="admin-products"
-      >
+      <div id="adminProducts" class="admin-products">
 
         <div class="empty">
           Loading products...
@@ -717,7 +627,6 @@ textarea{
 </div>
 
 </div>
-
 
 <script>
 
@@ -740,13 +649,11 @@ window.supabase.createClient(
 
 /* =====================================================
    IMPORTANT:
-   EXISTING STORAGE BUCKET
+   BUCKET NAME MUST MATCH SUPABASE EXACTLY
 ===================================================== */
 
-const EXPECTED_BUCKET =
-"product-images";
-
-let STORAGE_BUCKET = null;
+const STORAGE_BUCKET =
+"Product-images";
 
 
 /* =====================================================
@@ -802,10 +709,6 @@ const cancelButton =
 document.getElementById("cancelButton");
 
 
-/* =====================================================
-   VARIABLES
-===================================================== */
-
 let products = [];
 
 let editingProductId = null;
@@ -819,237 +722,29 @@ let editingOldImage = null;
 
 function showStatus(message,type){
 
-  adminStatus.textContent =
-    message;
+  adminStatus.textContent = message;
 
   adminStatus.className = "";
 
   if(type === "success"){
-
-    adminStatus.classList.add(
-      "status-success"
-    );
-
+    adminStatus.classList.add("status-success");
   }
 
   else if(type === "error"){
-
-    adminStatus.classList.add(
-      "status-error"
-    );
-
+    adminStatus.classList.add("status-error");
   }
 
   else{
-
-    adminStatus.classList.add(
-      "status-loading"
-    );
-
+    adminStatus.classList.add("status-loading");
   }
 
 }
-
 
 function hideStatus(){
 
   adminStatus.className = "";
 
-}
-
-
-/* =====================================================
-   FIND THE REAL EXISTING BUCKET
-===================================================== */
-
-async function findStorageBucket(){
-
-  if(STORAGE_BUCKET){
-
-    return STORAGE_BUCKET;
-
-  }
-
-
-  console.log(
-    "Checking Supabase storage buckets..."
-  );
-
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-      .storage
-      .listBuckets();
-
-
-    console.log(
-      "Storage bucket response:",
-      data,
-      error
-    );
-
-
-    if(error){
-
-      console.warn(
-        "Could not list buckets:",
-        error
-      );
-
-      STORAGE_BUCKET =
-        EXPECTED_BUCKET;
-
-      return STORAGE_BUCKET;
-
-    }
-
-
-    if(!data || !data.length){
-
-      console.warn(
-        "No buckets returned."
-      );
-
-      STORAGE_BUCKET =
-        EXPECTED_BUCKET;
-
-      return STORAGE_BUCKET;
-
-    }
-
-
-    /* Exact match */
-
-    const exact =
-      data.find(
-        bucket =>
-          bucket.name ===
-          EXPECTED_BUCKET
-      );
-
-
-    if(exact){
-
-      STORAGE_BUCKET =
-        exact.name;
-
-      console.log(
-        "FOUND EXACT BUCKET:",
-        STORAGE_BUCKET
-      );
-
-      return STORAGE_BUCKET;
-
-    }
-
-
-    /* Case-insensitive match */
-
-    const caseMatch =
-      data.find(
-        bucket =>
-          bucket.name.toLowerCase() ===
-          EXPECTED_BUCKET.toLowerCase()
-      );
-
-
-    if(caseMatch){
-
-      STORAGE_BUCKET =
-        caseMatch.name;
-
-      console.log(
-        "FOUND BUCKET:",
-        STORAGE_BUCKET
-      );
-
-      return STORAGE_BUCKET;
-
-    }
-
-
-    /*
-       Normalized match.
-       Handles names such as:
-       product_images
-       Product Images
-       Product-images
-    */
-
-    const normalize =
-      value =>
-        value
-          .toLowerCase()
-          .replace(
-            /[\s_-]/g,
-            ""
-          );
-
-
-    const wanted =
-      normalize(
-        EXPECTED_BUCKET
-      );
-
-
-    const normalizedMatch =
-      data.find(
-        bucket =>
-          normalize(
-            bucket.name
-          ) === wanted
-      );
-
-
-    if(normalizedMatch){
-
-      STORAGE_BUCKET =
-        normalizedMatch.name;
-
-      console.log(
-        "FOUND NORMALIZED BUCKET:",
-        STORAGE_BUCKET
-      );
-
-      return STORAGE_BUCKET;
-
-    }
-
-
-    console.error(
-      "Available buckets:",
-      data.map(
-        bucket => bucket.name
-      )
-    );
-
-
-    throw new Error(
-      'Bucket "' +
-      EXPECTED_BUCKET +
-      '" was not found. Available buckets: ' +
-      data.map(
-        bucket => bucket.name
-      ).join(", ")
-    );
-
-  }
-
-  catch(error){
-
-    console.error(
-      "BUCKET CHECK ERROR:",
-      error
-    );
-
-    throw error;
-
-  }
+  adminStatus.style.display = "none";
 
 }
 
@@ -1064,19 +759,13 @@ loginForm.addEventListener(
 
     event.preventDefault();
 
-
     const email =
-      document
-        .getElementById("loginEmail")
-        .value
-        .trim();
-
+      document.getElementById("loginEmail")
+      .value.trim();
 
     const password =
-      document
-        .getElementById("loginPassword")
-        .value;
-
+      document.getElementById("loginPassword")
+      .value;
 
     loginMessage.textContent =
       "Logging in...";
@@ -1084,73 +773,18 @@ loginForm.addEventListener(
     loginMessage.style.color =
       "#2563eb";
 
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
 
-    try{
+    if(error){
 
-      const {
-        data,
-        error
-      } =
-      await supabaseClient.auth.signInWithPassword({
-
-        email:email,
-
-        password:password
-
-      });
-
-
-      if(error){
-
-        console.error(
-          "LOGIN ERROR:",
-          error
-        );
-
-
-        loginMessage.textContent =
-          "Login failed: " +
-          error.message;
-
-        loginMessage.style.color =
-          "#dc2626";
-
-        return;
-
-      }
-
-
-      if(!data.session){
-
-        loginMessage.textContent =
-          "Login failed. No session created.";
-
-        loginMessage.style.color =
-          "#dc2626";
-
-        return;
-
-      }
-
-
-      loginPage.style.display =
-        "none";
-
-      adminPage.style.display =
-        "block";
-
-
-      await loadProducts();
-
-    }
-
-    catch(error){
-
-      console.error(
-        "LOGIN ERROR:",
-        error
-      );
-
+      console.error(error);
 
       loginMessage.textContent =
         "Login failed: " +
@@ -1159,7 +793,27 @@ loginForm.addEventListener(
       loginMessage.style.color =
         "#dc2626";
 
+      return;
+
     }
+
+    if(!data.session){
+
+      loginMessage.textContent =
+        "Login failed. No session created.";
+
+      loginMessage.style.color =
+        "#dc2626";
+
+      return;
+
+    }
+
+    loginPage.style.display = "none";
+
+    adminPage.style.display = "block";
+
+    loadProducts();
 
   }
 );
@@ -1171,56 +825,31 @@ loginForm.addEventListener(
 
 async function checkSession(){
 
-  try{
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.getSession();
 
-    const {
-      data,
-      error
-    } =
-    await supabaseClient.auth.getSession();
+  if(
+    !error &&
+    data &&
+    data.session
+  ){
 
+    loginPage.style.display = "none";
 
-    if(
-      !error &&
-      data &&
-      data.session
-    ){
+    adminPage.style.display = "block";
 
-      loginPage.style.display =
-        "none";
-
-      adminPage.style.display =
-        "block";
-
-
-      await loadProducts();
-
-    }
-
-    else{
-
-      loginPage.style.display =
-        "flex";
-
-      adminPage.style.display =
-        "none";
-
-    }
+    loadProducts();
 
   }
 
-  catch(error){
+  else{
 
-    console.error(
-      "SESSION ERROR:",
-      error
-    );
+    loginPage.style.display = "flex";
 
-    loginPage.style.display =
-      "flex";
-
-    adminPage.style.display =
-      "none";
+    adminPage.style.display = "none";
 
   }
 
@@ -1235,11 +864,9 @@ async function logout(){
 
   await supabaseClient.auth.signOut();
 
-  adminPage.style.display =
-    "none";
+  adminPage.style.display = "none";
 
-  loginPage.style.display =
-    "flex";
+  loginPage.style.display = "flex";
 
   loginForm.reset();
 
@@ -1253,12 +880,11 @@ async function logout(){
 async function loadProducts(){
 
   adminProducts.innerHTML =
-    `
-    <div class="empty">
-      Loading products...
-    </div>
-    `;
-
+  `
+  <div class="empty">
+    Loading products...
+  </div>
+  `;
 
   const {
     data,
@@ -1267,13 +893,9 @@ async function loadProducts(){
   await supabaseClient
     .from("products")
     .select("*")
-    .order(
-      "id",
-      {
-        ascending:false
-      }
-    );
-
+    .order("id",{
+      ascending:false
+    });
 
   if(error){
 
@@ -1282,38 +904,26 @@ async function loadProducts(){
       error
     );
 
-
     showStatus(
       "Could not load products: " +
       error.message,
       "error"
     );
 
-
     adminProducts.innerHTML =
-      `
-      <div class="empty">
-
-        ❌ Could not load products.
-
-        <br><br>
-
-        ${error.message}
-
-      </div>
-      `;
+    `
+    <div class="empty">
+      ❌ Could not load products.
+    </div>
+    `;
 
     return;
 
   }
 
-
-  products =
-    data || [];
-
+  products = data || [];
 
   hideStatus();
-
 
   displayAdminProducts();
 
@@ -1328,198 +938,164 @@ function displayAdminProducts(){
 
   adminProducts.innerHTML = "";
 
-
   if(!products.length){
 
     adminProducts.innerHTML =
-      `
-      <div class="empty">
-
-        📦 No products yet.
-
-        <br><br>
-
-        Add your first product using the form.
-
-      </div>
-      `;
+    `
+    <div class="empty">
+      📦 No products yet.<br><br>
+      Add your first product using the form.
+    </div>
+    `;
 
     return;
 
   }
 
+  products.forEach(function(product){
 
-  products.forEach(
-    function(product){
+    const card =
+      document.createElement("div");
 
-      const card =
-        document.createElement("div");
+    card.className =
+      "product-card";
 
-      card.className =
-        "product-card";
+    const image =
+      document.createElement("div");
 
+    image.className =
+      "product-image";
 
-      const image =
-        document.createElement("div");
+    if(product.image){
 
-      image.className =
-        "product-image";
+      const img =
+        document.createElement("img");
 
+      img.src = product.image;
 
-      if(product.image){
+      img.alt =
+        product.name || "Product";
 
-        const img =
-          document.createElement("img");
-
-        img.src =
-          product.image;
-
-        img.alt =
-          product.name ||
-          "Product";
-
-
-        img.onerror =
-          function(){
-
-            image.innerHTML =
-              "🛍️";
-
-          };
-
-
-        image.appendChild(img);
-
-      }
-
-      else{
-
-        image.textContent =
-          "🛍️";
-
-      }
-
-
-      const info =
-        document.createElement("div");
-
-      info.className =
-        "product-info";
-
-
-      const name =
-        document.createElement("h3");
-
-      name.textContent =
-        product.name ||
-        "Unnamed Product";
-
-
-      const category =
-        document.createElement("div");
-
-      category.className =
-        "product-category";
-
-      category.textContent =
-        product.category ||
-        "Electronics";
-
-
-      const price =
-        document.createElement("div");
-
-      price.className =
-        "product-price";
-
-      price.textContent =
-        "KSh " +
-        Number(
-          product.price || 0
-        ).toLocaleString();
-
-
-      const description =
-        document.createElement("div");
-
-      description.className =
-        "product-description";
-
-      description.textContent =
-        product.description ||
-        "No description";
-
-
-      const buttons =
-        document.createElement("div");
-
-      buttons.className =
-        "action-buttons";
-
-
-      const editButton =
-        document.createElement("button");
-
-      editButton.className =
-        "edit-btn";
-
-      editButton.textContent =
-        "✏️ Edit";
-
-      editButton.onclick =
+      img.onerror =
         function(){
 
-          editProduct(product);
+          image.innerHTML = "🛍️";
 
         };
 
-
-      const deleteButton =
-        document.createElement("button");
-
-      deleteButton.className =
-        "delete-btn";
-
-      deleteButton.textContent =
-        "🗑️ Delete";
-
-      deleteButton.onclick =
-        function(){
-
-          deleteProduct(product);
-
-        };
-
-
-      buttons.appendChild(
-        editButton
-      );
-
-      buttons.appendChild(
-        deleteButton
-      );
-
-
-      info.appendChild(name);
-
-      info.appendChild(category);
-
-      info.appendChild(price);
-
-      info.appendChild(description);
-
-      info.appendChild(buttons);
-
-
-      card.appendChild(image);
-
-      card.appendChild(info);
-
-
-      adminProducts.appendChild(card);
+      image.appendChild(img);
 
     }
-  );
+
+    else{
+
+      image.textContent = "🛍️";
+
+    }
+
+    const info =
+      document.createElement("div");
+
+    info.className =
+      "product-info";
+
+    const name =
+      document.createElement("h3");
+
+    name.textContent =
+      product.name ||
+      "Unnamed Product";
+
+    const category =
+      document.createElement("div");
+
+    category.className =
+      "product-category";
+
+    category.textContent =
+      product.category ||
+      "Electronics";
+
+    const price =
+      document.createElement("div");
+
+    price.className =
+      "product-price";
+
+    price.textContent =
+      "KSh " +
+      Number(product.price || 0)
+      .toLocaleString();
+
+    const description =
+      document.createElement("div");
+
+    description.className =
+      "product-description";
+
+    description.textContent =
+      product.description ||
+      "No description";
+
+    const buttons =
+      document.createElement("div");
+
+    buttons.className =
+      "action-buttons";
+
+    const editButton =
+      document.createElement("button");
+
+    editButton.className =
+      "edit-btn";
+
+    editButton.textContent =
+      "✏️ Edit";
+
+    editButton.onclick =
+      function(){
+
+        editProduct(product);
+
+      };
+
+    const deleteButton =
+      document.createElement("button");
+
+    deleteButton.className =
+      "delete-btn";
+
+    deleteButton.textContent =
+      "🗑️ Delete";
+
+    deleteButton.onclick =
+      function(){
+
+        deleteProduct(product);
+
+      };
+
+    buttons.appendChild(editButton);
+
+    buttons.appendChild(deleteButton);
+
+    info.appendChild(name);
+
+    info.appendChild(category);
+
+    info.appendChild(price);
+
+    info.appendChild(description);
+
+    info.appendChild(buttons);
+
+    card.appendChild(image);
+
+    card.appendChild(info);
+
+    adminProducts.appendChild(card);
+
+  });
 
 }
 
@@ -1535,18 +1111,17 @@ productImage.addEventListener(
     const file =
       productImage.files[0];
 
-
     if(!file){
 
       if(editingOldImage){
 
         imagePreview.innerHTML =
-          `
-          <img
-            src="${editingOldImage}"
-            alt="Current image"
-          >
-          `;
+        `
+        <img
+          src="${editingOldImage}"
+          alt="Current image"
+        >
+        `;
 
       }
 
@@ -1561,24 +1136,21 @@ productImage.addEventListener(
 
     }
 
-
     const reader =
       new FileReader();
-
 
     reader.onload =
       function(event){
 
         imagePreview.innerHTML =
-          `
-          <img
-            src="${event.target.result}"
-            alt="Preview"
-          >
-          `;
+        `
+        <img
+          src="${event.target.result}"
+          alt="Preview"
+        >
+        `;
 
       };
-
 
     reader.readAsDataURL(file);
 
@@ -1596,28 +1168,20 @@ productForm.addEventListener(
 
     event.preventDefault();
 
-
     const name =
       productName.value.trim();
 
-
     const price =
-      Number(
-        productPrice.value
-      );
-
+      Number(productPrice.value);
 
     const category =
       productCategory.value.trim();
 
-
     const description =
       productDescription.value.trim();
 
-
     const file =
       productImage.files[0];
-
 
     if(!name){
 
@@ -1629,7 +1193,6 @@ productForm.addEventListener(
       return;
 
     }
-
 
     if(
       Number.isNaN(price) ||
@@ -1645,7 +1208,6 @@ productForm.addEventListener(
 
     }
 
-
     if(!category){
 
       showStatus(
@@ -1657,16 +1219,12 @@ productForm.addEventListener(
 
     }
 
-
-    saveButton.disabled =
-      true;
-
+    saveButton.disabled = true;
 
     saveButton.textContent =
       editingProductId
       ? "Updating..."
       : "Saving...";
-
 
     try{
 
@@ -1674,52 +1232,28 @@ productForm.addEventListener(
         editingOldImage || null;
 
 
-      /* =============================================
+      /* =================================================
          IMAGE UPLOAD
-      ============================================= */
+      ================================================= */
 
       if(file){
-
-        showStatus(
-          "Checking image storage...",
-          "loading"
-        );
-
-
-        const bucket =
-          await findStorageBucket();
-
-
-        console.log(
-          "FINAL BUCKET USED:",
-          bucket
-        );
-
 
         showStatus(
           "Uploading product image...",
           "loading"
         );
 
-
         const fileExtension =
           file.name
-            .split(".")
-            .pop()
-            .toLowerCase();
-
+          .split(".")
+          .pop()
+          .toLowerCase();
 
         const safeName =
           name
-            .toLowerCase()
-            .replace(
-              /[^a-z0-9]+/g,
-              "-"
-            )
-            .replace(
-              /^-+|-+$/g,
-              "");
-
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g,"-")
+          .replace(/^-+|-+$/g,"");
 
         const filePath =
           Date.now() +
@@ -1728,14 +1262,12 @@ productForm.addEventListener(
           "." +
           fileExtension;
 
-
         const {
-          error:
-          uploadError
+          error: uploadError
         } =
         await supabaseClient
           .storage
-          .from(bucket)
+          .from(STORAGE_BUCKET)
           .upload(
             filePath,
             file,
@@ -1745,14 +1277,7 @@ productForm.addEventListener(
             }
           );
 
-
         if(uploadError){
-
-          console.error(
-            "UPLOAD ERROR:",
-            uploadError
-          );
-
 
           throw new Error(
             "Image upload failed: " +
@@ -1761,46 +1286,23 @@ productForm.addEventListener(
 
         }
 
-
         const {
-          data:
-          publicData
+          data: publicData
         } =
         supabaseClient
           .storage
-          .from(bucket)
-          .getPublicUrl(
-            filePath
-          );
-
-
-        if(
-          !publicData ||
-          !publicData.publicUrl
-        ){
-
-          throw new Error(
-            "Image uploaded but public URL was not created."
-          );
-
-        }
-
+          .from(STORAGE_BUCKET)
+          .getPublicUrl(filePath);
 
         imageUrl =
           publicData.publicUrl;
 
-
-        console.log(
-          "IMAGE URL:",
-          imageUrl
-        );
-
       }
 
 
-      /* =============================================
+      /* =================================================
          UPDATE
-      ============================================= */
+      ================================================= */
 
       if(editingProductId){
 
@@ -1809,30 +1311,22 @@ productForm.addEventListener(
           "loading"
         );
 
-
         const {
           error
         } =
         await supabaseClient
           .from("products")
           .update({
-
             name:name,
-
             price:price,
-
             category:category,
-
             description:description,
-
             image:imageUrl
-
           })
           .eq(
             "id",
             editingProductId
           );
-
 
         if(error){
 
@@ -1843,7 +1337,6 @@ productForm.addEventListener(
 
         }
 
-
         showStatus(
           "✅ Product updated successfully.",
           "success"
@@ -1852,9 +1345,9 @@ productForm.addEventListener(
       }
 
 
-      /* =============================================
+      /* =================================================
          INSERT
-      ============================================= */
+      ================================================= */
 
       else{
 
@@ -1863,26 +1356,18 @@ productForm.addEventListener(
           "loading"
         );
 
-
         const {
           error
         } =
         await supabaseClient
           .from("products")
           .insert({
-
             name:name,
-
             price:price,
-
             category:category,
-
             description:description,
-
             image:imageUrl
-
           });
-
 
         if(error){
 
@@ -1893,7 +1378,6 @@ productForm.addEventListener(
 
         }
 
-
         showStatus(
           "✅ Product added successfully.",
           "success"
@@ -1901,9 +1385,7 @@ productForm.addEventListener(
 
       }
 
-
       resetProductForm();
-
 
       await loadProducts();
 
@@ -1916,7 +1398,6 @@ productForm.addEventListener(
         error
       );
 
-
       showStatus(
         error.message ||
         "Something went wrong.",
@@ -1925,10 +1406,7 @@ productForm.addEventListener(
 
     }
 
-
-    saveButton.disabled =
-      false;
-
+    saveButton.disabled = false;
 
     saveButton.textContent =
       editingProductId
@@ -1948,44 +1426,35 @@ function editProduct(product){
   editingProductId =
     product.id;
 
-
   editingOldImage =
     product.image || null;
-
 
   formTitle.textContent =
     "✏️ Edit Product";
 
-
   productName.value =
     product.name || "";
-
 
   productPrice.value =
     product.price || "";
 
-
   productCategory.value =
     product.category || "";
-
 
   productDescription.value =
     product.description || "";
 
-
-  productImage.value =
-    "";
-
+  productImage.value = "";
 
   if(product.image){
 
     imagePreview.innerHTML =
-      `
-      <img
-        src="${product.image}"
-        alt="Current product image"
-      >
-      `;
+    `
+    <img
+      src="${product.image}"
+      alt="Current product image"
+    >
+    `;
 
   }
 
@@ -1996,21 +1465,15 @@ function editProduct(product){
 
   }
 
-
   saveButton.textContent =
     "💾 Update Product";
-
 
   cancelButton.style.display =
     "block";
 
-
   window.scrollTo({
-
     top:0,
-
     behavior:"smooth"
-
   });
 
 }
@@ -2037,26 +1500,18 @@ function resetProductForm(){
 
   productForm.reset();
 
+  editingProductId = null;
 
-  editingProductId =
-    null;
-
-
-  editingOldImage =
-    null;
-
+  editingOldImage = null;
 
   formTitle.textContent =
     "➕ Add Product";
 
-
   saveButton.textContent =
     "💾 Save Product";
 
-
   cancelButton.style.display =
     "none";
-
 
   imagePreview.innerHTML =
     "📷 Select an image";
@@ -2072,11 +1527,10 @@ async function deleteProduct(product){
 
   const confirmed =
     confirm(
-      'Are you sure you want to delete "' +
+      "Are you sure you want to delete \"" +
       product.name +
-      '"?'
+      "\"?"
     );
-
 
   if(!confirmed){
 
@@ -2084,12 +1538,10 @@ async function deleteProduct(product){
 
   }
 
-
   showStatus(
     "Deleting product...",
     "loading"
   );
-
 
   const {
     error
@@ -2102,14 +1554,12 @@ async function deleteProduct(product){
       product.id
     );
 
-
   if(error){
 
     console.error(
       "DELETE ERROR:",
       error
     );
-
 
     showStatus(
       "Could not delete product: " +
@@ -2121,12 +1571,10 @@ async function deleteProduct(product){
 
   }
 
-
   showStatus(
     "✅ Product deleted successfully.",
     "success"
   );
-
 
   await loadProducts();
 
