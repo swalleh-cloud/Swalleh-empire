@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Swalleh Empire | Admin</title>
+<title>Swalleh Empire | Electronics & Accessories</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -17,140 +16,96 @@
   font-family:Arial,Helvetica,sans-serif;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  background:#f1f5f9;
+  background:#f5f7fb;
   color:#172033;
 }
 
-/* ================= LOGIN ================= */
-
-#loginPage{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:
-    linear-gradient(135deg,#0f172a,#2563eb);
-}
-
-.login-box{
-  width:100%;
-  max-width:430px;
-  background:white;
-  padding:35px;
-  border-radius:18px;
-  box-shadow:0 15px 50px rgba(0,0,0,.25);
-}
-
-.login-box h1{
-  text-align:center;
-  margin-bottom:8px;
-  color:#2563eb;
-}
-
-.login-box p{
-  text-align:center;
-  color:#64748b;
-  margin-bottom:25px;
-}
-
-.form-group{
-  margin-bottom:16px;
-}
-
-.form-group label{
-  display:block;
-  margin-bottom:7px;
-  font-weight:bold;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-  width:100%;
-  padding:13px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  font-size:15px;
-  outline:none;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus{
-  border-color:#2563eb;
-}
-
-.login-btn{
-  width:100%;
-  border:none;
-  background:#2563eb;
-  color:white;
-  padding:14px;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.login-btn:hover{
-  background:#1d4ed8;
-}
-
-#loginMessage{
-  margin-top:15px;
-  text-align:center;
-  font-weight:bold;
-}
-
-/* ================= ADMIN ================= */
-
-#adminPage{
-  display:none;
-}
+/* ================= HEADER ================= */
 
 header{
-  background:linear-gradient(135deg,#111827,#2563eb);
+  background:
+    linear-gradient(135deg,rgba(15,23,42,.96),rgba(37,99,235,.92)),
+    radial-gradient(circle at top right,#60a5fa,transparent 40%);
   color:white;
-  padding:20px;
+  padding:25px 20px 55px;
 }
 
-.header-inner{
+.topbar{
   max-width:1200px;
   margin:auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:15px;
+  gap:20px;
 }
 
-.header-inner h1{
+.logo{
   font-size:25px;
+  font-weight:900;
 }
 
-.header-buttons{
+.logo span{
+  color:#60a5fa;
+}
+
+.top-contact{
+  font-size:14px;
+  opacity:.9;
+}
+
+.hero{
+  max-width:1200px;
+  margin:55px auto 0;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:48px;
+  line-height:1.1;
+  margin-bottom:18px;
+}
+
+.hero h1 span{
+  color:#60a5fa;
+}
+
+.hero p{
+  font-size:18px;
+  max-width:700px;
+  margin:auto;
+  line-height:1.6;
+  opacity:.9;
+}
+
+.hero-buttons{
+  margin-top:28px;
   display:flex;
-  gap:10px;
+  justify-content:center;
+  gap:12px;
   flex-wrap:wrap;
 }
 
-.header-btn{
-  border:none;
-  padding:10px 15px;
-  border-radius:7px;
-  cursor:pointer;
+.hero-btn{
+  padding:14px 25px;
+  border-radius:30px;
+  text-decoration:none;
   font-weight:bold;
+  display:inline-block;
 }
 
-.website-btn{
+.shop-btn{
   background:#25d366;
   color:white;
 }
 
-.logout-btn{
-  background:#ef4444;
-  color:white;
+.category-btn{
+  background:white;
+  color:#172033;
 }
 
 /* ================= CONTAINER ================= */
@@ -159,387 +114,414 @@ header{
   width:94%;
   max-width:1200px;
   margin:auto;
-  padding:30px 0 60px;
+}
+
+/* ================= SEARCH ================= */
+
+.search-area{
+  margin-top:-28px;
+  position:relative;
+  z-index:5;
+}
+
+.search-box{
+  max-width:700px;
+  margin:auto;
+  background:white;
+  padding:8px;
+  border-radius:40px;
+  box-shadow:0 8px 30px rgba(0,0,0,.12);
+  display:flex;
+  align-items:center;
+}
+
+.search-icon{
+  padding-left:18px;
+  font-size:20px;
+}
+
+.search-box input{
+  width:100%;
+  border:none;
+  outline:none;
+  padding:15px;
+  font-size:16px;
+  border-radius:30px;
 }
 
 /* ================= STATUS ================= */
 
-#adminStatus{
-  display:none;
-  padding:14px;
-  border-radius:8px;
-  margin-bottom:20px;
-  font-weight:bold;
+#status{
   text-align:center;
+  margin:25px auto;
+  padding:14px;
+  max-width:650px;
+  border-radius:10px;
+  font-weight:bold;
 }
 
-.status-success{
-  display:block !important;
-  background:#dcfce7;
-  color:#166534;
-}
-
-.status-error{
-  display:block !important;
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.status-loading{
-  display:block !important;
+.loading{
   background:#dbeafe;
   color:#1d4ed8;
 }
 
-/* ================= ADD PRODUCT ================= */
-
-.admin-grid{
-  display:grid;
-  grid-template-columns:380px 1fr;
-  gap:25px;
-  align-items:start;
+.error{
+  background:#fee2e2;
+  color:#991b1b;
 }
 
-.panel{
-  background:white;
-  border-radius:15px;
-  padding:25px;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
+/* ================= SECTION ================= */
+
+.section{
+  padding:45px 0 10px;
 }
 
-.panel h2{
-  margin-bottom:20px;
-  color:#111827;
+.section-heading{
+  text-align:center;
+  margin-bottom:28px;
 }
 
-textarea{
-  min-height:110px;
-  resize:vertical;
+.section-heading h2{
+  font-size:30px;
+  margin-bottom:8px;
 }
 
-.save-btn{
-  width:100%;
-  border:none;
-  background:#16a34a;
-  color:white;
-  padding:14px;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.save-btn:hover{
-  background:#15803d;
-}
-
-.cancel-btn{
-  width:100%;
-  border:none;
-  background:#64748b;
-  color:white;
-  padding:12px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
-  display:none;
-}
-
-/* ================= IMAGE PREVIEW ================= */
-
-.image-preview{
-  width:100%;
-  height:180px;
-  border:2px dashed #cbd5e1;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:#f8fafc;
-  margin-bottom:12px;
+.section-heading p{
   color:#64748b;
 }
 
-.image-preview img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
+/* ================= CATEGORIES ================= */
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+}
+
+.category{
+  background:white;
+  padding:22px 12px;
+  text-align:center;
+  border-radius:15px;
+  cursor:pointer;
+  border:1px solid #e5e7eb;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+  transition:.25s;
+}
+
+.category:hover{
+  transform:translateY(-5px);
+  border-color:#2563eb;
+  box-shadow:0 8px 25px rgba(37,99,235,.15);
+}
+
+.category-icon{
+  display:block;
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.category-name{
+  font-weight:bold;
+  font-size:14px;
 }
 
 /* ================= PRODUCTS ================= */
 
-.products-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-  gap:15px;
-}
-
-.products-header h2{
-  margin:0;
-}
-
-.refresh-btn{
-  border:none;
-  background:#2563eb;
-  color:white;
-  padding:10px 15px;
-  border-radius:7px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.admin-products{
+.products{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:18px;
+  grid-template-columns:repeat(auto-fill,minmax(225px,1fr));
+  gap:22px;
 }
 
-.product-card{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:12px;
+.product{
+  background:white;
+  border-radius:18px;
   overflow:hidden;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  border:1px solid #e8ebf0;
+  transition:.25s;
+}
+
+.product:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
 }
 
 .product-image{
-  height:180px;
-  background:#eef2ff;
+  width:100%;
+  height:220px;
+  background:#f1f5f9;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow:hidden;
-  font-size:55px;
 }
 
 .product-image img{
   width:100%;
   height:100%;
   object-fit:contain;
+  padding:10px;
+  transition:.3s;
+}
+
+.product:hover .product-image img{
+  transform:scale(1.04);
+}
+
+.no-image{
+  font-size:60px;
 }
 
 .product-info{
-  padding:15px;
+  padding:18px;
 }
 
 .product-info h3{
-  font-size:17px;
-  margin-bottom:7px;
-}
-
-.product-category{
-  display:inline-block;
-  background:#dbeafe;
-  color:#1d4ed8;
-  padding:4px 8px;
-  border-radius:20px;
-  font-size:12px;
-  margin-bottom:8px;
-}
-
-.product-price{
-  color:#16a34a;
-  font-weight:bold;
   font-size:18px;
   margin-bottom:8px;
 }
 
-.product-description{
+.product-category{
+  display:inline-block;
+  background:#eff6ff;
+  color:#2563eb;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.price{
+  color:#16a34a;
+  font-size:21px;
+  font-weight:900;
+  margin:5px 0 10px;
+}
+
+.description{
   color:#64748b;
-  font-size:13px;
-  line-height:1.4;
-  margin-bottom:12px;
+  font-size:14px;
+  line-height:1.5;
+  min-height:42px;
 }
 
-.action-buttons{
-  display:flex;
-  gap:7px;
-}
-
-.edit-btn,
-.delete-btn{
-  flex:1;
+.order-btn{
+  width:100%;
   border:none;
-  padding:9px;
-  border-radius:6px;
+  background:#25d366;
   color:white;
+  padding:13px;
+  margin-top:15px;
+  border-radius:9px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.order-btn:hover{
+  background:#128c7e;
+}
+
+/* ================= SEARCH RESULTS ================= */
+
+#searchResultsSection{
+  display:none;
+}
+
+#searchMessage{
+  text-align:center;
+  color:#64748b;
+  margin-bottom:20px;
+}
+
+.back-btn{
+  display:block;
+  margin:30px auto 0;
+  border:none;
+  background:#2563eb;
+  color:white;
+  padding:12px 25px;
+  border-radius:8px;
   cursor:pointer;
   font-weight:bold;
-}
-
-.edit-btn{
-  background:#2563eb;
-}
-
-.delete-btn{
-  background:#dc2626;
 }
 
 /* ================= EMPTY ================= */
 
 .empty{
   text-align:center;
+  background:white;
   padding:40px 20px;
+  border-radius:15px;
   color:#64748b;
-  background:#f8fafc;
-  border-radius:10px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  margin-top:70px;
+  background:#0f172a;
+  color:white;
+  padding:45px 20px;
+}
+
+.footer-content{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+footer h2{
+  margin-bottom:12px;
+}
+
+footer h3{
+  margin-bottom:12px;
+}
+
+footer p{
+  color:#cbd5e1;
+  line-height:1.7;
+  margin:5px 0;
+}
+
+footer a{
+  color:#93c5fd;
+  text-decoration:none;
+}
+
+.footer-bottom{
+  max-width:1200px;
+  margin:35px auto 0;
+  padding-top:20px;
+  border-top:1px solid #334155;
+  text-align:center;
+  color:#94a3b8;
+  font-size:14px;
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:850px){
+@media(max-width:700px){
 
-  .admin-grid{
-    grid-template-columns:1fr;
+  header{
+    padding-bottom:45px;
   }
 
-}
-
-@media(max-width:600px){
-
-  .header-inner{
+  .topbar{
     flex-direction:column;
     text-align:center;
   }
 
-  .header-inner h1{
-    font-size:21px;
+  .top-contact{
+    display:none;
   }
 
-  .products-header{
-    flex-direction:column;
-    align-items:stretch;
+  .hero{
+    margin-top:35px;
   }
 
-  .admin-products{
+  .hero h1{
+    font-size:34px;
+  }
+
+  .hero p{
+    font-size:15px;
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .products{
     grid-template-columns:repeat(2,1fr);
     gap:10px;
   }
 
   .product-image{
-    height:140px;
+    height:150px;
   }
 
   .product-info{
-    padding:10px;
+    padding:12px;
   }
 
   .product-info h3{
-    font-size:14px;
+    font-size:15px;
   }
 
-  .product-price{
-    font-size:16px;
+  .price{
+    font-size:17px;
   }
 
-  .product-description{
-    font-size:11px;
+  .description{
+    font-size:12px;
   }
 
-  .edit-btn,
-  .delete-btn{
-    font-size:11px;
-    padding:8px 4px;
+  .order-btn{
+    font-size:13px;
+    padding:11px 5px;
+  }
+
+  .section-heading h2{
+    font-size:25px;
   }
 
 }
-
 </style>
 </head>
 
 <body>
 
+<header>
 
-<!-- =====================================================
-     LOGIN PAGE
-===================================================== -->
+  <div class="topbar">
 
-<div id="loginPage">
+    <div class="logo">
+      🛍️ <span>Swalleh</span> Empire
+    </div>
 
-  <div class="login-box">
-
-    <h1>🛍️ Swalleh Empire</h1>
-
-    <p>Administrator Login</p>
-
-    <form id="loginForm">
-
-      <div class="form-group">
-
-        <label>Email</label>
-
-        <input
-          type="email"
-          id="loginEmail"
-          placeholder="Admin email"
-          required
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>Password</label>
-
-        <input
-          type="password"
-          id="loginPassword"
-          placeholder="Admin password"
-          required
-        >
-
-      </div>
-
-
-      <button
-        type="submit"
-        class="login-btn"
-      >
-        🔐 Login
-      </button>
-
-    </form>
-
-
-    <div id="loginMessage"></div>
+    <div class="top-contact">
+      📞 0724 566 417
+    </div>
 
   </div>
 
-</div>
+  <div class="hero">
 
+    <h1>
+      Quality Electronics.<br>
+      <span>Affordable Prices.</span>
+    </h1>
 
+    <p>
+      Discover phones, accessories, electronics and more.
+      Choose your product and order directly through WhatsApp.
+    </p>
 
-<!-- =====================================================
-     ADMIN PAGE
-===================================================== -->
+    <div class="hero-buttons">
 
-<div id="adminPage">
-
-<header>
-
-  <div class="header-inner">
-
-    <h1>🛍️ Swalleh Empire Admin</h1>
-
-    <div class="header-buttons">
-
-      <button
-        class="header-btn website-btn"
-        onclick="openWebsite()"
+      <a
+        href="#categoriesSection"
+        class="hero-btn category-btn"
       >
-        🌐 Main Website
-      </button>
+        Browse Categories
+      </a>
 
-      <button
-        class="header-btn logout-btn"
-        onclick="logout()"
+      <a
+        href="https://wa.me/254724566417"
+        target="_blank"
+        class="hero-btn shop-btn"
       >
-        🚪 Logout
-      </button>
+        💬 Chat on WhatsApp
+      </a>
 
     </div>
 
@@ -550,209 +532,186 @@ textarea{
 
 <div class="container">
 
+  <div class="search-area">
 
-  <div id="adminStatus"></div>
+    <div class="search-box">
 
+      <span class="search-icon">🔍</span>
 
-  <div class="admin-grid">
-
-
-    <!-- =================================================
-         ADD / EDIT PRODUCT
-    ================================================== -->
-
-    <div class="panel">
-
-      <h2 id="formTitle">
-        ➕ Add Product
-      </h2>
-
-
-      <form id="productForm">
-
-
-        <div class="form-group">
-
-          <label>Product Name</label>
-
-          <input
-            type="text"
-            id="productName"
-            placeholder="Example: Samsung A15"
-            required
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Price (KSh)</label>
-
-          <input
-            type="number"
-            id="productPrice"
-            placeholder="Example: 15000"
-            min="0"
-            required
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Category</label>
-
-          <select
-            id="productCategory"
-            required
-          >
-
-            <option value="">
-              Select category
-            </option>
-
-            <option value="phones">Phones</option>
-            <option value="chargers">Chargers</option>
-            <option value="power banks">Power Banks</option>
-            <option value="screen protectors">Screen Protectors</option>
-            <option value="audio">Audio</option>
-            <option value="smart watches">Smart Watches</option>
-            <option value="television">Television</option>
-            <option value="laptops">Laptops</option>
-            <option value="house appliances">House Appliances</option>
-            <option value="subwoofers">Subwoofers</option>
-            <option value="bluetooth speakers">Bluetooth Speakers</option>
-            <option value="neckband">Neckband</option>
-            <option value="phone cases">Phone Cases</option>
-            <option value="shavers">Shavers</option>
-            <option value="usb cables">USB Cables</option>
-            <option value="earphones">Earphones</option>
-            <option value="wall bracket">Wall Bracket</option>
-            <option value="ironboxes">Ironboxes</option>
-            <option value="charger controller">Charger Controller</option>
-            <option value="earpods">Earpods</option>
-            <option value="earbuds">Earbuds</option>
-            <option value="decoders">Decoders</option>
-            <option value="headphones">Headphones</option>
-            <option value="batteries">Batteries</option>
-            <option value="gaming accessories">Gaming Accessories</option>
-            <option value="solars">Solars</option>
-            <option value="tablets">Tablets</option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Description</label>
-
-          <textarea
-            id="productDescription"
-            placeholder="Describe the product..."
-          ></textarea>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>Product Image</label>
-
-          <div
-            id="imagePreview"
-            class="image-preview"
-          >
-            📷 Select an image
-          </div>
-
-          <input
-            type="file"
-            id="productImage"
-            accept="image/*"
-          >
-
-        </div>
-
-
-        <button
-          type="submit"
-          class="save-btn"
-          id="saveButton"
-        >
-          💾 Save Product
-        </button>
-
-
-        <button
-          type="button"
-          class="cancel-btn"
-          id="cancelButton"
-          onclick="cancelEdit()"
-        >
-          Cancel Edit
-        </button>
-
-
-      </form>
-
-    </div>
-
-
-
-    <!-- =================================================
-         PRODUCTS
-    ================================================== -->
-
-    <div class="panel">
-
-      <div class="products-header">
-
-        <h2>
-          📦 Products
-        </h2>
-
-        <button
-          class="refresh-btn"
-          onclick="loadProducts()"
-        >
-          🔄 Refresh
-        </button>
-
-      </div>
-
-
-      <div
-        id="adminProducts"
-        class="admin-products"
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products, brands or categories..."
+        autocomplete="off"
       >
 
-        <div class="empty">
-          Loading products...
-        </div>
-
-      </div>
-
     </div>
-
 
   </div>
 
-</div>
+
+  <div id="status" class="loading">
+    Loading products from Swalleh Empire...
+  </div>
+
+
+  <section id="searchResultsSection" class="section">
+
+    <div class="section-heading">
+
+      <h2>🔎 Search Results</h2>
+
+      <p id="searchMessage"></p>
+
+    </div>
+
+    <div
+      id="searchResults"
+      class="products"
+    ></div>
+
+    <button
+      class="back-btn"
+      onclick="clearSearch()"
+    >
+      ← Back to Catalogue
+    </button>
+
+  </section>
+
+
+  <section
+    id="categoriesSection"
+    class="section"
+  >
+
+    <div class="section-heading">
+
+      <h2>🛍️ Shop by Category</h2>
+
+      <p>Choose a category to find what you need.</p>
+
+    </div>
+
+    <div
+      id="categories"
+      class="category-grid"
+    ></div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-heading">
+
+      <h2>🔥 Latest Products</h2>
+
+      <p>Products recently added to Swalleh Empire.</p>
+
+    </div>
+
+    <div
+      id="allProducts"
+      class="products"
+    ></div>
+
+  </section>
+
+
+  <section
+    id="categorySection"
+    class="section"
+    style="display:none;"
+  >
+
+    <div class="section-heading">
+
+      <h2 id="categoryTitle"></h2>
+
+      <p id="categoryMessage"></p>
+
+    </div>
+
+    <div
+      id="categoryProducts"
+      class="products"
+    ></div>
+
+    <button
+      class="back-btn"
+      onclick="showAllProducts()"
+    >
+      ← Back to All Products
+    </button>
+
+  </section>
 
 </div>
 
+
+<footer>
+
+  <div class="footer-content">
+
+    <div>
+
+      <h2>🛍️ Swalleh Empire</h2>
+
+      <p>
+        Quality electronics and accessories
+        at affordable prices.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h3>Contact Us</h3>
+
+      <p>
+        📞 WhatsApp:
+        <a href="https://wa.me/254724566417">
+          0724 566 417
+        </a>
+      </p>
+
+      <p>
+        📧 Email:
+        <a href="mailto:swallehgibon2@gmail.com">
+          swallehgibon2@gmail.com
+        </a>
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h3>Order</h3>
+
+      <p>
+        Find a product you like and
+        click the WhatsApp button to order.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    © 2026 Swalleh Empire.
+    All Rights Reserved.
+
+  </div>
+
+</footer>
 
 
 <script>
-
-/* =====================================================
-   SUPABASE CONNECTION
-   EXISTING PROJECT
-===================================================== */
 
 const SUPABASE_URL =
 "https://rbgqqtayaexgyhozufpg.supabase.co";
@@ -766,276 +725,96 @@ window.supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 
+const whatsappNumber =
+"254724566417";
 
-/* =====================================================
-   EXISTING STORAGE BUCKET
-===================================================== */
+const status =
+document.getElementById("status");
 
-const STORAGE_BUCKET =
-"product-images";
+const allProducts =
+document.getElementById("allProducts");
 
+const categories =
+document.getElementById("categories");
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+const categorySection =
+document.getElementById("categorySection");
 
-const loginPage =
-document.getElementById("loginPage");
+const categoryTitle =
+document.getElementById("categoryTitle");
 
-const adminPage =
-document.getElementById("adminPage");
+const categoryMessage =
+document.getElementById("categoryMessage");
 
-const loginForm =
-document.getElementById("loginForm");
+const categoryProducts =
+document.getElementById("categoryProducts");
 
-const loginMessage =
-document.getElementById("loginMessage");
+const searchInput =
+document.getElementById("searchInput");
 
-const productForm =
-document.getElementById("productForm");
+const searchResultsSection =
+document.getElementById("searchResultsSection");
 
-const productName =
-document.getElementById("productName");
+const searchResults =
+document.getElementById("searchResults");
 
-const productPrice =
-document.getElementById("productPrice");
+const searchMessage =
+document.getElementById("searchMessage");
 
-const productCategory =
-document.getElementById("productCategory");
-
-const productDescription =
-document.getElementById("productDescription");
-
-const productImage =
-document.getElementById("productImage");
-
-const imagePreview =
-document.getElementById("imagePreview");
-
-const adminProducts =
-document.getElementById("adminProducts");
-
-const adminStatus =
-document.getElementById("adminStatus");
-
-const formTitle =
-document.getElementById("formTitle");
-
-const saveButton =
-document.getElementById("saveButton");
-
-const cancelButton =
-document.getElementById("cancelButton");
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
+const categoriesSection =
+document.getElementById("categoriesSection");
 
 let products = [];
 
-let editingProductId = null;
-
-let editingOldImage = null;
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function showStatus(message,type){
-
-  adminStatus.textContent =
-    message;
-
-  adminStatus.className =
-    "";
-
-  if(type === "success"){
-    adminStatus.classList.add(
-      "status-success"
-    );
-  }
-
-  else if(type === "error"){
-    adminStatus.classList.add(
-      "status-error"
-    );
-  }
-
-  else{
-    adminStatus.classList.add(
-      "status-loading"
-    );
-  }
-
-}
-
-
-function hideStatus(){
-
-  adminStatus.className = "";
-
-  adminStatus.style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-loginForm.addEventListener(
-  "submit",
-  async function(event){
-
-    event.preventDefault();
-
-
-    const email =
-      document.getElementById(
-        "loginEmail"
-      ).value.trim();
-
-
-    const password =
-      document.getElementById(
-        "loginPassword"
-      ).value;
-
-
-    loginMessage.textContent =
-      "Logging in...";
-
-    loginMessage.style.color =
-      "#2563eb";
-
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient.auth.signInWithPassword({
-      email:email,
-      password:password
-    });
-
-
-    if(error){
-
-      console.error(error);
-
-      loginMessage.textContent =
-        "Login failed: " +
-        error.message;
-
-      loginMessage.style.color =
-        "#dc2626";
-
-      return;
-
-    }
-
-
-    if(!data.session){
-
-      loginMessage.textContent =
-        "Login failed. No session created.";
-
-      loginMessage.style.color =
-        "#dc2626";
-
-      return;
-
-    }
-
-
-    loginPage.style.display =
-      "none";
-
-    adminPage.style.display =
-      "block";
-
-
-    loadProducts();
-
-  }
-);
-
-
-/* =====================================================
-   CHECK EXISTING SESSION
-===================================================== */
-
-async function checkSession(){
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient.auth.getSession();
-
-
-  if(
-    !error &&
-    data &&
-    data.session
-  ){
-
-    loginPage.style.display =
-      "none";
-
-    adminPage.style.display =
-      "block";
-
-    loadProducts();
-
-  }else{
-
-    loginPage.style.display =
-      "flex";
-
-    adminPage.style.display =
-      "none";
-
-  }
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-  await supabaseClient.auth.signOut();
-
-  adminPage.style.display =
-    "none";
-
-  loginPage.style.display =
-    "flex";
-
-  loginForm.reset();
-
-}
-
-
-/* =====================================================
-   LOAD PRODUCTS
-===================================================== */
+const categoryIcons = {
+
+  "phones":"📱",
+  "chargers":"🔌",
+  "power banks":"🔋",
+  "screen protectors":"🛡️",
+  "audio":"🔊",
+  "audio system":"🔊",
+  "smart watches":"⌚",
+  "television":"📺",
+  "televisions":"📺",
+  "tvs":"📺",
+  "laptops":"💻",
+  "house appliances":"🏠",
+  "home appliances":"🏠",
+  "subwoofers":"🔊",
+  "bluetooth speakers":"🔊",
+  "neckband":"🎶",
+  "neckbands":"🎶",
+  "phone cases":"📱",
+  "shavers":"🪒",
+  "usb cables":"🔗",
+  "earphones":"🎵",
+  "wall bracket":"🖼️",
+  "wall brackets":"🖼️",
+  "ironboxes":"👕",
+  "iron boxes":"👕",
+  "charger controller":"⚡",
+  "charger controllers":"⚡",
+  "earpods":"🎧",
+  "airpods":"🎧",
+  "earbuds":"🎶",
+  "decoders":"📡",
+  "headphones":"🎧",
+  "batteries":"🔋",
+  "gaming accessories":"🎮",
+  "solars":"☀️",
+  "tablets":"📱"
+
+};
 
 async function loadProducts(){
 
-  adminProducts.innerHTML =
-    `
-    <div class="empty">
-      Loading products...
-    </div>
-    `;
+  status.className = "loading";
 
+  status.style.display = "block";
+
+  status.textContent =
+    "Loading products from Swalleh Empire...";
 
   const {
     data,
@@ -1044,670 +823,317 @@ async function loadProducts(){
   await supabaseClient
     .from("products")
     .select("*")
-    .order("id",{
+    .order("id", {
       ascending:false
     });
-
 
   if(error){
 
     console.error(
-      "LOAD PRODUCTS ERROR:",
+      "SUPABASE PRODUCT ERROR:",
       error
     );
 
+    status.className = "error";
 
-    showStatus(
+    status.textContent =
       "Could not load products: " +
-      error.message,
-      "error"
-    );
-
-
-    adminProducts.innerHTML =
-      `
-      <div class="empty">
-        ❌ Could not load products.
-      </div>
-      `;
+      error.message;
 
     return;
-
   }
 
+  products = data || [];
 
-  products =
-    data || [];
+  status.style.display = "none";
 
+  createCategories();
 
-  hideStatus();
-
-
-  displayAdminProducts();
+  displayProducts(products);
 
 }
 
+function createCategories(){
 
-/* =====================================================
-   DISPLAY PRODUCTS
-===================================================== */
+  categories.innerHTML = "";
 
-function displayAdminProducts(){
+  const uniqueCategories = [];
 
-  adminProducts.innerHTML =
-    "";
+  products.forEach(function(product){
 
+    const category =
+      String(product.category || "")
+      .trim();
 
-  if(!products.length){
+    if(
+      category &&
+      !uniqueCategories.some(
+        c =>
+        c.toLowerCase() ===
+        category.toLowerCase()
+      )
+    ){
 
-    adminProducts.innerHTML =
-      `
-      <div class="empty">
-        📦 No products yet.<br><br>
-        Add your first product using the form.
-      </div>
-      `;
+      uniqueCategories.push(category);
+
+    }
+
+  });
+
+  if(!uniqueCategories.length){
+
+    categories.innerHTML =
+      "<div class='empty'>No categories available yet.</div>";
 
     return;
 
   }
 
+  uniqueCategories.forEach(
+    function(category){
 
-  products.forEach(
-    function(product){
+      const div =
+      document.createElement("div");
 
-      const card =
-        document.createElement("div");
+      div.className =
+        "category";
 
-      card.className =
-        "product-card";
+      const normalized =
+        category.toLowerCase();
 
+      const icon =
+        categoryIcons[normalized] ||
+        "🛍️";
 
-      /* IMAGE */
+      div.innerHTML =
+        `
+        <span class="category-icon">
+          ${icon}
+        </span>
 
-      const image =
-        document.createElement("div");
+        <div class="category-name">
+          ${escapeHTML(category)}
+        </div>
+        `;
 
-      image.className =
-        "product-image";
-
-
-      if(product.image){
-
-        const img =
-          document.createElement("img");
-
-        img.src =
-          product.image;
-
-        img.alt =
-          product.name || "Product";
-
-
-        img.onerror =
-          function(){
-
-            image.innerHTML =
-              "🛍️";
-
-          };
-
-
-        image.appendChild(img);
-
-      }else{
-
-        image.textContent =
-          "🛍️";
-
-      }
-
-
-      /* INFO */
-
-      const info =
-        document.createElement("div");
-
-      info.className =
-        "product-info";
-
-
-      const name =
-        document.createElement("h3");
-
-      name.textContent =
-        product.name ||
-        "Unnamed Product";
-
-
-      const category =
-        document.createElement("div");
-
-      category.className =
-        "product-category";
-
-      category.textContent =
-        product.category ||
-        "Electronics";
-
-
-      const price =
-        document.createElement("div");
-
-      price.className =
-        "product-price";
-
-      price.textContent =
-        "KSh " +
-        Number(product.price || 0)
-        .toLocaleString();
-
-
-      const description =
-        document.createElement("div");
-
-      description.className =
-        "product-description";
-
-      description.textContent =
-        product.description ||
-        "No description";
-
-
-      /* BUTTONS */
-
-      const buttons =
-        document.createElement("div");
-
-      buttons.className =
-        "action-buttons";
-
-
-      const editButton =
-        document.createElement("button");
-
-      editButton.className =
-        "edit-btn";
-
-      editButton.textContent =
-        "✏️ Edit";
-
-
-      editButton.onclick =
+      div.onclick =
         function(){
 
-          editProduct(product);
+          showCategory(category);
 
         };
 
-
-      const deleteButton =
-        document.createElement("button");
-
-      deleteButton.className =
-        "delete-btn";
-
-      deleteButton.textContent =
-        "🗑️ Delete";
-
-
-      deleteButton.onclick =
-        function(){
-
-          deleteProduct(product);
-
-        };
-
-
-      buttons.appendChild(
-        editButton
-      );
-
-      buttons.appendChild(
-        deleteButton
-      );
-
-
-      info.appendChild(name);
-
-      info.appendChild(category);
-
-      info.appendChild(price);
-
-      info.appendChild(description);
-
-      info.appendChild(buttons);
-
-
-      card.appendChild(image);
-
-      card.appendChild(info);
-
-
-      adminProducts.appendChild(card);
+      categories.appendChild(div);
 
     }
   );
 
 }
 
+function displayProducts(list){
 
-/* =====================================================
-   IMAGE PREVIEW
-===================================================== */
+  allProducts.innerHTML = "";
 
-productImage.addEventListener(
-  "change",
-  function(){
+  if(!list.length){
 
-    const file =
-      productImage.files[0];
+    allProducts.innerHTML =
+      `
+      <div class="empty">
+        🛍️ No products available yet.
+      </div>
+      `;
 
-
-    if(!file){
-
-      if(editingOldImage){
-
-        imagePreview.innerHTML =
-          `
-          <img
-            src="${editingOldImage}"
-            alt="Current image"
-          >
-          `;
-
-      }else{
-
-        imagePreview.innerHTML =
-          "📷 Select an image";
-
-      }
-
-      return;
-
-    }
-
-
-    const reader =
-      new FileReader();
-
-
-    reader.onload =
-      function(event){
-
-        imagePreview.innerHTML =
-          `
-          <img
-            src="${event.target.result}"
-            alt="Preview"
-          >
-          `;
-
-      };
-
-
-    reader.readAsDataURL(file);
+    return;
 
   }
-);
 
+  list.forEach(function(product){
 
-/* =====================================================
-   ADD / UPDATE PRODUCT
-===================================================== */
+    allProducts.appendChild(
+      createProductCard(product)
+    );
 
-productForm.addEventListener(
-  "submit",
-  async function(event){
+  });
 
-    event.preventDefault();
+}
 
+function createProductCard(product){
 
-    const name =
-      productName.value.trim();
+  const card =
+    document.createElement("div");
 
+  card.className =
+    "product";
 
-    const price =
-      Number(
-        productPrice.value
-      );
+  const image =
+    document.createElement("div");
 
-
-    const category =
-      productCategory.value.trim();
-
-
-    const description =
-      productDescription.value.trim();
-
-
-    const file =
-      productImage.files[0];
-
-
-    if(!name){
-
-      showStatus(
-        "Please enter the product name.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(
-      Number.isNaN(price) ||
-      price < 0
-    ){
-
-      showStatus(
-        "Please enter a valid price.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(!category){
-
-      showStatus(
-        "Please select a category.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    saveButton.disabled =
-      true;
-
-    saveButton.textContent =
-      editingProductId
-      ? "Updating..."
-      : "Saving...";
-
-
-    try{
-
-      let imageUrl =
-        editingOldImage || null;
-
-
-      /* =============================================
-         IMAGE UPLOAD
-      ============================================= */
-
-      if(file){
-
-        showStatus(
-          "Uploading product image...",
-          "loading"
-        );
-
-
-        const fileExtension =
-          file.name
-          .split(".")
-          .pop()
-          .toLowerCase();
-
-
-        const safeName =
-          name
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g,"-")
-          .replace(/^-+|-+$/g,"");
-
-
-        const filePath =
-          Date.now() +
-          "-" +
-          safeName +
-          "." +
-          fileExtension;
-
-
-        const {
-          error:
-          uploadError
-        } =
-        await supabaseClient
-          .storage
-          .from(STORAGE_BUCKET)
-          .upload(
-            filePath,
-            file,
-            {
-              cacheControl:"3600",
-              upsert:false
-            }
-          );
-
-
-        if(uploadError){
-
-          throw new Error(
-            "Image upload failed: " +
-            uploadError.message
-          );
-
-        }
-
-
-        const {
-          data:
-          publicData
-        } =
-        supabaseClient
-          .storage
-          .from(STORAGE_BUCKET)
-          .getPublicUrl(
-            filePath
-          );
-
-
-        imageUrl =
-          publicData.publicUrl;
-
-      }
-
-
-      /* =============================================
-         UPDATE
-      ============================================= */
-
-      if(editingProductId){
-
-        showStatus(
-          "Updating product...",
-          "loading"
-        );
-
-
-        const {
-          error
-        } =
-        await supabaseClient
-          .from("products")
-          .update({
-            name:name,
-            price:price,
-            category:category,
-            description:description,
-            image:imageUrl
-          })
-          .eq(
-            "id",
-            editingProductId
-          );
-
-
-        if(error){
-
-          throw new Error(
-            "Product update failed: " +
-            error.message
-          );
-
-        }
-
-
-        showStatus(
-          "✅ Product updated successfully.",
-          "success"
-        );
-
-      }
-
-
-      /* =============================================
-         INSERT
-      ============================================= */
-
-      else{
-
-        showStatus(
-          "Saving product...",
-          "loading"
-        );
-
-
-        const {
-          error
-        } =
-        await supabaseClient
-          .from("products")
-          .insert({
-            name:name,
-            price:price,
-            category:category,
-            description:description,
-            image:imageUrl
-          });
-
-
-        if(error){
-
-          throw new Error(
-            "Product save failed: " +
-            error.message
-          );
-
-        }
-
-
-        showStatus(
-          "✅ Product added successfully.",
-          "success"
-        );
-
-      }
-
-
-      resetProductForm();
-
-
-      await loadProducts();
-
-
-    }catch(error){
-
-      console.error(
-        "PRODUCT SAVE ERROR:",
-        error
-      );
-
-
-      showStatus(
-        error.message ||
-        "Something went wrong.",
-        "error"
-      );
-
-    }
-
-
-    saveButton.disabled =
-      false;
-
-    saveButton.textContent =
-      editingProductId
-      ? "💾 Update Product"
-      : "💾 Save Product";
-
-  }
-);
-
-
-/* =====================================================
-   EDIT PRODUCT
-===================================================== */
-
-function editProduct(product){
-
-  editingProductId =
-    product.id;
-
-
-  editingOldImage =
-    product.image || null;
-
-
-  formTitle.textContent =
-    "✏️ Edit Product";
-
-
-  productName.value =
-    product.name || "";
-
-
-  productPrice.value =
-    product.price || "";
-
-
-  productCategory.value =
-    product.category || "";
-
-
-  productDescription.value =
-    product.description || "";
-
-
-  productImage.value =
-    "";
-
+  image.className =
+    "product-image";
 
   if(product.image){
 
-    imagePreview.innerHTML =
+    const img =
+      document.createElement("img");
+
+    img.src =
+      product.image;
+
+    img.alt =
+      product.name ||
+      "Swalleh Empire product";
+
+    img.onerror =
+      function(){
+
+        image.innerHTML =
+          "<div class='no-image'>🛍️</div>";
+
+      };
+
+    image.appendChild(img);
+
+  }else{
+
+    image.innerHTML =
+      "<div class='no-image'>🛍️</div>";
+
+  }
+
+  const info =
+    document.createElement("div");
+
+  info.className =
+    "product-info";
+
+  const name =
+    document.createElement("h3");
+
+  name.textContent =
+    product.name ||
+    "Unnamed Product";
+
+  const category =
+    document.createElement("div");
+
+  category.className =
+    "product-category";
+
+  category.textContent =
+    product.category ||
+    "Electronics";
+
+  const price =
+    document.createElement("div");
+
+  price.className =
+    "price";
+
+  price.textContent =
+    "KSh " +
+    Number(product.price || 0)
+    .toLocaleString();
+
+  const description =
+    document.createElement("p");
+
+  description.className =
+    "description";
+
+  description.textContent =
+    product.description ||
+    "Quality product available from Swalleh Empire.";
+
+  const button =
+    document.createElement("button");
+
+  button.className =
+    "order-btn";
+
+  button.textContent =
+    "💬 Order on WhatsApp";
+
+  button.onclick =
+    function(){
+
+      orderProduct(product);
+
+    };
+
+  info.appendChild(name);
+  info.appendChild(category);
+  info.appendChild(price);
+  info.appendChild(description);
+  info.appendChild(button);
+
+  card.appendChild(image);
+  card.appendChild(info);
+
+  return card;
+
+}
+
+function showCategory(category){
+
+  const selected =
+    String(category)
+    .trim()
+    .toLowerCase();
+
+  const filtered =
+    products.filter(function(product){
+
+      const productCategory =
+        String(product.category || "")
+        .trim()
+        .toLowerCase();
+
+      return (
+        productCategory === selected ||
+        productCategory.includes(selected) ||
+        selected.includes(productCategory)
+      );
+
+    });
+
+  categorySection.style.display =
+    "block";
+
+  categoriesSection.style.display =
+    "none";
+
+  categoryTitle.textContent =
+    "🛍️ " + category;
+
+  categoryMessage.textContent =
+    filtered.length +
+    " product" +
+    (filtered.length === 1 ? "" : "s") +
+    " found";
+
+  categoryProducts.innerHTML =
+    "";
+
+  if(!filtered.length){
+
+    categoryProducts.innerHTML =
       `
-      <img
-        src="${product.image}"
-        alt="Current product image"
-      >
+      <div class="empty">
+        No products found in this category yet.
+      </div>
       `;
 
   }else{
 
-    imagePreview.innerHTML =
-      "📷 No current image";
+    filtered.forEach(function(product){
+
+      categoryProducts.appendChild(
+        createProductCard(product)
+      );
+
+    });
 
   }
-
-
-  saveButton.textContent =
-    "💾 Update Product";
-
-
-  cancelButton.style.display =
-    "block";
-
 
   window.scrollTo({
     top:0,
@@ -1716,141 +1142,179 @@ function editProduct(product){
 
 }
 
+function showAllProducts(){
 
-/* =====================================================
-   CANCEL EDIT
-===================================================== */
-
-function cancelEdit(){
-
-  resetProductForm();
-
-  hideStatus();
-
-}
-
-
-/* =====================================================
-   RESET FORM
-===================================================== */
-
-function resetProductForm(){
-
-  productForm.reset();
-
-
-  editingProductId =
-    null;
-
-
-  editingOldImage =
-    null;
-
-
-  formTitle.textContent =
-    "➕ Add Product";
-
-
-  saveButton.textContent =
-    "💾 Save Product";
-
-
-  cancelButton.style.display =
+  categorySection.style.display =
     "none";
 
+  categoriesSection.style.display =
+    "block";
 
-  imagePreview.innerHTML =
-    "📷 Select an image";
+  displayProducts(products);
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
+searchInput.addEventListener(
+  "input",
+  function(){
 
-/* =====================================================
-   DELETE PRODUCT
-===================================================== */
+    const search =
+      searchInput.value
+      .trim()
+      .toLowerCase();
 
-async function deleteProduct(product){
+    if(!search){
 
-  const confirmed =
-    confirm(
-      "Are you sure you want to delete \"" +
-      product.name +
-      "\"?"
-    );
+      searchResultsSection.style.display =
+        "none";
 
+      categoriesSection.style.display =
+        "block";
 
-  if(!confirmed){
+      displayProducts(products);
 
-    return;
+      return;
+
+    }
+
+    const filtered =
+      products.filter(function(product){
+
+        const name =
+          String(product.name || "")
+          .toLowerCase();
+
+        const category =
+          String(product.category || "")
+          .toLowerCase();
+
+        const description =
+          String(product.description || "")
+          .toLowerCase();
+
+        return (
+          name.includes(search) ||
+          category.includes(search) ||
+          description.includes(search)
+        );
+
+      });
+
+    searchResultsSection.style.display =
+      "block";
+
+    categoriesSection.style.display =
+      "none";
+
+    categorySection.style.display =
+      "none";
+
+    searchResults.innerHTML =
+      "";
+
+    searchMessage.textContent =
+      filtered.length +
+      " matching product" +
+      (filtered.length === 1 ? "" : "s") +
+      " found for \"" +
+      searchInput.value +
+      "\"";
+
+    if(!filtered.length){
+
+      searchResults.innerHTML =
+        `
+        <div class="empty">
+          <h3>😔 No product found</h3>
+          <p style="margin-top:10px;">
+            Try another product name or category.
+          </p>
+        </div>
+        `;
+
+      return;
+
+    }
+
+    filtered.forEach(function(product){
+
+      searchResults.appendChild(
+        createProductCard(product)
+      );
+
+    });
 
   }
+);
 
+function clearSearch(){
 
-  showStatus(
-    "Deleting product...",
-    "loading"
-  );
+  searchInput.value = "";
 
+  searchResultsSection.style.display =
+    "none";
 
-  const {
-    error
-  } =
-  await supabaseClient
-    .from("products")
-    .delete()
-    .eq(
-      "id",
-      product.id
-    );
+  categoriesSection.style.display =
+    "block";
 
+  categorySection.style.display =
+    "none";
 
-  if(error){
+  displayProducts(products);
 
-    console.error(
-      "DELETE ERROR:",
-      error
-    );
-
-
-    showStatus(
-      "Could not delete product: " +
-      error.message,
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  showStatus(
-    "✅ Product deleted successfully.",
-    "success"
-  );
-
-
-  await loadProducts();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
+function orderProduct(product){
 
-/* =====================================================
-   OPEN MAIN WEBSITE
-===================================================== */
+  const price =
+    Number(product.price || 0)
+    .toLocaleString();
 
-function openWebsite(){
+  const message =
+    "Hello Swalleh Empire 👋\n\n" +
+    "I would like to order:\n\n" +
+    product.name +
+    "\nPrice: KSh " +
+    price +
+    "\nCategory: " +
+    (product.category || "Electronics") +
+    "\n\nPlease confirm availability and delivery details.";
 
-  window.location.href =
-    "index.html";
+  const url =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
+function escapeHTML(text){
 
-/* =====================================================
-   START
-===================================================== */
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-checkSession();
+}
+
+loadProducts();
 
 </script>
 
