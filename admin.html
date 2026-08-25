@@ -367,8 +367,6 @@
 
   /* ==========================================
      STORAGE BUCKET
-     IMPORTANT:
-     This must match Supabase EXACTLY.
   ========================================== */
 
   const BUCKET_NAME =
@@ -503,9 +501,7 @@
       "info"
     );
 
-
     const {
-      data,
       error
     } =
       await supabaseClient
@@ -643,7 +639,7 @@
 
 
         /* =====================================
-           UPDATE
+           UPDATE PRODUCT
         ===================================== */
 
         if (editingProductId) {
@@ -673,7 +669,6 @@
 
 
           const {
-            data,
             error
           } =
             await supabaseClient
@@ -688,8 +683,7 @@
               .eq(
                 "id",
                 editingProductId
-              )
-              .select();
+              );
 
 
           if (error) {
@@ -702,12 +696,6 @@
           }
 
 
-          console.log(
-            "Product updated:",
-            data
-          );
-
-
           showMessage(
             "✅ Product updated successfully!",
             "success"
@@ -716,7 +704,7 @@
 
           resetForm();
 
-          loadProducts();
+          await loadProducts();
 
           return;
 
@@ -724,7 +712,7 @@
 
 
         /* =====================================
-           ADD
+           ADD PRODUCT
         ===================================== */
 
         if (!imageFile) {
@@ -752,8 +740,13 @@
         );
 
 
+        /*
+          IMPORTANT:
+          No .select() here.
+          We only INSERT the product.
+        */
+
         const {
-          data,
           error
         } =
           await supabaseClient
@@ -766,11 +759,15 @@
                 description: description,
                 category: category
               }
-            ])
-            .select();
+            ]);
 
 
         if (error) {
+
+          console.error(
+            "DATABASE INSERT ERROR:",
+            error
+          );
 
           throw new Error(
             "Database error: " +
@@ -778,12 +775,6 @@
           );
 
         }
-
-
-        console.log(
-          "Product added:",
-          data
-        );
 
 
         showMessage(
@@ -794,7 +785,7 @@
 
         resetForm();
 
-        loadProducts();
+        await loadProducts();
 
       }
 
@@ -864,11 +855,14 @@
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        "LOAD PRODUCTS ERROR:",
+        error
+      );
 
       productsList.innerHTML =
         "<p style='color:red;'>Could not load products: " +
-        error.message +
+        escapeHtml(error.message) +
         "</p>";
 
       return;
@@ -1137,7 +1131,7 @@
       );
 
 
-      loadProducts();
+      await loadProducts();
 
     };
 
