@@ -1,1212 +1,1041 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Swalleh Empire - Admin</title>
+<title>Swalleh Empire - Electronics Catalogue</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f4f6;
-      margin: 0;
-    }
+body{
+  background:#f4f6f8;
+  color:#222;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-    }
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#111827,#2563eb);
+  color:white;
+  padding:40px 20px;
+  text-align:center;
+}
 
-    header h1 {
-      margin: 0 0 5px;
-    }
+header h1{
+  font-size:40px;
+  margin-bottom:10px;
+}
 
-    header p {
-      margin: 0;
-      color: #d1d5db;
-    }
+header p{
+  font-size:17px;
+}
 
-    .container {
-      width: 95%;
-      max-width: 900px;
-      margin: 30px auto;
-    }
+/* WELCOME */
+.welcome{
+  text-align:center;
+  padding:30px 15px 10px;
+}
 
-    .box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      margin-bottom: 25px;
-    }
+.welcome h2{
+  color:#2563eb;
+  margin-bottom:10px;
+}
 
-    h2 {
-      text-align: center;
-      margin-top: 0;
-    }
+.welcome p{
+  color:#555;
+}
 
-    label {
-      display: block;
-      margin-top: 18px;
-      margin-bottom: 7px;
-      font-weight: bold;
-    }
+/* CONTAINER */
+.container{
+  width:95%;
+  max-width:1250px;
+  margin:auto;
+  padding:20px 0 50px;
+}
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 7px;
-      font-size: 16px;
-    }
+/* SEARCH */
+.search-box{
+  text-align:center;
+  margin:20px 0 30px;
+}
 
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
+.search-box input{
+  width:90%;
+  max-width:650px;
+  padding:15px 20px;
+  border:1px solid #ccc;
+  border-radius:30px;
+  font-size:16px;
+  outline:none;
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
 
-    button {
-      width: 100%;
-      margin-top: 22px;
-      padding: 14px;
-      background: #16a34a;
-      color: white;
-      border: none;
-      border-radius: 7px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.search-box input:focus{
+  border-color:#2563eb;
+}
 
-    button:hover {
-      background: #15803d;
-    }
+/* STATUS */
+#status{
+  text-align:center;
+  padding:12px;
+  margin:10px auto 25px;
+  max-width:700px;
+  border-radius:8px;
+  font-weight:bold;
+}
 
-    button:disabled {
-      background: #888;
-      cursor: not-allowed;
-    }
+.loading{
+  background:#dbeafe;
+  color:#1e40af;
+}
 
-    .delete-btn {
-      background: #dc2626;
-    }
+.error{
+  background:#fee2e2;
+  color:#991b1b;
+}
 
-    .delete-btn:hover {
-      background: #b91c1c;
-    }
+/* CATALOGUE */
+.catalogue-title{
+  text-align:center;
+  margin:20px 0;
+  color:#111827;
+  font-size:30px;
+}
 
-    .edit-btn {
-      background: #2563eb;
-    }
+/* CATEGORIES */
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:15px;
+  margin-bottom:35px;
+}
 
-    .edit-btn:hover {
-      background: #1d4ed8;
-    }
+.category{
+  background:white;
+  border-radius:14px;
+  padding:22px 10px;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  transition:.3s;
+  font-weight:bold;
+}
 
-    .cancel-btn {
-      background: #6b7280;
-    }
+.category:hover{
+  transform:translateY(-5px);
+  background:#2563eb;
+  color:white;
+}
 
-    #message {
-      margin-top: 18px;
-      padding: 12px;
-      text-align: center;
-      font-weight: bold;
-      border-radius: 7px;
-      display: none;
-    }
+.category-icon{
+  font-size:36px;
+  display:block;
+  margin-bottom:10px;
+}
 
-    .success {
-      display: block !important;
-      background: #dcfce7;
-      color: #166534;
-    }
+/* PRODUCTS */
+.products-section{
+  display:none;
+}
 
-    .error {
-      display: block !important;
-      background: #fee2e2;
-      color: #991b1b;
-    }
+.products-section.active{
+  display:block;
+}
 
-    .info {
-      display: block !important;
-      background: #dbeafe;
-      color: #1e40af;
-    }
+.section-title{
+  text-align:center;
+  margin:25px 0;
+  color:#111827;
+  font-size:28px;
+}
 
-    .preview {
-      margin-top: 15px;
-      text-align: center;
-    }
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
 
-    .preview img {
-      max-width: 200px;
-      max-height: 200px;
-      border-radius: 8px;
-      display: none;
-      margin: auto;
-    }
+/* PRODUCT CARD */
+.product{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
+  transition:.3s;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
+.product:hover{
+  transform:translateY(-5px);
+}
 
-    .product-card {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 15px;
-      background: #fff;
-    }
+.product-image{
+  width:100%;
+  height:200px;
+  background:#eef2ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
 
-    .product-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: contain;
-      border-radius: 8px;
-      background: #f3f4f6;
-    }
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
 
-    .product-card h3 {
-      margin-bottom: 5px;
-    }
+.no-image{
+  font-size:65px;
+}
 
-    .price {
-      font-weight: bold;
-      color: #16a34a;
-      font-size: 18px;
-    }
+.product-info{
+  padding:18px;
+}
 
-    .category {
-      color: #666;
-      font-size: 14px;
-    }
+.product-info h3{
+  font-size:18px;
+  margin-bottom:8px;
+}
 
-    .product-card button {
-      margin-top: 10px;
-    }
+.price{
+  color:#16a34a;
+  font-size:21px;
+  font-weight:bold;
+  margin:10px 0;
+}
 
-    .hidden {
-      display: none;
-    }
+.category-name{
+  color:#777;
+  font-size:14px;
+  margin-bottom:8px;
+}
 
-    .back {
-      display: block;
-      text-align: center;
-      margin: 20px 0 40px;
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+.description{
+  color:#555;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.order-btn{
+  width:100%;
+  background:#25D366;
+  color:white;
+  border:none;
+  padding:13px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:13px;
+  font-size:15px;
+}
+
+.order-btn:hover{
+  background:#128C7E;
+}
+
+/* BACK */
+.back-btn{
+  display:block;
+  width:200px;
+  margin:30px auto;
+  padding:13px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.back-btn:hover{
+  background:#1d4ed8;
+}
+
+/* SEARCH RESULTS */
+#searchResults{
+  display:none;
+}
+
+.search-title{
+  text-align:center;
+  margin:25px 0;
+  color:#111827;
+}
+
+/* FOOTER */
+footer{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:35px 15px;
+  margin-top:40px;
+}
+
+footer p{
+  margin:8px 0;
+}
+
+.social{
+  margin-top:15px;
+}
+
+.social a{
+  color:white;
+  text-decoration:none;
+  margin:0 8px;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+  header h1{
+    font-size:30px;
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .category{
+    font-size:14px;
+    padding:18px 5px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .product-image{
+    height:135px;
+  }
+
+  .product-info{
+    padding:12px;
+  }
+
+  .product-info h3{
+    font-size:15px;
+  }
+
+  .price{
+    font-size:17px;
+  }
+
+  .description{
+    font-size:13px;
+  }
+
+  .order-btn{
+    font-size:13px;
+    padding:10px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>Swalleh Empire</h1>
-  <p>Admin Product Manager</p>
+  <h1>🛍️ Swalleh Empire</h1>
+  <p>Your Trusted Electronics & Accessories Store</p>
 </header>
+
+<section class="welcome">
+  <h2>Welcome to Swalleh Empire</h2>
+  <p>Browse our catalogue, choose a product and order directly through WhatsApp.</p>
+</section>
 
 <div class="container">
 
-  <div class="box">
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="🔍 Search products, phones, chargers, TVs..."
+    >
+  </div>
 
-    <h2 id="formTitle">Add New Product</h2>
+  <div id="status" class="loading">
+    Loading catalogue...
+  </div>
 
-    <form id="productForm">
+  <!-- CATALOGUE -->
+  <div id="catalogue">
 
-      <label for="name">Product Name</label>
+    <h2 class="catalogue-title">
+      🛍️ Product Catalogue
+    </h2>
 
-      <input
-        type="text"
-        id="name"
-        placeholder="Example: Fujitsu Core i3 8th Gen"
-        required
-      >
+    <!-- CATEGORIES -->
+    <div id="categories" class="category-grid">
 
-      <label for="price">Price (KSh)</label>
-
-      <input
-        type="number"
-        id="price"
-        placeholder="Example: 15000"
-        min="0"
-        required
-      >
-
-      <label for="category">Category</label>
-
-      <select id="category" required>
-
-        <option value="">Select category</option>
-
-        <option value="phones">Phones</option>
-        <option value="chargers">Chargers</option>
-        <option value="power banks">Power Banks</option>
-        <option value="screen protectors">Screen Protectors</option>
-        <option value="audio">Audio System & Headphones</option>
-        <option value="smart watches">Smart Watches</option>
-        <option value="television">Television</option>
-        <option value="laptops">Laptops</option>
-        <option value="house appliances">House Appliances</option>
-        <option value="subwoofers">Subwoofers</option>
-        <option value="bluetooth speakers">Bluetooth Speakers</option>
-        <option value="neckband">Neckband</option>
-        <option value="phone cases">Phone Cases</option>
-        <option value="shavers">Shavers</option>
-        <option value="usb cables">USB Cables</option>
-        <option value="earphones">Earphones</option>
-        <option value="wall bracket">Wall Bracket</option>
-        <option value="ironboxes">Iron Boxes</option>
-        <option value="charger controller">Charger Controller</option>
-        <option value="earpods">Earpods</option>
-        <option value="earbuds">Earbuds</option>
-        <option value="decoders">Decoders</option>
-        <option value="headphones">Headphones</option>
-        <option value="batteries">Batteries</option>
-        <option value="gaming accessories">Gaming Accessories</option>
-        <option value="solars">Solars</option>
-        <option value="tablets">Tablets</option>
-
-      </select>
-
-      <label for="description">Description</label>
-
-      <textarea
-        id="description"
-        placeholder="Enter product description..."
-        required
-      ></textarea>
-
-      <label for="image">Product Image</label>
-
-      <input
-        type="file"
-        id="image"
-        accept="image/*"
-      >
-
-      <div class="preview">
-        <img id="imagePreview" alt="Image preview">
+      <div class="category" onclick="showCategory('phones')">
+        <span class="category-icon">📱</span>
+        Phones
       </div>
 
-      <button type="submit" id="submitButton">
-        Add Product
-      </button>
+      <div class="category" onclick="showCategory('chargers')">
+        <span class="category-icon">🔌</span>
+        Chargers
+      </div>
 
-      <button
-        type="button"
-        id="cancelButton"
-        class="cancel-btn hidden"
-      >
-        Cancel Update
-      </button>
+      <div class="category" onclick="showCategory('power banks')">
+        <span class="category-icon">🔋</span>
+        Power Banks
+      </div>
 
-    </form>
+      <div class="category" onclick="showCategory('screen protectors')">
+        <span class="category-icon">🛡️</span>
+        Screen Protectors
+      </div>
 
-    <div id="message"></div>
+      <div class="category" onclick="showCategory('audio')">
+        <span class="category-icon">🎧</span>
+        Audio Systems
+      </div>
+
+      <div class="category" onclick="showCategory('headphones')">
+        <span class="category-icon">🎧</span>
+        Headphones
+      </div>
+
+      <div class="category" onclick="showCategory('smart watches')">
+        <span class="category-icon">⌚</span>
+        Smart Watches
+      </div>
+
+      <div class="category" onclick="showCategory('television')">
+        <span class="category-icon">📺</span>
+        Televisions
+      </div>
+
+      <div class="category" onclick="showCategory('laptops')">
+        <span class="category-icon">💻</span>
+        Laptops
+      </div>
+
+      <div class="category" onclick="showCategory('house appliances')">
+        <span class="category-icon">🏠</span>
+        House Appliances
+      </div>
+
+      <div class="category" onclick="showCategory('subwoofers')">
+        <span class="category-icon">🔊</span>
+        Subwoofers
+      </div>
+
+      <div class="category" onclick="showCategory('bluetooth speakers')">
+        <span class="category-icon">🔊</span>
+        Bluetooth Speakers
+      </div>
+
+      <div class="category" onclick="showCategory('neckband')">
+        <span class="category-icon">🎶</span>
+        Neckbands
+      </div>
+
+      <div class="category" onclick="showCategory('phone cases')">
+        <span class="category-icon">📱</span>
+        Phone Cases
+      </div>
+
+      <div class="category" onclick="showCategory('shavers')">
+        <span class="category-icon">🪒</span>
+        Shavers
+      </div>
+
+      <div class="category" onclick="showCategory('usb cables')">
+        <span class="category-icon">🔗</span>
+        USB Cables
+      </div>
+
+      <div class="category" onclick="showCategory('earphones')">
+        <span class="category-icon">🎵</span>
+        Earphones
+      </div>
+
+      <div class="category" onclick="showCategory('wall bracket')">
+        <span class="category-icon">🖼️</span>
+        Wall Brackets
+      </div>
+
+      <div class="category" onclick="showCategory('ironboxes')">
+        <span class="category-icon">👕</span>
+        Iron Boxes
+      </div>
+
+      <div class="category" onclick="showCategory('charger controller')">
+        <span class="category-icon">⚡</span>
+        Charger Controllers
+      </div>
+
+      <div class="category" onclick="showCategory('earpods')">
+        <span class="category-icon">🎧</span>
+        Earpods
+      </div>
+
+      <div class="category" onclick="showCategory('earbuds')">
+        <span class="category-icon">🎶</span>
+        Earbuds
+      </div>
+
+      <div class="category" onclick="showCategory('decoders')">
+        <span class="category-icon">📡</span>
+        Decoders
+      </div>
+
+      <div class="category" onclick="showCategory('batteries')">
+        <span class="category-icon">🔋</span>
+        Batteries
+      </div>
+
+      <div class="category" onclick="showCategory('gaming accessories')">
+        <span class="category-icon">🎮</span>
+        Gaming Accessories
+      </div>
+
+      <div class="category" onclick="showCategory('solars')">
+        <span class="category-icon">☀️</span>
+        Solars
+      </div>
+
+      <div class="category" onclick="showCategory('tablets')">
+        <span class="category-icon">📱</span>
+        Tablets
+      </div>
+
+    </div>
 
   </div>
 
-  <div class="box">
 
-    <h2>Existing Products</h2>
+  <!-- SEARCH RESULTS -->
+  <section id="searchResults">
 
-    <button
-      type="button"
-      id="refreshButton"
-    >
-      Refresh Products
+    <h2 class="search-title">
+      🔍 Search Results
+    </h2>
+
+    <div id="searchProducts" class="products"></div>
+
+  </section>
+
+
+  <!-- CATEGORY PRODUCTS -->
+  <section id="categorySection" class="products-section">
+
+    <h2 id="categoryTitle" class="section-title"></h2>
+
+    <div id="categoryProducts" class="products"></div>
+
+    <button class="back-btn" onclick="showCategories()">
+      ← Back to Catalogue
     </button>
 
-    <div
-      id="productsList"
-      class="products"
-      style="margin-top:20px;"
-    ></div>
-
-  </div>
-
-  <a href="index.html" class="back">
-    ← Back to Swalleh Empire
-  </a>
+  </section>
 
 </div>
 
+
+<footer>
+
+  <h2>Swalleh Empire</h2>
+
+  <p>Quality Electronics at Affordable Prices</p>
+
+  <p>📞 WhatsApp: 0724566417</p>
+
+  <p>📧 swallehgibon2@gmail.com</p>
+
+  <div class="social">
+    <a href="#">TikTok: Swalleh Gibon</a>
+    <a href="#">Facebook: Swalleh Gibon</a>
+  </div>
+
+  <p style="margin-top:20px;">
+    © 2026 Swalleh Empire. All Rights Reserved.
+  </p>
+
+</footer>
+
+
 <script>
 
-  /* ==========================================
-     SUPABASE CONNECTION
-  ========================================== */
+/* =====================================================
+   SUPABASE
+===================================================== */
 
-  const SUPABASE_URL =
-    "https://rbgqqtayaexgyhozufpg.supabase.co";
+const SUPABASE_URL =
+"https://rbgqqtayaexgyhozufpg.supabase.co";
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+const whatsappNumber =
+"254724566417";
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let products = [];
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const status =
+document.getElementById("status");
+
+const categories =
+document.getElementById("categories");
+
+const categorySection =
+document.getElementById("categorySection");
+
+const categoryProducts =
+document.getElementById("categoryProducts");
+
+const categoryTitle =
+document.getElementById("categoryTitle");
+
+const searchInput =
+document.getElementById("searchInput");
+
+const searchResults =
+document.getElementById("searchResults");
+
+const searchProducts =
+document.getElementById("searchProducts");
+
+
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
+
+async function loadProducts(){
+
+  status.style.display = "block";
+
+  status.className = "loading";
+
+  status.textContent =
+  "Loading products from Swalleh Empire...";
+
+
+  const result =
+  await supabaseClient
+  .from("products")
+  .select("*")
+  .order("id",{ascending:false});
+
+
+  if(result.error){
+
+    console.error(result.error);
+
+    status.className = "error";
+
+    status.textContent =
+    "Could not load products: " +
+    result.error.message;
+
+    return;
+  }
+
+
+  products =
+  result.data || [];
+
+
+  status.style.display = "none";
+
+}
+
+
+/* =====================================================
+   CREATE PRODUCT CARD
+===================================================== */
+
+function createProductCard(product){
+
+  const card =
+  document.createElement("div");
+
+  card.className = "product";
+
+
+  /* IMAGE */
+
+  const imageBox =
+  document.createElement("div");
+
+  imageBox.className =
+  "product-image";
+
+
+  if(product.image){
+
+    const img =
+    document.createElement("img");
+
+    img.src = product.image;
+
+    img.alt =
+    product.name || "Product";
+
+
+    img.onerror = function(){
+
+      imageBox.innerHTML =
+      '<div class="no-image">🛍️</div>';
+
+    };
+
+
+    imageBox.appendChild(img);
+
+  }else{
+
+    imageBox.innerHTML =
+    '<div class="no-image">🛍️</div>';
+
+  }
+
+
+  /* INFO */
+
+  const info =
+  document.createElement("div");
+
+  info.className =
+  "product-info";
+
+
+  const name =
+  document.createElement("h3");
+
+  name.textContent =
+  product.name || "Unnamed Product";
+
+
+  const price =
+  document.createElement("div");
+
+  price.className = "price";
+
+  price.textContent =
+  "KSh " +
+  Number(product.price || 0)
+  .toLocaleString();
+
+
+  const category =
+  document.createElement("div");
+
+  category.className =
+  "category-name";
+
+  category.textContent =
+  product.category || "";
+
+
+  const description =
+  document.createElement("p");
+
+  description.className =
+  "description";
+
+  description.textContent =
+  product.description || "";
+
+
+  const button =
+  document.createElement("button");
+
+  button.className =
+  "order-btn";
+
+  button.textContent =
+  "Order on WhatsApp";
+
+
+  button.onclick =
+  function(){
+
+    orderProduct(product);
+
+  };
+
+
+  info.appendChild(name);
+  info.appendChild(price);
+  info.appendChild(category);
+
+  if(product.description){
+
+    info.appendChild(description);
+
+  }
+
+  info.appendChild(button);
+
+
+  card.appendChild(imageBox);
+  card.appendChild(info);
+
+
+  return card;
+
+}
+
+
+/* =====================================================
+   SHOW CATEGORY
+===================================================== */
+
+function showCategory(category){
+
+  const selected =
+  category.trim().toLowerCase();
+
+
+  const filtered =
+  products.filter(function(product){
+
+    return String(product.category || "")
+    .trim()
+    .toLowerCase()
+    === selected;
+
+  });
+
+
+  document.getElementById("catalogue")
+  .style.display = "none";
+
+
+  searchResults.style.display =
+  "none";
+
+
+  categorySection.classList.add("active");
+
+
+  categoryTitle.textContent =
+  "🛍️ " + category;
+
+
+  categoryProducts.innerHTML = "";
+
+
+  if(!filtered.length){
+
+    categoryProducts.innerHTML =
+    "<p style='text-align:center;grid-column:1/-1;padding:30px;'>"+
+    "No products in this category yet."+
+    "</p>";
+
+  }else{
+
+    filtered.forEach(function(product){
+
+      categoryProducts.appendChild(
+        createProductCard(product)
+      );
+
+    });
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =====================================================
+   BACK TO CATALOGUE
+===================================================== */
+
+function showCategories(){
+
+  categorySection.classList.remove("active");
+
+  searchResults.style.display =
+  "none";
+
+  document.getElementById("catalogue")
+  .style.display = "block";
+
+  searchInput.value = "";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+"input",
+function(){
+
+  const search =
+  searchInput.value
+  .trim()
+  .toLowerCase();
+
+
+  if(!search){
+
+    searchResults.style.display =
+    "none";
+
+    categorySection.classList.remove(
+      "active"
     );
 
+    document.getElementById("catalogue")
+    .style.display = "block";
 
-  /* ==========================================
-     STORAGE BUCKET
-  ========================================== */
+    return;
 
-  const BUCKET_NAME =
-    "Product-images";
+  }
 
 
-  /* ==========================================
-     ELEMENTS
-  ========================================== */
+  document.getElementById("catalogue")
+  .style.display = "none";
 
-  const form =
-    document.getElementById("productForm");
+
+  categorySection.classList.remove(
+    "active"
+  );
+
+
+  searchResults.style.display =
+  "block";
+
+
+  searchProducts.innerHTML = "";
+
+
+  const results =
+  products.filter(function(product){
+
+    const text =
+    (
+      (product.name || "") +
+      " " +
+      (product.category || "") +
+      " " +
+      (product.description || "")
+    )
+    .toLowerCase();
+
+
+    return text.includes(search);
+
+  });
+
+
+  if(!results.length){
+
+    searchProducts.innerHTML =
+    "<p style='text-align:center;grid-column:1/-1;padding:30px;'>"+
+    "No products found for \""+
+    searchInput.value+
+    "\"."+
+    "</p>";
+
+    return;
+
+  }
+
+
+  results.forEach(function(product){
+
+    searchProducts.appendChild(
+      createProductCard(product)
+    );
+
+  });
+
+});
+
+
+/* =====================================================
+   WHATSAPP ORDER
+===================================================== */
+
+function orderProduct(product){
+
+  const price =
+  Number(product.price || 0)
+  .toLocaleString();
+
 
   const message =
-    document.getElementById("message");
-
-  const submitButton =
-    document.getElementById("submitButton");
-
-  const cancelButton =
-    document.getElementById("cancelButton");
-
-  const refreshButton =
-    document.getElementById("refreshButton");
-
-  const imageInput =
-    document.getElementById("image");
-
-  const imagePreview =
-    document.getElementById("imagePreview");
-
-  const productsList =
-    document.getElementById("productsList");
-
-  const formTitle =
-    document.getElementById("formTitle");
+  "Hello Swalleh Empire 👋\n\n" +
+  "I would like to order:\n\n" +
+  product.name +
+  "\nPrice: KSh " +
+  price +
+  "\n\nPlease confirm availability and delivery details.";
 
 
-  let editingProductId = null;
-
-  let oldImageUrl = null;
-
-
-  /* ==========================================
-     MESSAGE
-  ========================================== */
-
-  function showMessage(text, type) {
-
-    message.textContent = text;
-
-    message.className = type;
-
-  }
+  const url =
+  "https://wa.me/" +
+  whatsappNumber +
+  "?text=" +
+  encodeURIComponent(message);
 
 
-  /* ==========================================
-     IMAGE PREVIEW
-  ========================================== */
-
-  imageInput.addEventListener(
-    "change",
-    function() {
-
-      const file =
-        imageInput.files[0];
-
-      if (!file) {
-        return;
-      }
-
-      const reader =
-        new FileReader();
-
-      reader.onload =
-        function(event) {
-
-          imagePreview.src =
-            event.target.result;
-
-          imagePreview.style.display =
-            "block";
-
-        };
-
-      reader.readAsDataURL(file);
-
-    }
+  window.open(
+    url,
+    "_blank"
   );
 
+}
 
-  /* ==========================================
-     IMAGE NAME
-  ========================================== */
 
-  function createImageName(file) {
+/* =====================================================
+   START WEBSITE
+===================================================== */
 
-    const extension =
-      file.name
-        .split(".")
-        .pop()
-        .toLowerCase();
-
-    return (
-      Date.now() +
-      "-" +
-      Math.random()
-        .toString(36)
-        .substring(2, 10) +
-      "." +
-      extension
-    );
-
-  }
-
-
-  /* ==========================================
-     UPLOAD IMAGE
-  ========================================== */
-
-  async function uploadImage(file) {
-
-    if (!file) {
-      return null;
-    }
-
-    const fileName =
-      createImageName(file);
-
-    showMessage(
-      "Uploading product image...",
-      "info"
-    );
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .storage
-        .from(BUCKET_NAME)
-        .upload(
-          fileName,
-          file,
-          {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: file.type
-          }
-        );
-
-
-    if (error) {
-
-      console.error(
-        "STORAGE UPLOAD ERROR:",
-        error
-      );
-
-      throw new Error(
-        "Image upload failed: " +
-        error.message
-      );
-
-    }
-
-
-    const {
-      data: publicData
-    } =
-      supabaseClient
-        .storage
-        .from(BUCKET_NAME)
-        .getPublicUrl(fileName);
-
-
-    if (
-      !publicData ||
-      !publicData.publicUrl
-    ) {
-
-      throw new Error(
-        "Could not create public image URL."
-      );
-
-    }
-
-
-    return publicData.publicUrl;
-
-  }
-
-
-  /* ==========================================
-     ADD / UPDATE
-  ========================================== */
-
-  form.addEventListener(
-    "submit",
-    async function(event) {
-
-      event.preventDefault();
-
-      submitButton.disabled =
-        true;
-
-      try {
-
-        const name =
-          document
-            .getElementById("name")
-            .value
-            .trim();
-
-        const price =
-          Number(
-            document
-              .getElementById("price")
-              .value
-          );
-
-        const category =
-          document
-            .getElementById("category")
-            .value;
-
-        const description =
-          document
-            .getElementById("description")
-            .value
-            .trim();
-
-        const imageFile =
-          imageInput.files[0];
-
-
-        if (!name) {
-
-          throw new Error(
-            "Please enter the product name."
-          );
-
-        }
-
-
-        if (!price || price <= 0) {
-
-          throw new Error(
-            "Please enter a valid price."
-          );
-
-        }
-
-
-        if (!category) {
-
-          throw new Error(
-            "Please select a category."
-          );
-
-        }
-
-
-        if (!description) {
-
-          throw new Error(
-            "Please enter a description."
-          );
-
-        }
-
-
-        /* =====================================
-           UPDATE PRODUCT
-        ===================================== */
-
-        if (editingProductId) {
-
-          submitButton.textContent =
-            "Updating Product...";
-
-
-          let imageUrl =
-            oldImageUrl;
-
-
-          if (imageFile) {
-
-            imageUrl =
-              await uploadImage(
-                imageFile
-              );
-
-          }
-
-
-          showMessage(
-            "Saving product changes...",
-            "info"
-          );
-
-
-          const {
-            error
-          } =
-            await supabaseClient
-              .from("products")
-              .update({
-                name: name,
-                price: price,
-                image: imageUrl,
-                description: description,
-                category: category
-              })
-              .eq(
-                "id",
-                editingProductId
-              );
-
-
-          if (error) {
-
-            throw new Error(
-              "Product update failed: " +
-              error.message
-            );
-
-          }
-
-
-          showMessage(
-            "✅ Product updated successfully!",
-            "success"
-          );
-
-
-          resetForm();
-
-          await loadProducts();
-
-          return;
-
-        }
-
-
-        /* =====================================
-           ADD PRODUCT
-        ===================================== */
-
-        if (!imageFile) {
-
-          throw new Error(
-            "Please select a product image."
-          );
-
-        }
-
-
-        submitButton.textContent =
-          "Adding Product...";
-
-
-        const imageUrl =
-          await uploadImage(
-            imageFile
-          );
-
-
-        showMessage(
-          "Saving product to database...",
-          "info"
-        );
-
-
-        /*
-          IMPORTANT:
-          No .select() here.
-          We only INSERT the product.
-        */
-
-        const {
-          error
-        } =
-          await supabaseClient
-            .from("products")
-            .insert([
-              {
-                name: name,
-                price: price,
-                image: imageUrl,
-                description: description,
-                category: category
-              }
-            ]);
-
-
-        if (error) {
-
-          console.error(
-            "DATABASE INSERT ERROR:",
-            error
-          );
-
-          throw new Error(
-            "Database error: " +
-            error.message
-          );
-
-        }
-
-
-        showMessage(
-          "✅ Product added successfully!",
-          "success"
-        );
-
-
-        resetForm();
-
-        await loadProducts();
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "PRODUCT ERROR:",
-          error
-        );
-
-
-        showMessage(
-          "❌ " + error.message,
-          "error"
-        );
-
-      }
-
-      finally {
-
-        submitButton.disabled =
-          false;
-
-
-        if (editingProductId) {
-
-          submitButton.textContent =
-            "Update Product";
-
-        } else {
-
-          submitButton.textContent =
-            "Add Product";
-
-        }
-
-      }
-
-    }
-  );
-
-
-  /* ==========================================
-     LOAD PRODUCTS
-  ========================================== */
-
-  async function loadProducts() {
-
-    productsList.innerHTML =
-      "<p>Loading products...</p>";
-
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("products")
-        .select("*")
-        .order(
-          "id",
-          {
-            ascending: false
-          }
-        );
-
-
-    if (error) {
-
-      console.error(
-        "LOAD PRODUCTS ERROR:",
-        error
-      );
-
-      productsList.innerHTML =
-        "<p style='color:red;'>Could not load products: " +
-        escapeHtml(error.message) +
-        "</p>";
-
-      return;
-
-    }
-
-
-    if (!data || data.length === 0) {
-
-      productsList.innerHTML =
-        "<p>No products found.</p>";
-
-      return;
-
-    }
-
-
-    productsList.innerHTML =
-      "";
-
-
-    data.forEach(
-      function(product) {
-
-        const card =
-          document.createElement(
-            "div"
-          );
-
-
-        card.className =
-          "product-card";
-
-
-        card.innerHTML = `
-
-          <img
-            src="${product.image || ""}"
-            alt="${escapeHtml(product.name)}"
-            onerror="this.style.display='none'"
-          >
-
-          <h3>
-            ${escapeHtml(product.name)}
-          </h3>
-
-          <div class="price">
-            KSh ${Number(product.price).toLocaleString()}
-          </div>
-
-          <div class="category">
-            ${escapeHtml(product.category || "")}
-          </div>
-
-          <p>
-            ${escapeHtml(product.description || "")}
-          </p>
-
-          <button
-            class="edit-btn"
-            onclick="editProduct('${product.id}')"
-          >
-            Edit Product
-          </button>
-
-          <button
-            class="delete-btn"
-            onclick="deleteProduct('${product.id}')"
-          >
-            Delete Product
-          </button>
-
-        `;
-
-
-        productsList.appendChild(card);
-
-      }
-    );
-
-  }
-
-
-  /* ==========================================
-     ESCAPE HTML
-  ========================================== */
-
-  function escapeHtml(value) {
-
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-
-  }
-
-
-  /* ==========================================
-     EDIT PRODUCT
-  ========================================== */
-
-  window.editProduct =
-    async function(productId) {
-
-      showMessage(
-        "Loading product...",
-        "info"
-      );
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("products")
-          .select("*")
-          .eq(
-            "id",
-            productId
-          )
-          .single();
-
-
-      if (error) {
-
-        showMessage(
-          "❌ Could not load product: " +
-          error.message,
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      editingProductId =
-        data.id;
-
-
-      oldImageUrl =
-        data.image;
-
-
-      document
-        .getElementById("name")
-        .value =
-        data.name || "";
-
-
-      document
-        .getElementById("price")
-        .value =
-        data.price || "";
-
-
-      document
-        .getElementById("category")
-        .value =
-        data.category || "";
-
-
-      document
-        .getElementById("description")
-        .value =
-        data.description || "";
-
-
-      imageInput.value =
-        "";
-
-
-      if (data.image) {
-
-        imagePreview.src =
-          data.image;
-
-        imagePreview.style.display =
-          "block";
-
-      }
-
-
-      formTitle.textContent =
-        "Update Product";
-
-
-      submitButton.textContent =
-        "Update Product";
-
-
-      cancelButton.classList.remove(
-        "hidden"
-      );
-
-
-      showMessage(
-        "You are now editing this product.",
-        "info"
-      );
-
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    };
-
-
-  /* ==========================================
-     DELETE
-  ========================================== */
-
-  window.deleteProduct =
-    async function(productId) {
-
-      const confirmed =
-        confirm(
-          "Are you sure you want to delete this product?"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      showMessage(
-        "Deleting product...",
-        "info"
-      );
-
-
-      const {
-        error
-      } =
-        await supabaseClient
-          .from("products")
-          .delete()
-          .eq(
-            "id",
-            productId
-          );
-
-
-      if (error) {
-
-        showMessage(
-          "❌ Delete failed: " +
-          error.message,
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      showMessage(
-        "✅ Product deleted successfully!",
-        "success"
-      );
-
-
-      await loadProducts();
-
-    };
-
-
-  /* ==========================================
-     CANCEL
-  ========================================== */
-
-  cancelButton.addEventListener(
-    "click",
-    function() {
-
-      resetForm();
-
-      showMessage(
-        "Update cancelled.",
-        "info"
-      );
-
-    }
-  );
-
-
-  /* ==========================================
-     RESET
-  ========================================== */
-
-  function resetForm() {
-
-    form.reset();
-
-    editingProductId =
-      null;
-
-    oldImageUrl =
-      null;
-
-    imagePreview.src =
-      "";
-
-    imagePreview.style.display =
-      "none";
-
-    formTitle.textContent =
-      "Add New Product";
-
-    submitButton.textContent =
-      "Add Product";
-
-    cancelButton.classList.add(
-      "hidden"
-    );
-
-  }
-
-
-  /* ==========================================
-     REFRESH
-  ========================================== */
-
-  refreshButton.addEventListener(
-    "click",
-    function() {
-
-      loadProducts();
-
-    }
-  );
-
-
-  /* ==========================================
-     START
-  ========================================== */
-
-  loadProducts();
+loadProducts();
 
 </script>
 
