@@ -1,342 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Swalleh Empire - Electronics Catalogue</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Swalleh Empire - Electronics Catalogue</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    body {
-      background: #f4f6f8;
-      color: #222;
-    }
+<style>
 
-    header {
-      background: linear-gradient(135deg, #111827, #2563eb);
-      color: white;
-      padding: 35px 20px;
-      text-align: center;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-    header h1 {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
+body {
+  background: #f4f6f8;
+  color: #222;
+}
 
-    header p {
-      font-size: 17px;
-    }
+/* HEADER */
 
-    .welcome {
-      text-align: center;
-      padding: 30px 15px 15px;
-    }
+header {
+  background: linear-gradient(135deg, #111827, #2563eb);
+  color: white;
+  padding: 35px 20px;
+  text-align: center;
+}
 
-    .welcome h2 {
-      color: #2563eb;
-      margin-bottom: 10px;
-    }
+header h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
 
-    .welcome p {
-      color: #555;
-    }
+header p {
+  font-size: 17px;
+}
 
-    .container {
-      width: 95%;
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px 0 50px;
-    }
+/* WELCOME */
 
-    .search-box {
-      text-align: center;
-      margin: 20px 0 30px;
-    }
+.welcome {
+  text-align: center;
+  padding: 30px 15px 15px;
+}
 
-    .search-box input {
-      width: 90%;
-      max-width: 600px;
-      padding: 14px;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      font-size: 16px;
-      outline: none;
-    }
+.welcome h2 {
+  color: #2563eb;
+  margin-bottom: 10px;
+}
 
-    /* CATEGORIES */
+.welcome p {
+  color: #555;
+}
 
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin-bottom: 35px;
-    }
+/* CONTAINER */
 
-    .category {
-      background: white;
-      border-radius: 12px;
-      padding: 20px 10px;
-      text-align: center;
-      cursor: pointer;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-      transition: 0.3s;
-      font-weight: bold;
-    }
+.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px 0 50px;
+}
 
-    .category:hover {
-      transform: translateY(-5px);
-      background: #2563eb;
-      color: white;
-    }
+/* SEARCH */
 
-    .category-icon {
-      font-size: 35px;
-      display: block;
-      margin-bottom: 10px;
-    }
+.search-box {
+  text-align: center;
+  margin: 20px 0 30px;
+}
 
-    /* PRODUCTS */
+.search-box input {
+  width: 90%;
+  max-width: 600px;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+}
 
-    .products-area {
-      display: none;
-    }
+/* STATUS */
 
-    .products-area.active {
-      display: block;
-    }
+#status {
+  text-align: center;
+  max-width: 700px;
+  margin: 15px auto 25px;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
 
-    .section-title {
-      text-align: center;
-      margin: 25px 0;
-      color: #111827;
-      font-size: 28px;
-    }
+.loading {
+  background: #dbeafe;
+  color: #1e40af;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
+.success {
+  background: #dcfce7;
+  color: #166534;
+}
 
-    .product {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
 
-    .product:hover {
-      transform: translateY(-5px);
-    }
+.empty {
+  background: #fef3c7;
+  color: #92400e;
+}
 
-    .product-image {
-      width: 100%;
-      height: 190px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #eef2ff;
-      overflow: hidden;
-    }
+/* CATEGORIES */
 
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 35px;
+}
 
-    .product-info {
-      padding: 18px;
-    }
+.category {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 10px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  font-weight: bold;
+}
 
-    .product-info h3 {
-      margin-bottom: 8px;
-      font-size: 18px;
-    }
+.category:hover {
+  transform: translateY(-5px);
+  background: #2563eb;
+  color: white;
+}
 
-    .price {
-      color: #16a34a;
-      font-size: 21px;
-      font-weight: bold;
-      margin: 10px 0;
-    }
+.category-icon {
+  font-size: 35px;
+  display: block;
+  margin-bottom: 10px;
+}
 
-    .category-name {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
+/* PRODUCTS */
 
-    .description {
-      color: #555;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+.section-title {
+  text-align: center;
+  margin: 25px 0;
+  color: #111827;
+  font-size: 28px;
+}
 
-    .order-btn {
-      display: block;
-      width: 100%;
-      background: #25D366;
-      color: white;
-      text-decoration: none;
-      padding: 12px;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: bold;
-      margin-top: 12px;
-      cursor: pointer;
-      border: none;
-    }
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
 
-    .order-btn:hover {
-      background: #128C7E;
-    }
+/* PRODUCT CARD */
 
-    .back-btn {
-      display: block;
-      width: 180px;
-      margin: 25px auto;
-      padding: 12px;
-      background: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+.product {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
 
-    .back-btn:hover {
-      background: #1d4ed8;
-    }
+.product:hover {
+  transform: translateY(-5px);
+}
 
-    /* STATUS */
+/* IMAGE */
 
-    #status {
-      text-align: center;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 700px;
-      border-radius: 10px;
-      font-weight: bold;
-    }
+.product-image {
+  width: 100%;
+  height: 210px;
+  background: #eef2ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-size: 70px;
+}
 
-    .loading {
-      background: #dbeafe;
-      color: #1e40af;
-    }
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
-    .error {
-      background: #fee2e2;
-      color: #991b1b;
-    }
+/* PRODUCT INFO */
 
-    .empty {
-      background: #fef3c7;
-      color: #92400e;
-    }
+.product-info {
+  padding: 18px;
+}
 
-    /* ALL PRODUCTS */
+.product-info h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
 
-    #allProductsSection {
-      display: block;
-    }
+.price {
+  color: #16a34a;
+  font-size: 21px;
+  font-weight: bold;
+  margin: 10px 0;
+}
 
-    #allProductsSection.hidden {
-      display: none;
-    }
+.category-name {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
 
-    /* FOOTER */
+.description {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
-    footer {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 30px 15px;
-      margin-top: 40px;
-    }
+/* WHATSAPP */
 
-    footer p {
-      margin: 8px 0;
-    }
+.order-btn {
+  display: block;
+  width: 100%;
+  background: #25D366;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 12px;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+}
 
-    .social {
-      margin-top: 15px;
-    }
+.order-btn:hover {
+  background: #128C7E;
+}
 
-    .social a {
-      color: white;
-      text-decoration: none;
-      margin: 0 8px;
-    }
+/* BACK BUTTON */
 
-    /* MOBILE */
+.back-btn {
+  display: block;
+  width: 180px;
+  margin: 30px auto;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    @media (max-width: 600px) {
+.back-btn:hover {
+  background: #1d4ed8;
+}
 
-      header h1 {
-        font-size: 29px;
-      }
+/* CATEGORY AREA */
 
-      .products {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
+#categorySection {
+  display: none;
+}
 
-      .product-image {
-        height: 130px;
-      }
+#categorySection.active {
+  display: block;
+}
 
-      .product-info {
-        padding: 12px;
-      }
+#allProductsSection.hidden {
+  display: none;
+}
 
-      .product-info h3 {
-        font-size: 15px;
-      }
+/* NO PRODUCTS */
 
-      .price {
-        font-size: 17px;
-      }
+.no-products {
+  text-align: center;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 12px;
+  color: #666;
+}
 
-      .description {
-        font-size: 13px;
-      }
+/* FOOTER */
 
-      .category-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+footer {
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 30px 15px;
+  margin-top: 40px;
+}
 
-      .category {
-        font-size: 14px;
-      }
+footer p {
+  margin: 8px 0;
+}
 
-    }
+.social {
+  margin-top: 15px;
+}
 
-  </style>
+.social a {
+  color: white;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  header h1 {
+    font-size: 29px;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .product-image {
+    height: 140px;
+  }
+
+  .product-info {
+    padding: 12px;
+  }
+
+  .product-info h3 {
+    font-size: 15px;
+  }
+
+  .price {
+    font-size: 17px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category {
+    font-size: 14px;
+  }
+
+}
+
+</style>
+
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header>
+
   <h1>🛍️ Swalleh Empire</h1>
-  <p>Your Trusted Electronics & Accessories Store</p>
+
+  <p>
+    Your Trusted Electronics & Accessories Store
+  </p>
+
 </header>
+
+
+<!-- WELCOME -->
 
 <section class="welcome">
 
-  <h2>Welcome to Swalleh Empire</h2>
+  <h2>
+    Welcome to Swalleh Empire
+  </h2>
 
   <p>
     Browse our catalogue, choose your product
@@ -345,7 +389,9 @@
 
 </section>
 
+
 <div class="container">
+
 
   <!-- SEARCH -->
 
@@ -359,10 +405,14 @@
 
   </div>
 
+
   <!-- STATUS -->
 
-  <div id="status" class="loading">
-    Loading products...
+  <div
+    id="status"
+    class="loading"
+  >
+    Connecting to Swalleh Empire...
   </div>
 
 
@@ -396,6 +446,11 @@
     <div class="category" onclick="showCategory('audio')">
       <span class="category-icon">🎧</span>
       Audio
+    </div>
+
+    <div class="category" onclick="showCategory('headphones')">
+      <span class="category-icon">🎧</span>
+      Headphones
     </div>
 
     <div class="category" onclick="showCategory('smart watches')">
@@ -483,11 +538,6 @@
       Decoders
     </div>
 
-    <div class="category" onclick="showCategory('headphones')">
-      <span class="category-icon">🎧</span>
-      Headphones
-    </div>
-
     <div class="category" onclick="showCategory('batteries')">
       <span class="category-icon">🔋</span>
       Batteries
@@ -531,7 +581,6 @@
 
   <section
     id="categorySection"
-    class="products-area"
   >
 
     <h2
@@ -553,12 +602,17 @@
 
   </section>
 
+
 </div>
 
 
+<!-- FOOTER -->
+
 <footer>
 
-  <h2>Swalleh Empire</h2>
+  <h2>
+    Swalleh Empire
+  </h2>
 
   <p>
     Quality Electronics at Affordable Prices
@@ -593,83 +647,97 @@
 
 <script>
 
-  /* ==========================================
-     SUPABASE CONNECTION
-  ========================================== */
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
 
-  const SUPABASE_URL =
-    "https://rbgqqtayaexgyhozufpg.supabase.co";
+const SUPABASE_URL =
+  "https://rbgqqtayaexgyhozufpg.supabase.co";
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_FC5-3_O-bJ6oQKt3SESRlg_TUeT70cl";
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
-
-
-  /* ==========================================
-     WHATSAPP
-  ========================================== */
-
-  const whatsappNumber =
-    "254724566417";
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
-  /* ==========================================
-     ELEMENTS
-  ========================================== */
+/* =====================================================
+   WHATSAPP
+===================================================== */
 
-  const status =
-    document.getElementById("status");
-
-  const categories =
-    document.getElementById("categories");
-
-  const allProductsSection =
-    document.getElementById("allProductsSection");
-
-  const allProducts =
-    document.getElementById("allProducts");
-
-  const categorySection =
-    document.getElementById("categorySection");
-
-  const categoryProducts =
-    document.getElementById("categoryProducts");
-
-  const categoryTitle =
-    document.getElementById("categoryTitle");
-
-  const searchInput =
-    document.getElementById("searchInput");
+const whatsappNumber =
+  "254724566417";
 
 
-  /* ==========================================
-     STORE PRODUCTS
-  ========================================== */
+/* =====================================================
+   VARIABLES
+===================================================== */
 
-  let products = [];
-
-
-  /* ==========================================
-     LOAD PRODUCTS FROM SUPABASE
-  ========================================== */
-
-  async function loadProducts() {
-
-    status.className = "loading";
-
-    status.textContent =
-      "Loading products from Swalleh Empire...";
+let products = [];
 
 
-    const {
-      data,
-      error
-    } =
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const status =
+  document.getElementById("status");
+
+const allProducts =
+  document.getElementById("allProducts");
+
+const allProductsSection =
+  document.getElementById("allProductsSection");
+
+const categories =
+  document.getElementById("categories");
+
+const categorySection =
+  document.getElementById("categorySection");
+
+const categoryProducts =
+  document.getElementById("categoryProducts");
+
+const categoryTitle =
+  document.getElementById("categoryTitle");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
+
+async function loadProducts() {
+
+  console.log(
+    "================================="
+  );
+
+  console.log(
+    "LOADING PRODUCTS FROM SUPABASE"
+  );
+
+  console.log(
+    "================================="
+  );
+
+
+  status.style.display = "block";
+
+  status.className = "loading";
+
+  status.textContent =
+    "Loading products from Swalleh Empire...";
+
+
+  try {
+
+    const result =
       await supabaseClient
         .from("products")
         .select("*")
@@ -681,6 +749,26 @@
         );
 
 
+    const data =
+      result.data;
+
+    const error =
+      result.error;
+
+
+    console.log(
+      "SUPABASE DATA:",
+      data
+    );
+
+    console.log(
+      "SUPABASE ERROR:",
+      error
+    );
+
+
+    /* DATABASE ERROR */
+
     if (error) {
 
       console.error(
@@ -688,10 +776,11 @@
         error
       );
 
-      status.className = "error";
+      status.className =
+        "error";
 
       status.textContent =
-        "Could not load products: " +
+        "Database error: " +
         error.message;
 
       return;
@@ -699,42 +788,479 @@
     }
 
 
-    products =
-      data || [];
+    /* ZERO PRODUCTS */
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      console.warn(
+        "SUPABASE RETURNED ZERO PRODUCTS"
+      );
+
+      products = [];
+
+      displayAllProducts();
 
 
-    status.style.display =
-      "none";
+      status.className =
+        "empty";
 
+      status.textContent =
+        "Database connected successfully, but no products were returned.";
 
-    displayAllProducts();
-
-  }
-
-
-  /* ==========================================
-     DISPLAY ALL PRODUCTS
-  ========================================== */
-
-  function displayAllProducts() {
-
-    allProducts.innerHTML = "";
-
-
-    if (!products.length) {
-
-      allProducts.innerHTML =
-        "<p>No products available yet.</p>";
 
       return;
 
     }
 
 
+    /* PRODUCTS FOUND */
+
+    products =
+      data;
+
+
+    console.log(
+      "PRODUCT COUNT:",
+      products.length
+    );
+
+
     products.forEach(
+      function(product, index) {
+
+        console.log(
+          "PRODUCT " +
+          (index + 1),
+          product
+        );
+
+      }
+    );
+
+
+    displayAllProducts();
+
+
+    status.className =
+      "success";
+
+    status.textContent =
+      products.length +
+      " product(s) loaded successfully.";
+
+
+    setTimeout(
+      function() {
+
+        status.style.display =
+          "none";
+
+      },
+      2500
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "UNEXPECTED ERROR:",
+      error
+    );
+
+
+    status.className =
+      "error";
+
+    status.textContent =
+      "Unexpected error: " +
+      error.message;
+
+  }
+
+}
+
+
+/* =====================================================
+   DISPLAY ALL PRODUCTS
+===================================================== */
+
+function displayAllProducts() {
+
+  allProducts.innerHTML = "";
+
+
+  if (
+    !products ||
+    products.length === 0
+  ) {
+
+    allProducts.innerHTML =
+      `
+      <div class="no-products">
+        <h3>No products available yet.</h3>
+        <p>
+          Products added from the admin panel will appear here.
+        </p>
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  products.forEach(
+    function(product) {
+
+      allProducts.appendChild(
+        createProductCard(product)
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   CREATE PRODUCT CARD
+===================================================== */
+
+function createProductCard(product) {
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "product";
+
+
+  /* IMAGE */
+
+  const imageContainer =
+    document.createElement("div");
+
+  imageContainer.className =
+    "product-image";
+
+
+  if (
+    product.image &&
+    String(product.image).trim() !== ""
+  ) {
+
+    const img =
+      document.createElement("img");
+
+
+    img.src =
+      String(product.image).trim();
+
+
+    img.alt =
+      product.name ||
+      "Swalleh Empire Product";
+
+
+    img.loading =
+      "lazy";
+
+
+    img.onerror =
+      function() {
+
+        console.error(
+          "IMAGE FAILED:",
+          product.image
+        );
+
+        imageContainer.innerHTML =
+          "🛍️";
+
+        imageContainer.style.fontSize =
+          "70px";
+
+      };
+
+
+    imageContainer.appendChild(
+      img
+    );
+
+  } else {
+
+    imageContainer.textContent =
+      "🛍️";
+
+  }
+
+
+  /* INFO */
+
+  const info =
+    document.createElement("div");
+
+  info.className =
+    "product-info";
+
+
+  /* NAME */
+
+  const name =
+    document.createElement("h3");
+
+  name.textContent =
+    product.name ||
+    "Unnamed Product";
+
+
+  /* PRICE */
+
+  const price =
+    document.createElement("div");
+
+  price.className =
+    "price";
+
+
+  const numericPrice =
+    Number(
+      product.price || 0
+    );
+
+
+  price.textContent =
+    "KSh " +
+    numericPrice.toLocaleString();
+
+
+  /* CATEGORY */
+
+  const category =
+    document.createElement("div");
+
+  category.className =
+    "category-name";
+
+  category.textContent =
+    product.category ||
+    "";
+
+
+  /* DESCRIPTION */
+
+  const description =
+    document.createElement("p");
+
+  description.className =
+    "description";
+
+  description.textContent =
+    product.description ||
+    "";
+
+
+  /* WHATSAPP BUTTON */
+
+  const orderButton =
+    document.createElement("button");
+
+  orderButton.className =
+    "order-btn";
+
+  orderButton.textContent =
+    "Order on WhatsApp";
+
+
+  orderButton.onclick =
+    function() {
+
+      orderProduct(
+        product
+      );
+
+    };
+
+
+  /* ADD */
+
+  info.appendChild(
+    name
+  );
+
+  info.appendChild(
+    price
+  );
+
+  if (
+    product.category
+  ) {
+
+    info.appendChild(
+      category
+    );
+
+  }
+
+
+  if (
+    product.description
+  ) {
+
+    info.appendChild(
+      description
+    );
+
+  }
+
+
+  info.appendChild(
+    orderButton
+  );
+
+
+  card.appendChild(
+    imageContainer
+  );
+
+  card.appendChild(
+    info
+  );
+
+
+  return card;
+
+}
+
+
+/* =====================================================
+   WHATSAPP ORDER
+===================================================== */
+
+function orderProduct(product) {
+
+  const price =
+    Number(
+      product.price || 0
+    ).toLocaleString();
+
+
+  const message =
+    "Hello Swalleh Empire 👋\n\n" +
+    "I would like to order:\n\n" +
+    product.name +
+    "\nPrice: KSh " +
+    price +
+    "\n\nPlease confirm availability and delivery details.";
+
+
+  const url =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(
+      message
+    );
+
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+
+/* =====================================================
+   SHOW CATEGORY
+===================================================== */
+
+function showCategory(category) {
+
+  const selected =
+    String(category)
+      .trim()
+      .toLowerCase();
+
+
+  const filtered =
+    products.filter(
       function(product) {
 
-        allProducts.appendChild(
+        const productCategory =
+          String(
+            product.category || ""
+          )
+          .trim()
+          .toLowerCase();
+
+
+        return (
+          productCategory ===
+          selected
+        );
+
+      }
+    );
+
+
+  console.log(
+    "CATEGORY:",
+    selected
+  );
+
+  console.log(
+    "CATEGORY PRODUCTS:",
+    filtered
+  );
+
+
+  categories.style.display =
+    "none";
+
+
+  allProductsSection.classList.add(
+    "hidden"
+  );
+
+
+  categorySection.classList.add(
+    "active"
+  );
+
+
+  categoryTitle.textContent =
+    "🛍️ " +
+    category;
+
+
+  categoryProducts.innerHTML =
+    "";
+
+
+  if (
+    filtered.length === 0
+  ) {
+
+    categoryProducts.innerHTML =
+      `
+      <div class="no-products">
+        <h3>No products in this category yet.</h3>
+        <p>
+          Add products from the admin panel.
+        </p>
+      </div>
+      `;
+
+  } else {
+
+    filtered.forEach(
+      function(product) {
+
+        categoryProducts.appendChild(
           createProductCard(product)
         );
 
@@ -744,261 +1270,82 @@
   }
 
 
-  /* ==========================================
-     CREATE PRODUCT CARD
-  ========================================== */
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
-  function createProductCard(product) {
-
-    const card =
-      document.createElement("div");
-
-    card.className =
-      "product";
+}
 
 
-    const imageContainer =
-      document.createElement("div");
+/* =====================================================
+   SHOW CATEGORIES
+===================================================== */
 
-    imageContainer.className =
-      "product-image";
+function showCategories() {
 
-
-    if (product.image) {
-
-      const img =
-        document.createElement("img");
-
-      img.src =
-        product.image;
-
-      img.alt =
-        product.name || "Product";
-
-      img.onerror =
-        function() {
-
-          imageContainer.innerHTML =
-            "🛍️";
-
-          imageContainer.style.fontSize =
-            "65px";
-
-        };
+  categorySection.classList.remove(
+    "active"
+  );
 
 
-      imageContainer.appendChild(img);
+  allProductsSection.classList.remove(
+    "hidden"
+  );
 
-    } else {
 
-      imageContainer.textContent =
-        "🛍️";
+  categories.style.display =
+    "grid";
+
+
+  displayAllProducts();
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+  "input",
+  function() {
+
+    const search =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    if (!search) {
+
+      categorySection.classList.remove(
+        "active"
+      );
+
+      allProductsSection.classList.remove(
+        "hidden"
+      );
+
+      categories.style.display =
+        "grid";
+
+      displayAllProducts();
+
+      return;
 
     }
-
-
-    const info =
-      document.createElement("div");
-
-    info.className =
-      "product-info";
-
-
-    const name =
-      document.createElement("h3");
-
-    name.textContent =
-      product.name || "Unnamed Product";
-
-
-    const price =
-      document.createElement("div");
-
-    price.className =
-      "price";
-
-    price.textContent =
-      "KSh " +
-      Number(product.price || 0)
-        .toLocaleString();
-
-
-    const category =
-      document.createElement("div");
-
-    category.className =
-      "category-name";
-
-    category.textContent =
-      product.category || "";
-
-
-    const description =
-      document.createElement("p");
-
-    description.className =
-      "description";
-
-    description.textContent =
-      product.description || "";
-
-
-    const orderButton =
-      document.createElement("button");
-
-    orderButton.className =
-      "order-btn";
-
-    orderButton.textContent =
-      "Order on WhatsApp";
-
-
-    orderButton.onclick =
-      function() {
-
-        orderProduct(product);
-
-      };
-
-
-    info.appendChild(name);
-
-    info.appendChild(price);
-
-    info.appendChild(category);
-
-    info.appendChild(description);
-
-    info.appendChild(orderButton);
-
-
-    card.appendChild(
-      imageContainer
-    );
-
-    card.appendChild(info);
-
-
-    return card;
-
-  }
-
-
-  /* ==========================================
-     WHATSAPP ORDER
-  ========================================== */
-
-  function orderProduct(product) {
-
-    const price =
-      Number(product.price || 0)
-        .toLocaleString();
-
-
-    const message =
-      "Hello Swalleh Empire 👋\n\n" +
-      "I would like to order:\n\n" +
-      product.name +
-      "\nPrice: KSh " +
-      price +
-      "\n\nPlease confirm availability and delivery details.";
-
-
-    const url =
-      "https://wa.me/" +
-      whatsappNumber +
-      "?text=" +
-      encodeURIComponent(message);
-
-
-    window.open(
-      url,
-      "_blank"
-    );
-
-  }
-
-
-  /* ==========================================
-     SHOW CATEGORY
-  ========================================== */
-
-  function showCategory(category) {
-
-    const selectedCategory =
-      category.toLowerCase();
-
-
-    const filtered =
-      products.filter(
-        function(product) {
-
-          return (
-            String(product.category || "")
-              .toLowerCase()
-              === selectedCategory
-          );
-
-        }
-      );
 
 
     categories.style.display =
       "none";
 
-
-    allProductsSection.classList.add(
-      "hidden"
-    );
-
-
-    categorySection.classList.add(
-      "active"
-    );
-
-
-    categoryTitle.textContent =
-      "🛍️ " +
-      category;
-
-
-    categoryProducts.innerHTML =
-      "";
-
-
-    if (!filtered.length) {
-
-      categoryProducts.innerHTML =
-        "<p style='text-align:center;'>No products in this category yet.</p>";
-
-    } else {
-
-      filtered.forEach(
-        function(product) {
-
-          categoryProducts.appendChild(
-            createProductCard(product)
-          );
-
-        }
-      );
-
-    }
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  }
-
-
-  /* ==========================================
-     BACK TO CATEGORIES
-  ========================================== */
-
-  function showCategories() {
 
     categorySection.classList.remove(
       "active"
@@ -1010,111 +1357,89 @@
     );
 
 
-    categories.style.display =
-      "grid";
-
-
-    displayAllProducts();
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  }
-
-
-  /* ==========================================
-     SEARCH
-  ========================================== */
-
-  searchInput.addEventListener(
-    "input",
-    function() {
-
-      const search =
-        searchInput.value
-          .trim()
-          .toLowerCase();
-
-
-      if (!search) {
-
-        displayAllProducts();
-
-        return;
-
-      }
-
-
-      categories.style.display =
-        "none";
-
-
-      categorySection.classList.remove(
-        "active"
-      );
-
-
-      allProductsSection.classList.remove(
-        "hidden"
-      );
-
-
-      const filtered =
-        products.filter(
-          function(product) {
-
-            const text =
-              (
-                (product.name || "") +
-                " " +
-                (product.category || "") +
-                " " +
-                (product.description || "")
-              ).toLowerCase();
-
-
-            return text.includes(search);
-
-          }
-        );
-
-
-      allProducts.innerHTML =
-        "";
-
-
-      if (!filtered.length) {
-
-        allProducts.innerHTML =
-          "<p style='text-align:center;'>No products found.</p>";
-
-        return;
-
-      }
-
-
-      filtered.forEach(
+    const filtered =
+      products.filter(
         function(product) {
 
-          allProducts.appendChild(
-            createProductCard(product)
+          const text =
+            (
+              (product.name || "") +
+              " " +
+              (product.category || "") +
+              " " +
+              (product.description || "")
+            )
+            .toLowerCase();
+
+
+          return text.includes(
+            search
           );
 
         }
       );
 
+
+    allProducts.innerHTML =
+      "";
+
+
+    if (
+      filtered.length === 0
+    ) {
+
+      allProducts.innerHTML =
+        `
+        <div class="no-products">
+          <h3>No products found.</h3>
+          <p>
+            Try another product name or category.
+          </p>
+        </div>
+        `;
+
+      return;
+
     }
-  );
 
 
-  /* ==========================================
-     START
-  ========================================== */
+    filtered.forEach(
+      function(product) {
 
-  loadProducts();
+        allProducts.appendChild(
+          createProductCard(product)
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* =====================================================
+   AUTOMATIC REFRESH
+===================================================== */
+
+setInterval(
+  function() {
+
+    console.log(
+      "Checking for new products..."
+    );
+
+    loadProducts();
+
+  },
+  30000
+);
+
+
+/* =====================================================
+   START WEBSITE
+===================================================== */
+
+loadProducts();
 
 </script>
 
